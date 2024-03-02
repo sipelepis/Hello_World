@@ -11,23 +11,61 @@ class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('AL-GO!'),),
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: SAS(),
-          ),
-          Expanded(
-            child: LLS(),
-          ),
-        ],
+      appBar: AppBar(title: Text('AL-GO!')),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          
+          bool isPortrait = constraints.maxWidth < constraints.maxHeight;
+
+          return isPortrait
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: SAS(),
+                    ),
+                    Expanded(
+                      child: LLS(),
+                    ),
+                  ],
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: SAS(),
+                    ),
+                    Expanded(
+                      child: LLS(),
+                    ),
+                  ],
+                );
+        },
       ),
     );
   }
 }
-
-
+//////////////////////////////////////////////////////////////// Mistake (This code below only works for design if the device was in portrait)
+// class _StartPageState extends State<StartPage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('AL-GO!'),),
+//       body: Row(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Expanded(
+//             child: SAS(), 
+//           ),
+//           Expanded(
+//             child: LLS(),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+//////////////////////////////////////////////////////////////////
 
 class SAS extends StatefulWidget {
   const SAS({super.key});
@@ -42,12 +80,25 @@ class _SASState extends State<SAS> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
       child:
-        Column(children: <Widget>[
-          Text('Sorting Algorithm Simulator' , style: 
-            TextStyle(fontSize: 20,), textAlign: TextAlign.center,),
+      
+        Column(
+          children: <Widget>[
+
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              child: Text(
+                "Sorting Algorithm Simulator",
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ),
+
+
 
           Container(
+            
             width: 300,
             margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
             padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -79,7 +130,7 @@ class _SASState extends State<SAS> {
           ),
           
         ],)
-  
+       
     );
   }
 }
@@ -102,12 +153,18 @@ class _LLSState extends State<LLS> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
       child:
         Column(children: <Widget>[
-         
 
-          Text("Let's Learn Sorting Algorithm" , style: 
-            TextStyle(fontSize: 20,),textAlign: TextAlign.center,),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              child: Text(
+                "Let's Learn Sorting Algorithm",
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ),
 
           Container(
             width: 300,
@@ -144,6 +201,7 @@ class _LLSState extends State<LLS> {
     );
   }
 }
+
 
 
 
