@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 43, 158, 87)),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 43, 158, 87)),
         useMaterial3: true,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -46,7 +47,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,9 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextWidget(), 
+            TextWidget(),
             NormalWidget(),
-             clickbtn(),
+            clickbtn(),
           ],
         ),
       ),
@@ -67,7 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 /////////////////////////////// BODY
 
-
 class TextWidget extends StatelessWidget {
   const TextWidget({super.key});
 
@@ -76,7 +75,7 @@ class TextWidget extends StatelessWidget {
     return Text(
       "AL-GO!",
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 60, fontWeight:FontWeight.bold),
+      style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
     );
   }
 }
@@ -89,15 +88,19 @@ class NormalWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-      alignment: Alignment.center, // Align however you like (i.e .centerRight, centerLeft)
-      child: 
-      
-      Text("AAB Mobile-Based Educational Simulator For Algorithm's Super Algo", 
-        style: TextStyle(fontSize: 30, fontWeight: FontWeight.normal,), textAlign: TextAlign.center,),
+      alignment: Alignment
+          .center, // Align however you like (i.e .centerRight, centerLeft)
+      child: Text(
+        "AABA Mobile-Based Educational Simulator For Algorithm's Super Algo",
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.normal,
+        ),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }
-
 
 class clickbtn extends StatefulWidget {
   const clickbtn({super.key});
@@ -107,39 +110,34 @@ class clickbtn extends StatefulWidget {
 }
 
 class _clickbtnState extends State<clickbtn> {
-
-  void click(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => StartPage()));
+  void click() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => StartPage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 65, 65, 71)),
-        foregroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
-        
+        backgroundColor:
+            MaterialStateProperty.all<Color>(Color.fromARGB(255, 65, 65, 71)),
+        foregroundColor: MaterialStateProperty.all<Color>(
+            const Color.fromARGB(255, 255, 255, 255)),
       ),
       onPressed: this.click,
       child: Container(
-        child: Text('START', style: TextStyle(fontSize: 30),), 
+        child: Text(
+          'START',
+          style: TextStyle(fontSize: 30),
+        ),
         width: 190,
         padding: EdgeInsets.symmetric(horizontal: 16),
         alignment: Alignment.center,
-        ),
-      // Text('START', style: TextStyle(fontSize: 30),), 
-      
+      ),
+      // Text('START', style: TextStyle(fontSize: 30),),
     );
   }
 }
-
-
-
-
-
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
