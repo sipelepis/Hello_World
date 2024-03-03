@@ -90,7 +90,7 @@ class NormalWidget extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
       alignment: Alignment
           .center, // Align however you like (i.e .centerRight, centerLeft)
-      child: Text("A Mobile-Based Educational Simulator For Algorithm's Super Algo",
+      child: Text("A Mobile-Based Educational Simulator For Algorithm's",
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.normal,
