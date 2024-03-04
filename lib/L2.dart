@@ -13,17 +13,37 @@ class _L2HOMEState extends State<L2HOME> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: Text('123'),),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextWidget(),
-            NormalWidget(),
-            clickbtn(),
-          ],
-        ),
+      appBar: AppBar(title: Text('AL-GO!'),),  
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            children: <Widget>[
+              TextWidget(),
+              NormalWidget(),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              clickbtn(),
+              SizedBox(width: 96,),
+              clickbtn(),
+            ],
+          ),
+        ],
       ),
+      // body: Center(
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: <Widget>[
+      //       TextWidget(),
+      //       NormalWidget(),
+      //       clickbtn(),
+      //     ],
+      //   ),
+      // ),
+      
     );
   }
 }
