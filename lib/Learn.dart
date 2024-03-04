@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/l2.dart';
+import 'package:flutterapp/main.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -78,6 +79,10 @@ class SAS extends StatefulWidget {
 class _SASState extends State<SAS> {
   String text = "Let's embark on a simulation of sorting algorithms, where we can dynamically select from insertion, radix, and merge sort. The goal is to vividly visualize the step-by-step process of each sorting algorithm in action.";
 
+void click(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -118,7 +123,7 @@ class _SASState extends State<SAS> {
               foregroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
             ),
             
-            onPressed: () {},
+            onPressed: this.click,
             child: Container(
               child: Text('SELECT', style: TextStyle(fontSize: 15), ), 
               width: 150,
