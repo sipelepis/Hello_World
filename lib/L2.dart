@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/main.dart';
+import 'package:flutterapp/Learn.dart';
 
 
 class L2HOME extends StatefulWidget {
@@ -14,25 +14,61 @@ class _L2HOMEState extends State<L2HOME> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('AL-GO!'),),  
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            children: <Widget>[
-              TextWidget(),
-              NormalWidget(),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              clickbtn(),
-              SizedBox(width: 96,),
-              clickbtn(),
-            ],
-          ),
-        ],
+      body: 
+          LayoutBuilder(
+        builder: (context, constraints) {
+          
+          bool isPortrait = constraints.maxWidth < constraints.maxHeight;
+
+          return isPortrait
+              ? Column(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        TextWidget(),
+                        NormalWidget(),
+                      ],
+                    ),
+                    Column(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        clickbtnback(),
+                        SizedBox(height: 36,),
+                        clickbtn(),
+                      ],
+                    ),
+                  ],
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        TextWidget(),
+                        NormalWidget(),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        clickbtn(),
+                        SizedBox(width: 96,),
+                        clickbtnback(),
+
+                      ],
+                    ),
+                  ],
+                );
+        },
       ),
+      
+      
+     
       // body: Center(
       //   child: Column(
       //     mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +112,7 @@ class NormalWidget extends StatelessWidget {
       child: Text(
         "LET'S LEARN SORING ALGORITHM",
         style: TextStyle(
-          fontSize: 30,
+          fontSize: 20,
           fontWeight: FontWeight.normal,
         ),
         textAlign: TextAlign.center,
@@ -84,6 +120,7 @@ class NormalWidget extends StatelessWidget {
     );
   }
 }
+
 
 class clickbtn extends StatefulWidget {
   const clickbtn({super.key});
@@ -95,7 +132,57 @@ class clickbtn extends StatefulWidget {
 class _clickbtnState extends State<clickbtn> {
   void click() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MyHomePage())
+        context, MaterialPageRoute(builder: (context) => StartPage())
+        );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      
+      style: ButtonStyle(
+        backgroundColor:
+            MaterialStateProperty.all<Color>(Color.fromARGB(255, 255, 255, 255)),
+        foregroundColor: MaterialStateProperty.all<Color>( Color.fromARGB(255, 3, 30, 65)),
+        side: MaterialStateProperty.all<BorderSide>(
+          BorderSide(
+            color: Colors.black, // Border color
+            width: 2.0,          // Border thickness
+          ),
+        ),
+        
+      ),
+      onPressed: this.click,
+      
+      child: Container(
+        child: Text(
+          'BACK',
+          style: TextStyle(fontSize: 21,),
+        ),
+        width: 190,
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        alignment: Alignment.center,
+      ),
+      // Text('START', style: TextStyle(fontSize: 30),),
+    );
+  }
+}
+
+
+//////////////////////////////////Button for "Continue"
+
+
+class clickbtnback extends StatefulWidget {
+  const clickbtnback({super.key});
+
+  @override
+  State<clickbtnback> createState() => _clickbtnbackState();
+}
+
+class _clickbtnbackState extends State<clickbtnback> {
+  void click() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => StartPage())
         );
   }
 
@@ -112,10 +199,10 @@ class _clickbtnState extends State<clickbtn> {
       child: Container(
         child: Text(
           'CONTINUE',
-          style: TextStyle(fontSize: 30),
+          style: TextStyle(fontSize: 21),
         ),
         width: 190,
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 12),
         alignment: Alignment.center,
       ),
       // Text('START', style: TextStyle(fontSize: 30),),
