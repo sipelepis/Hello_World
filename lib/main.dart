@@ -91,7 +91,7 @@ class NormalWidget extends StatelessWidget {
       alignment: Alignment
           .center, // Align however you like (i.e .centerRight, centerLeft)
       child: Text(
-        "A Mobile-Based Educational Simulator For Algorithm's and Data Structure",
+        "A Mobile-Based Educational Simulator For Algorithm's",
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.normal,
@@ -127,7 +127,7 @@ class _clickbtnState extends State<clickbtn> {
       onPressed: this.click,
       child: Container(
         child: Text(
-          'START NOW',
+          'START',
           style: TextStyle(fontSize: 30),
         ),
         width: 190,
