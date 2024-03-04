@@ -86,7 +86,7 @@ class NormalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
       alignment: Alignment
           .center, // Align however you like (i.e .centerRight, centerLeft)
