@@ -10,17 +10,24 @@ class CL2HOME extends StatefulWidget {
 }
 
 class _CL2HOMEState extends State<CL2HOME> {
+
+  List<Postbtn> posts = [Postbtn("Radix Sort"), Postbtn("Bubble Sort"),Postbtn("Merge Sort"),Postbtn("Insertion Sort"),Postbtn("Stupid Sort"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo")];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Let's learn sorting algorithm"),),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            SizedBox(height: 16,),
             TextWidget(),
-            NormalWidget(),
+            SizedBox(height: 16,),
+            Expanded(child: ListBtn(this.posts),),
+            SizedBox(height: 8,),
             clickbtn(),
+            SizedBox(height: 16,),
           ],
         ),
       ),
@@ -35,7 +42,7 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
+    return Text(
       "CHOOSE SORTING ALGORITHM",
       textAlign: TextAlign.center,
       style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
@@ -43,113 +50,59 @@ class TextWidget extends StatelessWidget {
   }
 }
 
-class NormalWidget extends StatelessWidget {
-  const NormalWidget({super.key});
 
-  void click() {
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => StartPage()));
-  }
+class Postbtn {
+  String textlabel;
 
-  @override
-  Widget build(BuildContext context) {
-    var message = StringBuffer('Dart is fun');
-
-    for(var i = 0; i < 5; i++){
-      Chip(
-        avatar: CircleAvatar(backgroundColor: Colors.blue.shade900, child: Text('AH')),
-        label: Text('Hamilton'),
-      );
-    }
-    
-    return new Wrap(
-  spacing: 8.0, // gap between adjacent chips
-  runSpacing: 4.0, // gap between lines
-  children: <Widget>[
-        
-
-      Chip(
-        avatar: CircleAvatar(backgroundColor: Colors.blue.shade900, child: Text('AH')),
-        label: Text('Hamilton'),
-      ),
-      Chip(
-        avatar: CircleAvatar(backgroundColor: Colors.blue.shade900, child: Text('ML')),
-        label: Text('Lafayette'),
-      ),
-      Chip(
-        avatar: CircleAvatar(backgroundColor: Colors.blue.shade900, child: Text('HM')),
-        label: Text('Mulligan'),
-      ),
-      Chip(
-        avatar: CircleAvatar(backgroundColor: Colors.blue.shade900, child: Text('JL')),
-        label: Text('Laurens'),
-      ),
-  ],
-);
-    
-
-  }
+  Postbtn(this.textlabel);
 }
 
+class ListBtn extends StatefulWidget {
+  final List<Postbtn> listItems;
 
+  ListBtn(this.listItems);
 
+  @override
+  State<ListBtn> createState() => _ListBtnState();
+}
 
-// class ListBtn extends StatefulWidget {
-//   const ListBtn({super.key});
-
-//   @override
-//   State<ListBtn> createState() => _ListBtnState();
-// }
-
-// class _ListBtnState extends State<ListBtn> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView.builder( 
-//       // itemCount: this.widget.listItems.length,
-//       itemBuilder: (context, index) {
-//         var post = this.widget.listItems[index];
-
-
-//        return TextButton(
-//       style: ButtonStyle(
-//         backgroundColor:
-//             MaterialStateProperty.all<Color>(Color.fromARGB(255, 65, 65, 71)),
-//         foregroundColor: MaterialStateProperty.all<Color>(
-//             const Color.fromARGB(255, 255, 255, 255)),
-//       ),
-//       onPressed: ,
-//       child: Container(
-//         child: Text(
-//           'BACK',
-//           style: TextStyle(fontSize: 30),
-//         ),
-//         width: 190,
-//         padding: EdgeInsets.symmetric(horizontal: 16),
-//         alignment: Alignment.center,
-//       ),
-//       // Text('START', style: TextStyle(fontSize: 30),),
-//     );
-//       },
-//     );
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class _ListBtnState extends State<ListBtn> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+        child: Wrap(
+          spacing: 14.0, // gap between adjacent chips
+          runSpacing: 14.0, // gap between lines
+          children: widget.listItems.map((post) {
+            return(
+              TextButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5), // Set the border radius to zero
+                    ),
+                  ),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Color.fromARGB(255, 0, 92, 179)),
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(255, 255, 255, 255)),
+                ),
+                onPressed: () {},
+                child: Expanded(
+                  child: Text(
+                    post.textlabel,
+                    style: TextStyle(fontSize: 30),
+                  ),
+                ),
+                // Text('START', style: TextStyle(fontSize: 30),),
+              )
+            );
+          }).toList(),
+        ),
+    );
+  }
+}
 
 
 
@@ -184,9 +137,9 @@ class _clickbtnState extends State<clickbtn> {
       child: Container(
         child: Text(
           'BACK',
-          style: TextStyle(fontSize: 30),
+          style: TextStyle(fontSize: 25),
         ),
-        width: 190,
+        width: 140,
         padding: EdgeInsets.symmetric(horizontal: 16),
         alignment: Alignment.center,
       ),
