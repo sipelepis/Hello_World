@@ -93,7 +93,7 @@ class TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       "LET'S LEARN",
-      textAlign: TextAlign.center,
+      textAlign: TextAlign.start,
       style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
     );
   }
@@ -105,7 +105,7 @@ class NormalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 50),
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
       alignment: Alignment
           .center, // Align however you like (i.e .centerRight, centerLeft)

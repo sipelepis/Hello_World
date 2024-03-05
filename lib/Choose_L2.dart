@@ -35,7 +35,7 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
+    return const Text(
       "CHOOSE SORTING ALGORITHM",
       textAlign: TextAlign.center,
       style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
