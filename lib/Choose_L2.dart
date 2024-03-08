@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/L2.dart';
 
 
 
@@ -120,8 +121,8 @@ class clickbtn extends StatefulWidget {
 
 class _clickbtnState extends State<clickbtn> {
   void click() {
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => StartPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => L2HOME()));
   }
 
   @override
