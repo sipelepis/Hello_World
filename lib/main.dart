@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/Home.dart';
+import 'package:flutterapp/choiceA_and_choiceB.dart';
 
 void main() {
   runApp(const MyApp());
