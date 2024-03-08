@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/l2.dart';
+import 'package:flutterapp/choiceB/continue_button.dart';
 import 'package:flutterapp/main.dart';
 
 class StartPage extends StatefulWidget {
