@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/choiceB/continue_button.dart';
 
-
-
 class CL2HOME extends StatefulWidget {
   const CL2HOME({super.key});
 
@@ -11,24 +9,51 @@ class CL2HOME extends StatefulWidget {
 }
 
 class _CL2HOMEState extends State<CL2HOME> {
-
-  List<Postbtn> posts = [Postbtn("Radix Sort"), Postbtn("Bubble Sort"),Postbtn("Merge Sort"),Postbtn("Insertion Sort"),Postbtn("Stupid Sort"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo"),Postbtn("Algo")];
+  List<Postbtn> posts = [
+    Postbtn("Radix Sort"),
+    Postbtn("Bubble Sort"),
+    Postbtn("Merge Sort"),
+    Postbtn("Insertion Sort"),
+    Postbtn("Stupid Sort"),
+    Postbtn("Algo"),
+    Postbtn("Algo"),
+    Postbtn("Algo"),
+    Postbtn("Algo"),
+    Postbtn("Algo"),
+    Postbtn("Algo"),
+    Postbtn("Algo"),
+    Postbtn("Algo"),
+    Postbtn("Algo"),
+    Postbtn("Algo")
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Let's learn sorting algorithm"),),
+      appBar: AppBar(
+        title: Text("Let's learn sorting algorithm"),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(height: 16,),
+            SizedBox(
+              height: 16,
+            ),
             TextWidget(),
-            SizedBox(height: 16,),
-            Expanded(child: ListBtn(this.posts),),
-            SizedBox(height: 8,),
+            SizedBox(
+              height: 16,
+            ),
+            Expanded(
+              child: ListBtn(this.posts),
+            ),
+            SizedBox(
+              height: 8,
+            ),
             clickbtn(),
-            SizedBox(height: 16,),
+            SizedBox(
+              height: 16,
+            ),
           ],
         ),
       ),
@@ -51,7 +76,6 @@ class TextWidget extends StatelessWidget {
   }
 }
 
-
 class Postbtn {
   String textlabel;
 
@@ -72,45 +96,37 @@ class _ListBtnState extends State<ListBtn> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-        child: Wrap(
-          spacing: 14.0, // gap between adjacent chips
-          runSpacing: 14.0, // gap between lines
-          children: widget.listItems.map((post) {
-            return(
-              TextButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5), // Set the border radius to zero
-                    ),
-                  ),
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Color.fromARGB(255, 0, 92, 179)),
-                  foregroundColor: MaterialStateProperty.all<Color>(
-                      const Color.fromARGB(255, 255, 255, 255)),
+      child: Wrap(
+        spacing: 14.0, // gap between adjacent chips
+        runSpacing: 14.0, // gap between lines
+        children: widget.listItems.map((post) {
+          return (TextButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<OutlinedBorder>(
+                RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(5), // Set the border radius to zero
                 ),
-                onPressed: () {},
-                child: Expanded(
-                  child: Text(
-                    post.textlabel,
-                    style: TextStyle(fontSize: 30),
-                  ),
-                ),
-                // Text('START', style: TextStyle(fontSize: 30),),
-              )
-            );
-          }).toList(),
-        ),
+              ),
+              backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromARGB(255, 0, 92, 179)),
+              foregroundColor: MaterialStateProperty.all<Color>(
+                  const Color.fromARGB(255, 255, 255, 255)),
+            ),
+            onPressed: () {},
+            child: Expanded(
+              child: Text(
+                post.textlabel,
+                style: TextStyle(fontSize: 30),
+              ),
+            ),
+            // Text('START', style: TextStyle(fontSize: 30),),
+          ));
+        }).toList(),
+      ),
     );
   }
 }
-
-
-
-
-
-
-
 
 class clickbtn extends StatefulWidget {
   const clickbtn({super.key});
@@ -121,8 +137,7 @@ class clickbtn extends StatefulWidget {
 
 class _clickbtnState extends State<clickbtn> {
   void click() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => L2HOME()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => L2HOME()));
   }
 
   @override
