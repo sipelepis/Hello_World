@@ -58,7 +58,60 @@ class Postbtn {
   Postbtn(this.textlabel);
 }
 
+// class ListBtn extends StatefulWidget {
+//   final List<Postbtn> listItems;
+
+//   ListBtn(this.listItems);
+
+//   @override
+//   State<ListBtn> createState() => _ListBtnState();
+// }
+
+// class _ListBtnState extends State<ListBtn> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//       scrollDirection: Axis.vertical,
+//         child: Wrap(
+//           spacing: 14.0, // gap between adjacent chips
+//           runSpacing: 14.0, // gap between lines
+//           children: widget.listItems.map((post) {
+//             return(
+//               TextButton(
+//                 style: ButtonStyle(
+//                   shape: MaterialStateProperty.all<OutlinedBorder>(
+//                     RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(5), // Set the border radius to zero
+//                     ),
+//                   ),
+//                   backgroundColor:
+//                       MaterialStateProperty.all<Color>(Color.fromARGB(255, 0, 92, 179)),
+//                   foregroundColor: MaterialStateProperty.all<Color>(
+//                       const Color.fromARGB(255, 255, 255, 255)),
+//                 ),
+//                 onPressed: () {},
+//                 child: Expanded(
+//                   child: Text(
+//                     post.textlabel,
+//                     style: TextStyle(fontSize: 30),
+//                   ),
+//                 ),
+//                 // Text('START', style: TextStyle(fontSize: 30),),
+//               )
+//             );
+//           }).toList(),
+//         ),
+//     );
+//   }
+// }
+
+
+
+
+
 class ListBtn extends StatefulWidget {
+  // const ListBtn({super.key});
+
   final List<Postbtn> listItems;
 
   ListBtn(this.listItems);
@@ -68,43 +121,74 @@ class ListBtn extends StatefulWidget {
 }
 
 class _ListBtnState extends State<ListBtn> {
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-        child: Wrap(
-          spacing: 14.0, // gap between adjacent chips
-          runSpacing: 14.0, // gap between lines
-          children: widget.listItems.map((post) {
-            return(
-              TextButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5), // Set the border radius to zero
-                    ),
-                  ),
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Color.fromARGB(255, 0, 92, 179)),
-                  foregroundColor: MaterialStateProperty.all<Color>(
-                      const Color.fromARGB(255, 255, 255, 255)),
-                ),
-                onPressed: () {},
-                child: Expanded(
-                  child: Text(
-                    post.textlabel,
-                    style: TextStyle(fontSize: 30),
-                  ),
-                ),
-                // Text('START', style: TextStyle(fontSize: 30),),
-              )
+    return ListView.builder( 
+      itemCount: this.widget.listItems.length,
+      itemBuilder: (context, index) {
+        var post = this.widget.listItems[index];
+            return Wrap(
+              spacing: 18.0, // gap between adjacent chips
+              runSpacing: 26.0, // gap between lines
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.center,
+                  child:  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                      child: SizedBox(
+                        width: double.infinity, // Expand to maximum width
+                        child: TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5), // Set the border radius to zero
+                              ),
+                            ),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Color.fromARGB(255, 0, 92, 179)),
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                const Color.fromARGB(255, 255, 255, 255)),
+                            
+                          ),
+                          onPressed: () {print(post.textlabel);},
+                          // child: Expanded(
+                            child: Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(40, 10, 10, 10),
+                            child: Text(
+                              post.textlabel,
+                              style: TextStyle(fontSize: 30), 
+                            ),
+                            ),
+                        ),
+                            ))
+                          )
+                      ),
+                      ],
             );
-          }).toList(),
-        ),
+
+
+        // return Card(
+        //   child: 
+        //     Row(children: <Widget>[
+        //       Row(children: <Widget>[
+        //         Container(
+        //             child: Text(post.textlabel, 
+        //             style: TextStyle(fontSize: 20)),
+        //             padding: EdgeInsets.fromLTRB(0, 0, 10, 0), 
+        //         ),
+        //         IconButton(
+        //           icon: Icon(Icons.thumb_up),
+        //           onPressed:() {},
+        //         )],)
+        //       ] 
+        //   ));
+      },
     );
   }
 }
-
 
 
 
