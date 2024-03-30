@@ -16,7 +16,6 @@ class _StartPageState extends State<StartPage> {
       appBar: AppBar(title: Text('AL-GO!')),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          
           bool isPortrait = constraints.maxWidth < constraints.maxHeight;
 
           return isPortrait
@@ -47,6 +46,7 @@ class _StartPageState extends State<StartPage> {
     );
   }
 }
+
 //////////////////////////////////////////////////////////////// Mistake (This code below only works for design if the device was in portrait)
 // class _StartPageState extends State<StartPage> {
 //   @override
@@ -57,7 +57,7 @@ class _StartPageState extends State<StartPage> {
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: [
 //           Expanded(
-//             child: SAS(), 
+//             child: SAS(),
 //           ),
 //           Expanded(
 //             child: LLS(),
@@ -77,74 +77,68 @@ class SAS extends StatefulWidget {
 }
 
 class _SASState extends State<SAS> {
-  String text = "Let's embark on a simulation of sorting algorithms, where we can dynamically select from insertion, radix, and merge sort. The goal is to vividly visualize the step-by-step process of each sorting algorithm in action.";
+  String text =
+      "Let's embark on a simulation of sorting algorithms, where we can dynamically select from insertion, radix, and merge sort. The goal is to vividly visualize the step-by-step process of each sorting algorithm in action.";
 
-void click(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+  void click() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MyHomePage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
-      child:
-      
-        Column(
+        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        child: Column(
           children: <Widget>[
-
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Sorting Algorithm Simulator",
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
             ),
-
-
-
-          Container(
-            
-            width: 300,
-            margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.greenAccent),
-            child: Text(text,style: TextStyle(fontSize: 14,),
-            
-            ),
-            
-          ),
-
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 65, 65, 71)),
-              foregroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
-            ),
-            
-            onPressed: this.click,
-            child: Container(
-              child: Text('SELECT', style: TextStyle(fontSize: 15), ), 
-              width: 150,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              alignment: Alignment.center,
+            Container(
+              width: 300,
+              margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.greenAccent),
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 14,
+                ),
               ),
-            
-            // Text('START', style: TextStyle(fontSize: 30),), 
-            
-          ),
-          
-        ],)
-       
-    );
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    const Color.fromARGB(255, 255, 255, 255)),
+              ),
+
+              onPressed: this.click,
+              child: Container(
+                child: Text(
+                  'SELECT',
+                  style: TextStyle(fontSize: 15),
+                ),
+                width: 150,
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
+              ),
+
+              // Text('START', style: TextStyle(fontSize: 30),),
+            ),
+          ],
+        ));
   }
 }
-
-
-
-
-
 
 class LLS extends StatefulWidget {
   const LLS({super.key});
@@ -154,65 +148,62 @@ class LLS extends StatefulWidget {
 }
 
 class _LLSState extends State<LLS> {
-  String text = "Let's embark on a simulation of sorting algorithms, where we can dynamically select from insertion, radix, and merge sort. The goal is to vividly visualize the step-by-step process of each sorting algorithm in action.";
+  String text =
+      "Let's embark on a simulation of sorting algorithms, where we can dynamically select from insertion, radix, and merge sort. The goal is to vividly visualize the step-by-step process of each sorting algorithm in action.";
 
-void click(){
+  void click() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => L2HOME()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
-      child:
-        Column(children: <Widget>[
-
+        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        child: Column(
+          children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Let's Learn Sorting Algorithm",
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
             ),
-
-          Container(
-            width: 300,
-            margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.greenAccent),
-            child: Text(text,style: TextStyle(fontSize: 14),
-            
-            ),
-            
-          ),
-
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 65, 65, 71)),
-              foregroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 255, 255, 255)),
-            ),
-            
-            onPressed: this.click,
-            child: Container(
-              child: Text('SELECT', style: TextStyle(fontSize: 15), ), 
-              width: 150,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              alignment: Alignment.center,
+            Container(
+              width: 300,
+              margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.greenAccent),
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 14),
               ),
-            
-            // Text('START', style: TextStyle(fontSize: 30),), 
-            
-          ),
-        ],)
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    const Color.fromARGB(255, 255, 255, 255)),
+              ),
 
-    );
+              onPressed: this.click,
+              child: Container(
+                child: Text(
+                  'SELECT',
+                  style: TextStyle(fontSize: 15),
+                ),
+                width: 150,
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
+              ),
+
+              // Text('START', style: TextStyle(fontSize: 30),),
+            ),
+          ],
+        ));
   }
 }
-
-
-
-
-
