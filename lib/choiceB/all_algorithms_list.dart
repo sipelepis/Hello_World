@@ -135,7 +135,7 @@ class _ListBtnState extends State<ListBtn> {
                 Align(
                   alignment: Alignment.center,
                   child:  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                    padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
                       child: SizedBox(
                         width: double.infinity, // Expand to maximum width
                         child: TextButton(
