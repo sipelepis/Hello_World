@@ -127,7 +127,7 @@ class _clickbtnState extends State<clickbtn> {
       onPressed: this.click,
       child: Container(
         child: Text(
-          'START',
+          'Start',
           style: TextStyle(fontSize: 30),
         ),
         width: 190,
