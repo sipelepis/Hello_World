@@ -91,7 +91,7 @@ class NormalWidget extends StatelessWidget {
       alignment: Alignment
           .center, // Align however you like (i.e .centerRight, centerLeft)
       child: Text(
-        "A Mobile-Based Educational Simulator For Algorithm's",
+        "A Mobile-Based Educational Simulator For Algorithm'ss",
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.normal,
