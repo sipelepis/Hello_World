@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/choiceB/continue_button.dart';
-import 'package:flutterapp/main.dart';
+import 'package:flutterapp/simulator.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -82,7 +82,7 @@ class _SASState extends State<SAS> {
 
   void click() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MyHomePage()));
+        context, MaterialPageRoute(builder: (context) => simPage()));
   }
 
   @override

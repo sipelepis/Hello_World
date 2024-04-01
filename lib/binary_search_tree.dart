@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class radixPage extends StatefulWidget {
-  const radixPage({super.key});
+class binary_searchPage extends StatefulWidget {
+  const binary_searchPage({super.key});
 
   @override
-  State<radixPage> createState() => _radixPageState();
+  State<binary_searchPage> createState() => _binary_searchPageState();
 }
 
-class _radixPageState extends State<radixPage> {
+class _binary_searchPageState extends State<binary_searchPage> {
   List<int> numbers = [];
   String input = '';
 
@@ -48,7 +48,7 @@ class _radixPageState extends State<radixPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Radix Sort Demo'),
+        title: Text('Binary Search Sort Demo'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class radixPage extends StatefulWidget {
-  const radixPage({super.key});
+class insertionPage extends StatefulWidget {
+  const insertionPage({super.key});
 
   @override
-  State<radixPage> createState() => _radixPageState();
+  State<insertionPage> createState() => _insertionPageState();
 }
 
-class _radixPageState extends State<radixPage> {
+class _insertionPageState extends State<insertionPage> {
   List<int> numbers = [];
   String input = '';
 
@@ -48,7 +48,7 @@ class _radixPageState extends State<radixPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Radix Sort Demo'),
+        title: Text('Insertion Sort Demo'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
