@@ -14,55 +14,75 @@ class simPage extends StatefulWidget {
 }
 
 class _simPageState extends State<simPage> {
+  // Constants for the heights of the first ListView in portrait and landscape orientations
+  static const double _portraitListViewHeight = 500;
+  static const double _landscapeListViewHeight = 200;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('AL-GO!')),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Simulators',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Expanded(
-            child: radix(),
-          ),
-          Expanded(
-            child: Row(
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  child: merge(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Simulators',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                Expanded(
-                  child: insertion(),
+                SizedBox(height: 8),
+                Container(
+                  height: _getFirstListViewHeight(orientation),
+                  child: ListView.builder(
+                    scrollDirection: orientation == Orientation.portrait
+                        ? Axis.vertical
+                        : Axis.horizontal,
+                    itemCount: 5, // Adjust the item count as needed
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: _buildSimulatorWidget(index),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-          ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: binary_search(),
-                ),
-                Expanded(
-                  child: binary_tree(),
-                ),
-              ],
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
+
+  double _getFirstListViewHeight(Orientation orientation) {
+    // Return different height based on orientation
+    return orientation == Orientation.portrait
+        ? _portraitListViewHeight
+        : _landscapeListViewHeight;
+  }
+
+  Widget _buildSimulatorWidget(int index) {
+    // Define your simulator widgets here
+    List<Widget> simulators = [
+      radix(),
+      merge(),
+      insertion(),
+      binary_search(),
+      binary_tree(),
+    ];
+
+    return simulators[index];
+  }
 }
+
+
 
 
 class radix extends StatefulWidget {
@@ -87,8 +107,7 @@ class _radixState extends State<radix> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(
-                  0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Sorting Algorithm: Radix",
                 style: TextStyle(fontSize: 20),
@@ -104,9 +123,7 @@ class _radixState extends State<radix> {
                   color: Colors.greenAccent),
               child: Text(
                 text,
-                style: TextStyle(
-                  fontSize: 14,
-                ),
+                style: TextStyle(fontSize: 14),
               ),
             ),
             TextButton(
@@ -127,11 +144,10 @@ class _radixState extends State<radix> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 alignment: Alignment.center,
               ),
-
-              // Text('START', style: TextStyle(fontSize: 30),),
             ),
           ],
-        ));
+        )
+      );
   }
 }
 
@@ -157,8 +173,7 @@ class _mergeState extends State<merge> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(
-                  0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Sorting Algorithm: Merge",
                 style: TextStyle(fontSize: 20),
@@ -195,11 +210,10 @@ class _mergeState extends State<merge> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 alignment: Alignment.center,
               ),
-
-              // Text('START', style: TextStyle(fontSize: 30),),
             ),
           ],
-        ));
+        )
+      );
   }
 }
 
@@ -225,8 +239,7 @@ class _insertionState extends State<insertion> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(
-                  0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Sorting Algorithm: Insertion",
                 style: TextStyle(fontSize: 20),
@@ -263,11 +276,10 @@ class _insertionState extends State<insertion> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 alignment: Alignment.center,
               ),
-
-              // Text('START', style: TextStyle(fontSize: 30),),
             ),
           ],
-        ));
+        )
+      );
   }
 }
 
@@ -293,8 +305,7 @@ class _binary_searchState extends State<binary_search> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(
-                  0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Sorting Algorithm: Binary search tree",
                 style: TextStyle(fontSize: 20),
@@ -331,11 +342,10 @@ class _binary_searchState extends State<binary_search> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 alignment: Alignment.center,
               ),
-
-              // Text('START', style: TextStyle(fontSize: 30),),
             ),
           ],
-        ));
+        )
+      );
   }
 }
 
@@ -361,8 +371,7 @@ class _binary_treeState extends State<binary_tree> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(
-                  0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Sorting Algorithm: Binary tree",
                 style: TextStyle(fontSize: 20),
@@ -399,10 +408,9 @@ class _binary_treeState extends State<binary_tree> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 alignment: Alignment.center,
               ),
-
-              // Text('START', style: TextStyle(fontSize: 30),),
             ),
           ],
-        ));
+        )
+      );
   }
 }
