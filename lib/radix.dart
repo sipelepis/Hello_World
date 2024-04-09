@@ -64,7 +64,7 @@ class _radixPageState extends State<radixPage> {
               decoration: InputDecoration(
                 labelText: 'Enter comma-separated numbers',
               ),
-            ),
+            ), 
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
