@@ -104,7 +104,7 @@ class _StacksPageState extends State<StacksPage> {
                             setState(() {
                               input = value;
                             });
-                          },
+                          },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
                           decoration: InputDecoration(
                             labelText: 'Enter a number',
                           ),
@@ -129,7 +129,7 @@ class _StacksPageState extends State<StacksPage> {
                   style: ElevatedButton.styleFrom(
                     primary: Colors.red,
                   ),
-                  child: Text('Pop'),
+                  child: Text('Pop()'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -167,36 +167,40 @@ class _StacksPageState extends State<StacksPage> {
             SizedBox(height: 16),
             Text('Stack Visualization:'),
             Expanded(
-              child: Container(
-                width: 200,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Stack'),
-                    SizedBox(height: 8),
-                    for (int i = stack.length - 1; i >= 0; i--)
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                        width: 50,
-                        height: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          // border: Border.all(),
-                          color: Colors.lightBlue, // Set background color to light blue
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          stack[i].toString(),
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ),
-                  ],
-                ),
+  child: SingleChildScrollView(
+    scrollDirection: Axis.vertical,
+    child: Container(
+      width: 200,
+      decoration: BoxDecoration(
+        border: Border.all(),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Stack'),
+          SizedBox(height: 8), 
+          for (int i = stack.length - 1; i >= 0; i--)
+            Container(
+              margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              width: 50,
+              height: 50,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                // border: Border.all(),
+                color: Colors.lightBlue, // Set background color to light blue 
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                stack[i].toString(),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ),
+        ],
+      ),
+    ),
+  ),
+),
+
           ],
         ),
       ),
