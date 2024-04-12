@@ -4,6 +4,7 @@ import 'package:flutterapp/insertion.dart';
 import 'package:flutterapp/merge.dart';
 import 'package:flutterapp/binary.dart';
 import 'package:flutterapp/binary_search_tree.dart';
+import 'package:flutterapp/stacks.dart';
 
 
 class simPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class simPage extends StatefulWidget {
 
 class _simPageState extends State<simPage> {
   // Constants for the heights of the first ListView in portrait and landscape orientations
-  static const double _portraitListViewHeight = 500;
+  static const double _portraitListViewHeight = 600;
   static const double _landscapeListViewHeight = 200;
 
   @override
@@ -44,7 +45,7 @@ class _simPageState extends State<simPage> {
                     scrollDirection: orientation == Orientation.portrait
                         ? Axis.vertical
                         : Axis.horizontal,
-                    itemCount: 5, // Adjust the item count as needed
+                    itemCount: 6, // Adjust the item count as needed
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -76,6 +77,7 @@ class _simPageState extends State<simPage> {
       insertion(),
       binary_search(),
       binary_tree(),
+      stacks(),
     ];
 
     return simulators[index];
@@ -374,6 +376,73 @@ class _binary_treeState extends State<binary_tree> {
               padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Sorting Algorithm: Binary tree",
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              width: 300,
+              margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.greenAccent),
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 14),
+              ),
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    const Color.fromARGB(255, 255, 255, 255)),
+              ),
+
+              onPressed: this.click,
+              child: Container(
+                child: Text(
+                  'Enter',
+                  style: TextStyle(fontSize: 15),
+                ),
+                width: 150,
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
+              ),
+            ),
+          ],
+        )
+      );
+  }
+}
+
+
+class stacks extends StatefulWidget {
+  const stacks({super.key});
+
+  @override
+  State<stacks> createState() => _stacksState();
+}
+
+class _stacksState extends State<stacks> {
+  String text =
+      "Palagay ng explanation ni stacks.";
+
+  void click() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => StacksPage()));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              child: Text(
+                "Sorting Algorithm: stacks",
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
