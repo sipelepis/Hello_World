@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-
+ 
 class mergePage extends StatefulWidget {
   const mergePage({super.key});
 

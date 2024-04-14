@@ -1,86 +1,182 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
-class binary_searchPage extends StatefulWidget {
-  const binary_searchPage({super.key});
+class TreeNode {
+  final int value;
+  TreeNode? left;
+  TreeNode? right;
+  int index; // Unique index for each node
 
-  @override
-  State<binary_searchPage> createState() => _binary_searchPageState();
+  TreeNode(this.value, this.index);
 }
 
-class _binary_searchPageState extends State<binary_searchPage> {
-  List<int> numbers = [];
-  String input = '';
+class BinarySearchPage extends StatefulWidget {
+  const BinarySearchPage({Key? key}) : super(key: key);
 
-  void radixSort() {
-    List<List<int>> buckets = List.generate(10, (index) => []);
+  @override
+  _BinarySearchPageState createState() => _BinarySearchPageState();
+}
 
-    int maxDigits = getMaxDigits(); // Move this line outside the radixSort function
+class _BinarySearchPageState extends State<BinarySearchPage> {
+  TreeNode? _root;
+  TextEditingController _numberController = TextEditingController();
 
-    for (int digit = 0; digit < maxDigits; digit++) {
-      for (int number in numbers) {
-        int bucketIndex = (number ~/ pow(10, digit)) % 10;
-        buckets[bucketIndex].add(number);
-      }
-
-      numbers.clear();
-      for (List<int> bucket in buckets) {
-        numbers.addAll(bucket);
-      }
-
-      buckets = List.generate(10, (index) => []);
-      print('Step ${digit + 1}: $numbers');
-    }
-  }
-
-  int getMaxDigits() {
-    int maxDigits = 0;
-    for (int number in numbers) {
-      int digits = number.toString().length;
-      if (digits > maxDigits) {
-        maxDigits = digits;
-      }
-    }
-    return maxDigits;
+  @override
+  void dispose() {
+    _numberController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Binary Search Sort Demo'),
+        title: Text('Binary Search Algorithm'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  input = value;
-                });
-              },
-              decoration: InputDecoration(
-                labelText: 'Enter comma-separated numbers',
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _numberController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      labelText: 'Enter a number',
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: insertNode,
+                  child: Text('Insert'),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: clearTree,
+                  child: Text('Clear Tree'),
+                ),
+              ],
             ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  numbers = input
-                      .split(',')
-                      .map((e) => int.tryParse(e.trim()) ?? 0)
-                      .toList();
-                  radixSort();
-                });
-              },
-              child: Text('Sort'),
+            SizedBox(height: 30),
+            Text(
+              'Binary Tree Visualization', // Added text here
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 16), // Added space here
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Container(
+                  margin: EdgeInsets.only(top: 25), // Added margin below the visualization
+                  child: _root != null
+                      ? CustomPaint(
+                          size: Size(300, 300), // Adjust size as needed
+                          painter: TreePainter(_root!),
+                        )
+                      : Center(
+                          child: Text('No tree built yet'),
+                        ),
+                ),
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
+  void insertNode() {
+    final input = _numberController.text.trim();
+    if (input.isNotEmpty) {
+      final number = int.tryParse(input);
+      if (number != null) {
+        if (_root == null) {
+          _root = TreeNode(number, 1);
+        } else {
+          _insertNodeHelper(_root!, number);
+        }
+        setState(() {
+          _numberController.clear(); // Clear the text field after insertion
+        });
+      }
+    }
+  }
+
+  void _insertNodeHelper(TreeNode node, int value) {
+    if (value < node.value) {
+      if (node.left == null) {
+        // Add as left child if no left child exists
+        node.left = TreeNode(value, node.index * 2);
+      } else {
+        // If there's already a left child, recursively insert into the left subtree
+        _insertNodeHelper(node.left!, value);
+      }
+    } else {
+      if (node.right == null) {
+        // Add as right child if no right child exists
+        node.right = TreeNode(value, node.index * 2 + 1);
+      } else {
+        // If there's already a right child, recursively insert into the right subtree
+        _insertNodeHelper(node.right!, value);
+      }
+    }
+  }
+
+  void clearTree() {
+    setState(() {
+      _root = null;
+    });
+  }
+}
+
+class TreePainter extends CustomPainter {
+  final TreeNode _root;
+  static const double nodeSize = 30.0;
+  static const double levelSpacing = 60.0;
+
+  TreePainter(this._root);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    _paintNode(canvas, _root, size.width / 2, 0, size.width);
+  }
+
+  void _paintNode(Canvas canvas, TreeNode node, double x, double y, double width) {
+    // Draw node
+    canvas.drawCircle(Offset(x, y), nodeSize / 2, Paint()..color = Colors.lightGreen);
+    canvas.drawCircle(Offset(x, y), nodeSize / 2, Paint()..style = PaintingStyle.stroke ..color = Colors.black);
+    TextSpan span = TextSpan(style: TextStyle(color: Colors.black), text: node.value.toString());
+    TextPainter tp = TextPainter(text: span, textAlign: TextAlign.center, textDirection: TextDirection.ltr);
+    tp.layout();
+    tp.paint(canvas, Offset(x - tp.width / 2, y - tp.height / 2));
+
+    // Draw edges
+    if (node.left != null) {
+      double childX = x - width / 4;
+      double childY = y + levelSpacing;
+      canvas.drawLine(Offset(x, y + nodeSize / 2), Offset(childX, childY - nodeSize / 2), Paint()..color = Colors.black);
+      _paintNode(canvas, node.left!, childX, childY, width / 2);
+    }
+    if (node.right != null) {
+      double childX = x + width / 4;
+      double childY = y + levelSpacing;
+      canvas.drawLine(Offset(x, y + nodeSize / 2), Offset(childX, childY - nodeSize / 2), Paint()..color = Colors.black);
+      _paintNode(canvas, node.right!, childX, childY, width / 2);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: BinarySearchPage(),
+  ));
 }

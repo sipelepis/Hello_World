@@ -84,13 +84,13 @@ class _simPageState extends State<simPage> {
         insertion(),
       ],
       [
-        binary_search(),
         breadth_first(),
         depth_first(),
       ],
       [
         stacks(),
         Queues(),
+        binary_search(),
       ],
     ];
 
@@ -105,7 +105,12 @@ class _simPageState extends State<simPage> {
             textAlign: TextAlign.center,
           ),
         ),
-        ...categoryWidgets[categoryIndex],
+        Center( // Wrap the category's Column with Center
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: categoryWidgets[categoryIndex],
+          ),
+        ),
       ],
     );
   }
@@ -275,7 +280,7 @@ class _insertionState extends State<insertion> {
       "Palagay ng explanation ni Insertion Sort.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => insertionPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => InsertionSortPage()));
   }
 
   @override
@@ -341,7 +346,7 @@ class _binary_searchState extends State<binary_search> {
       "Palagay ng explanation ni Binary Search Tree.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => binary_searchPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => BinarySearchPage()));
   }
 
   @override
@@ -407,7 +412,7 @@ class _breadth_firstState extends State<breadth_first> {
       "Palagay ng explanation ni Breadth-first Algorithm.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => breadth_first_Page()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => BreadthFirstPage()));
   }
 
   @override
@@ -473,7 +478,7 @@ class _depth_firstState extends State<depth_first> {
       "Palagay ng explanation ni Depth-First Algorithm.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => depth_first_Page()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => DepthFirstPage()));
   }
 
   @override
