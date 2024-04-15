@@ -214,7 +214,7 @@ class _mergeState extends State<merge> {
       "Palagay ng explanation ni Merge Sort.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => mergePage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MergeSortPage()));
   }
 
   @override

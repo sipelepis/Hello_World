@@ -11,9 +11,13 @@ class _StacksPageState extends State<StacksPage> {
   List<int> stack = [];
   String input = '';
 
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+
   void push(int number) {
     setState(() {
+      int index = stack.length;
       stack.add(number);
+      _listKey.currentState?.insertItem(index, duration: Duration(milliseconds: 500));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('The $number has been pushed.'),
@@ -90,6 +94,7 @@ class _StacksPageState extends State<StacksPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -127,7 +132,7 @@ class _StacksPageState extends State<StacksPage> {
                 ElevatedButton(
                   onPressed: pop,
                   style: ElevatedButton.styleFrom(
-                    // primary: Colors.red,
+                    primary: Colors.red,
                   ),
                   child: Text('Pop()'),
                 ),
