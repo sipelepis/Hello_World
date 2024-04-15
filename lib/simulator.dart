@@ -148,7 +148,7 @@ class _radixState extends State<radix> {
       "Palagay ng explanation ni Radix Sort.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => radixPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => RadixSortPage()));
   }
 
   @override
