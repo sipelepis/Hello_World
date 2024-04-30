@@ -132,7 +132,7 @@ class _StacksPageState extends State<StacksPage> {
                 ElevatedButton(
                   onPressed: pop,
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.red,
+                    //primary: Colors.red,
                   ),
                   child: Text('Pop()'),
                 ),
