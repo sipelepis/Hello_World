@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'dart:math';
 
 
 
@@ -145,7 +145,9 @@ class TreePainter extends CustomPainter {
 
 
 class _BinarySearchPageState extends State<BinarySearchPage> with WidgetsBindingObserver  {
+  TextEditingController givenController = TextEditingController();
 
+  
   TreeNode? _root;
   TextEditingController _numberController = TextEditingController();
   List<int> _nodeValues = []; // New list to store node values
@@ -167,6 +169,7 @@ class _BinarySearchPageState extends State<BinarySearchPage> with WidgetsBinding
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);  // Stop listening to lifecycle changes
     _cameraController?.dispose();
+    givenController.dispose();
     super.dispose();
   }
 
@@ -216,7 +219,7 @@ class _BinarySearchPageState extends State<BinarySearchPage> with WidgetsBinding
               controller: _numberController,
               keyboardType: TextInputType.text,
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z,]')), // Allow only numbers, letters, and commas
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Allow only numbers
               ],
               decoration: InputDecoration(
                 labelText: 'Enter values (Numbers Only)',
@@ -601,6 +604,7 @@ bool _isValidInput(String value) {
 
 void checkTree() {
   // Construct the correct binary search tree
+  print("$_nodeValues");
   TreeNode? correctTreeRoot = constructCorrectTree();
 
   // Compare the user-made tree with the correct tree and update node colors
@@ -999,40 +1003,126 @@ void showPositionDialog(TreeNode node) {
 }
 
 void _captureAndRecognizeText() async {
-    if (!_isCameraInitialized) return;
+  if (!_isCameraInitialized) return;
 
-    final image = await _cameraController!.takePicture();
-    final inputImage = InputImage.fromFilePath(image.path);
-    final textRecognizer = GoogleMlKit.vision.textRecognizer();
-    final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
+  final image = await _cameraController!.takePicture();
+  final inputImage = InputImage.fromFilePath(image.path);
+  final textRecognizer = GoogleMlKit.vision.textRecognizer();
+  final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
+  textRecognizer.close();
 
-    String extractedText = '';
-    for (TextBlock block in recognizedText.blocks) {
-        for (TextLine line in block.lines) {
-            // Concatenate the text from each line without modification
-            extractedText += line.text + '\n';
-        }
-        // Add an extra newline after each block
-        extractedText += '\n';
-    }
-
-    // Show modal or update the text field
+  if (recognizedText.text.isEmpty) {
     showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-            title: Text('Extracted Text'),
-            content: Text(extractedText),
-            actions: [
-                TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Text('OK')
-                )
-            ],
-        ),
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Empty Text Recognition'),
+        content: Text('Please take a clearer image/photo.'),
+        actions: [TextButton(onPressed: () => Navigator.of(context).pop(), child: Text('OK'))],
+      ),
     );
+    return;
+  }
 
-    textRecognizer.close();
+  List<String> lines = recognizedText.text.split('\n');
+  int levelCount = max(1, lines.length - 1); // Ensure at least one level
+  TextEditingController givenController = TextEditingController(text: lines.first);
+
+  List<List<TextEditingController>> controllersPerLevel = List.generate(
+    levelCount,
+    (level) => List.generate(
+      pow(2, level).toInt(),
+      (_) => TextEditingController(text: level < lines.length ? lines[level] : ''),
+      growable: false
+    ),
+    growable: true
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return AlertDialog(
+            title: Text('Extracted Text'),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text('Given:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  TextField(controller: givenController, decoration: InputDecoration(prefixText: '- ')),
+                  ...controllersPerLevel.asMap().entries.map((entry) {
+                    // int index = entry.key;
+                    List<TextEditingController> controllers = entry.value;
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: controllers.map((controller) => Expanded(
+                        child: TextField(controller: controller, decoration: InputDecoration(border: OutlineInputBorder()))
+                      )).toList()
+                    );
+                  }).toList(),
+                ],
+              ),
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      if (controllersPerLevel.length > 1) {
+                        setState(() => controllersPerLevel.removeLast());
+                      }
+                    },
+                    child: Text('Remove Level')
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      int newLevelIndex = controllersPerLevel.length;
+                      List<TextEditingController> newLevelControllers = List.generate(
+                        pow(2, newLevelIndex).toInt(),
+                        (_) => TextEditingController(),
+                        growable: false
+                      );
+                      setState(() => controllersPerLevel.add(newLevelControllers));
+                    },
+                    child: Text('Add Level')
+                  ),
+                ]
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text('Cancel')
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      List<String> values = givenController.text.split(RegExp(r'[\s,]+')).where((value) => value.isNotEmpty).toList();
+                      _nodeValues.clear();
+                      _nodeValues.addAll(values.map(int.parse).toList());
+                      Navigator.of(context).pop();
+                      buildTree(); // Call buildTree if needed right after saving
+                    },
+                    child: Text('Save')
+                  ),
+                ]
+              ),
+            ],
+          );
+        }
+      );
+    }
+  );
 }
+
+void buildTree() {
+  // Implement tree building logic using _nodeValues
+  print("Building tree with values: $_nodeValues");
+  // Add your TreePainter code here to draw the tree based on _nodeValues
+}
+
+
+
 
 
 

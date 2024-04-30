@@ -36,7 +36,7 @@ class _RadixSortPageState extends State<RadixSortPage> {
   void _countingSort(int digitPlace) {
     int n = stack.length;
     List<int> output = List.filled(n, 0);
-    int maxValue =
+    // int maxValue =
         stack.reduce((value, element) => value > element ? value : element);
     int exp = 1;
 
