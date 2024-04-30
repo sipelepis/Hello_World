@@ -147,7 +147,7 @@ class radix extends StatefulWidget {
 
 class _radixState extends State<radix> {
   String text =
-      "Palagay ng explanation ni Radix Sort.";
+      "Radix sort is a non-comparative sorting algorithm that sorts integers by processing their digits from the least significant to the most significant, efficiently arranging them into the correct order.";
 
   void click() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => RadixSortPage()));
@@ -213,7 +213,7 @@ class merge extends StatefulWidget {
 
 class _mergeState extends State<merge> {
   String text =
-      "Palagay ng explanation ni Merge Sort.";
+      "Merge sort is a comparison-based sorting algorithm that divides the unsorted list into smaller sublists, recursively sorts them, and then merges the sorted sublists to produce a sorted output.";
 
   void click() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => MergeSortPage()));
@@ -279,7 +279,7 @@ class insertion extends StatefulWidget {
 
 class _insertionState extends State<insertion> {
   String text =
-      "Palagay ng explanation ni Insertion Sort.";
+      "Insertion sort is a simple sorting algorithm that builds the final sorted list one element at a time by repeatedly inserting the next element into the proper position in the already sorted part of the list.";
 
   void click() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => InsertionSortPage()));
@@ -345,7 +345,7 @@ class binary_search extends StatefulWidget {
 
 class _binary_searchState extends State<binary_search> {
   String text =
-      "Palagay ng explanation ni Binary Search Tree.";
+      "Binary search trees (BSTs) are a data structure that organizes elements in a tree-like structure, where each node has at most two children and the left child is less than the parent, while the right child is greater, enabling efficient search, insertion, and deletion operations.";
 
   void click() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => BinarySearchPage()));
@@ -411,7 +411,7 @@ class breadth_first extends StatefulWidget {
 
 class _breadth_firstState extends State<breadth_first> {
   String text =
-      "Palagay ng explanation ni Breadth-first Algorithm.";
+      "Breadth-first search (BFS) is a graph traversal algorithm that explores all neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.";
 
   void click() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => BreadthFirstPage()));
@@ -477,7 +477,7 @@ class depth_first extends StatefulWidget {
 
 class _depth_firstState extends State<depth_first> {
   String text =
-      "Palagay ng explanation ni Depth-First Algorithm.";
+      "Depth-first search (DFS) is a graph traversal algorithm that explores as far as possible along each branch before backtracking.";
 
   void click() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => DepthFirstPage()));
@@ -544,7 +544,7 @@ class stacks extends StatefulWidget {
 
 class _stacksState extends State<stacks> {
   String text =
-      "Palagay ng explanation ni Stacks.";
+      "Stacks are a data structure that follows the Last In, First Out (LIFO) principle, where elements are inserted and removed from the same end, typically used for managing function calls, parsing expressions, and backtracking.";
 
   void click() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => StacksPage()));
@@ -610,7 +610,7 @@ class Queues extends StatefulWidget {
 
 class _QueuesState extends State<Queues> {
   String text =
-      "Palagay ng explanation ni Queues.";
+      "Queues are a data structure that follows the First In, First Out (FIFO) principle, where elements are inserted at the rear and removed from the front, commonly used in task scheduling, breadth-first search, and implementing caches.";
 
   void click() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => QueuesPage()));
