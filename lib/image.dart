@@ -5,7 +5,10 @@ import 'package:gallery_picker/models/media_file.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-void main(){
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Permission.storage.request();
+
   runApp(MyApp());
 }
 
@@ -24,8 +27,7 @@ class MyApp extends StatelessWidget {
 
 class PermissionHandlerWidget extends StatefulWidget {
   @override
-  _PermissionHandlerWidgetState createState() =>
-      _PermissionHandlerWidgetState();
+  _PermissionHandlerWidgetState createState() => _PermissionHandlerWidgetState();
 }
 
 class _PermissionHandlerWidgetState extends State<PermissionHandlerWidget> {
@@ -45,7 +47,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController _questionController = TextEditingController();
   File? selectedMedia;
-  String? extractedNumbers;
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +70,6 @@ class _HomePageState extends State<HomePage> {
                 ? Center(child: Text("Pick an image for text recognition."))
                 : _buildUI(),
           ),
-          if (extractedNumbers != null)
-            Text(
-              'Extracted numbers: $extractedNumbers',
-              style: TextStyle(fontSize: 18),
-            ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -117,11 +113,6 @@ class _HomePageState extends State<HomePage> {
         } else {
           String? extractedText = snapshot.data as String?;
           bool isCorrect = checkAnswer(extractedText, _questionController.text);
-          if (isCorrect) {
-            extractedNumbers = extractedText;
-          } else {
-            extractedNumbers = null;
-          }
           return Text(
             isCorrect ? "Correct answer!" : "Incorrect answer.",
             style: TextStyle(
@@ -135,8 +126,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _getImageFromGallery() async {
-    List<MediaFile>? media =
-        await GalleryPicker.pickMedia(context: context, singleMedia: true);
+    List<MediaFile>? media = await GalleryPicker.pickMedia(
+        context: context, singleMedia: true);
     if (media != null && media.isNotEmpty) {
       var data = await media.first.getFile();
       setState(() {
@@ -163,7 +154,9 @@ class _HomePageState extends State<HomePage> {
     List<String> numbers = inputQuestion.split(' ');
     numbers.removeWhere((element) => element.isEmpty);
     numbers.sort((a, b) => int.parse(a).compareTo(int.parse(b)));
+
     String sortedNumbers = numbers.join(' ');
+
     return extractedText.contains(sortedNumbers);
   }
 }
