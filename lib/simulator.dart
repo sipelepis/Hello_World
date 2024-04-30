@@ -11,6 +11,7 @@ import 'package:flutterapp/binary_search_tree.dart';
 import 'package:flutterapp/stacks.dart';
 import 'package:flutterapp/Queues.dart';
 
+import 'package:flutterapp/image.dart';
 
 class simPage extends StatefulWidget {
   const simPage({super.key});
@@ -91,6 +92,7 @@ class _simPageState extends State<simPage> {
         stacks(),
         Queues(),
         binary_search(),
+        img(),
       ],
     ];
 
@@ -624,6 +626,74 @@ class _QueuesState extends State<Queues> {
               padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Queues",
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              width: 300,
+              margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.greenAccent),
+              child: Text(
+                text,
+                style: TextStyle(fontSize: 14),
+              ),
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    const Color.fromARGB(255, 255, 255, 255)),
+              ),
+
+              onPressed: this.click,
+              child: Container(
+                child: Text(
+                  'Enter',
+                  style: TextStyle(fontSize: 15),
+                ),
+                width: 150,
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
+              ),
+            ),
+          ],
+        )
+      );
+  }
+}
+
+// HomePage
+
+class img extends StatefulWidget {
+  const img({super.key});
+
+  @override
+  State<img> createState() => _imgState();
+}
+
+class _imgState extends State<img> {
+  String text =
+      "Palagay ng explanation ni img.";
+
+  void click() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              child: Text(
+                "img",
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),

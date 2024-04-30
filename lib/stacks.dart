@@ -17,7 +17,8 @@ class _StacksPageState extends State<StacksPage> {
     setState(() {
       int index = stack.length;
       stack.add(number);
-      _listKey.currentState?.insertItem(index, duration: Duration(milliseconds: 500));
+      _listKey.currentState
+          ?.insertItem(index, duration: Duration(milliseconds: 500));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('The $number has been pushed.'),
@@ -49,7 +50,7 @@ class _StacksPageState extends State<StacksPage> {
     //   }
     // });
     setState(() {
-    if (stack.isNotEmpty) {
+      if (stack.isNotEmpty) {
         int poppedNumber = stack.removeLast();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -62,26 +63,25 @@ class _StacksPageState extends State<StacksPage> {
   }
 
   void popNumber(int number) {
-  setState(() {
-    if (stack.contains(number)) {
-      stack.remove(number);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('The $number has been popped.'),
-          duration: Duration(seconds: 3),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('The number $number does not exist in the stack.'),
-          duration: Duration(seconds: 3),
-        ),
-      );
-    }
-  });
-}
-
+    setState(() {
+      if (stack.contains(number)) {
+        stack.remove(number);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('The $number has been popped.'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('The number $number does not exist in the stack.'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,6 @@ class _StacksPageState extends State<StacksPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -109,7 +108,7 @@ class _StacksPageState extends State<StacksPage> {
                             setState(() {
                               input = value;
                             });
-                          },                                                   
+                          },
                           decoration: InputDecoration(
                             labelText: 'Enter a number',
                           ),
@@ -183,7 +182,7 @@ class _StacksPageState extends State<StacksPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('Stack'),
-                      SizedBox(height: 8), 
+                      SizedBox(height: 8),
                       for (int i = stack.length - 1; i >= 0; i--)
                         Container(
                           margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -192,7 +191,8 @@ class _StacksPageState extends State<StacksPage> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             // border: Border.all(),
-                            color: Colors.lightBlue, // Set background color to light blue 
+                            color: Colors
+                                .lightBlue, // Set background color to light blue
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
@@ -205,7 +205,6 @@ class _StacksPageState extends State<StacksPage> {
                 ),
               ),
             ),
-
           ],
         ),
       ),
