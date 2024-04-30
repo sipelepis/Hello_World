@@ -5,10 +5,7 @@ import 'package:gallery_picker/models/media_file.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Permission.storage.request();
-
+void main(){
   runApp(MyApp());
 }
 
