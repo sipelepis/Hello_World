@@ -343,23 +343,32 @@ void showCamera() {
           child: CameraPreview(_cameraController!),
         ),
         actions: <Widget>[
-          TextButton(
-            onPressed: () async {
-              try {
-                // Ensure the camera is focused before capturing the image.
-                await _cameraController!.setFocusMode(FocusMode.auto);
-                await Future.delayed(Duration(seconds: 2)); // Wait for focus to settle.
-                _captureAndRecognizeText();
-              } catch (e) {
-                print("Error focusing camera: $e");
-              }
-              Navigator.of(context).pop();  // Close the dialog after capturing the text
-            },
-            child: Text('Capture Text'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cancel'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('Images'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  try {
+                    // Ensure the camera is focused before capturing the image.
+                    await _cameraController!.setFocusMode(FocusMode.auto);
+                    await Future.delayed(Duration(seconds: 2)); // Wait for focus to settle.
+                    _captureAndRecognizeText();
+                  } catch (e) {
+                    print("Error focusing camera: $e");
+                  }
+                  Navigator.of(context).pop();  // Close the dialog after capturing the text
+                },
+                child: Text('Capture Text'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('Cancel'),
+              ),
+            ],
           ),
         ],
       );
