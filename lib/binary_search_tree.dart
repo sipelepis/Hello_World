@@ -776,8 +776,8 @@ void _insertNode(TreeNode? node, int value) {
 }
 
 void _insertNodeRecursive(TreeNode node, int value) {
-  if (value > node.value) {
-    // If the value is greater than the current node's value,
+  if (value >= node.value) { // Changed the condition to include equality
+    // If the value is greater than or equal to the current node's value,
     // and the right child is null, insert the new node here
     if (node.right == null) {
       node.right = TreeNode(value.toString(), value, node.index * 2 + 2);
@@ -786,7 +786,7 @@ void _insertNodeRecursive(TreeNode node, int value) {
       _insertNodeRecursive(node.right!, value);
     }
   } else {
-    // If the value is less than or equal to the current node's value,
+    // If the value is less than the current node's value,
     // and the left child is null, insert the new node here
     if (node.left == null) {
       node.left = TreeNode(value.toString(), value, node.index * 2 + 1);
@@ -796,6 +796,7 @@ void _insertNodeRecursive(TreeNode node, int value) {
     }
   }
 }
+
 
 
 
@@ -1005,24 +1006,22 @@ void _captureAndRecognizeText() async {
     final textRecognizer = GoogleMlKit.vision.textRecognizer();
     final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
 
-    String numbers = '';
+    String extractedText = '';
     for (TextBlock block in recognizedText.blocks) {
         for (TextLine line in block.lines) {
-            // Extracting numbers and commas
-            String lineText = line.text.replaceAll(RegExp(r'[^0-9,]'), '');
-            if (lineText.isNotEmpty) numbers += lineText + ',';
+            // Concatenate the text from each line without modification
+            extractedText += line.text + '\n';
         }
+        // Add an extra newline after each block
+        extractedText += '\n';
     }
-
-    // Remove last comma if exists
-    if (numbers.endsWith(',')) numbers = numbers.substring(0, numbers.length - 1);
 
     // Show modal or update the text field
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-            title: Text('Extracted Numbers'),
-            content: Text(numbers),
+            title: Text('Extracted Text'),
+            content: Text(extractedText),
             actions: [
                 TextButton(
                     onPressed: () => Navigator.of(context).pop(),
@@ -1034,6 +1033,10 @@ void _captureAndRecognizeText() async {
 
     textRecognizer.close();
 }
+
+
+
+
 
 
 

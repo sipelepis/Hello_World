@@ -22,7 +22,7 @@ class simPage extends StatefulWidget {
 
 class _simPageState extends State<simPage> {
   // Constants for the heights of the first ListView in portrait and landscape orientations
-  static const double _portraitListViewHeight = 600;
+  static const double _portraitListViewHeight = 825;
   static const double _landscapeListViewHeight = 800;
 
   @override
