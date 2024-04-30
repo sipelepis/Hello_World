@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
 
 class PermissionHandlerWidget extends StatefulWidget {
   @override
-  _PermissionHandlerWidgetState createState() => _PermissionHandlerWidgetState();
+  _PermissionHandlerWidgetState createState() =>
+      _PermissionHandlerWidgetState();
 }
 
 class _PermissionHandlerWidgetState extends State<PermissionHandlerWidget> {
@@ -137,8 +138,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _getImageFromGallery() async {
-    List<MediaFile>? media = await GalleryPicker.pickMedia(
-        context: context, singleMedia: true);
+    List<MediaFile>? media =
+        await GalleryPicker.pickMedia(context: context, singleMedia: true);
     if (media != null && media.isNotEmpty) {
       var data = await media.first.getFile();
       setState(() {
