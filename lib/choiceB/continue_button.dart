@@ -92,7 +92,7 @@ class TextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "LET'S LEARN",
+      "LET'S LEARN NOW",
       textAlign: TextAlign.start,
       style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
     );
