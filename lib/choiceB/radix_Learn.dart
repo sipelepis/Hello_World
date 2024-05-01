@@ -1,22 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:video_player/video_player.dart';
-
-void main() {
-  runApp(RadixSortPage());
-}
-
-class RadixSortPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Radix Sort Visualization',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: RadixSortScreen(),
-    );
-  }
-}
 
 class RadixSortScreen extends StatefulWidget {
   @override
@@ -24,33 +8,19 @@ class RadixSortScreen extends StatefulWidget {
 }
 
 class _RadixSortScreenState extends State<RadixSortScreen> {
-  late VideoPlayerController _controller;
-  bool _isLoading = true; // Flag to track loading state
+  late FlickManager flickManager;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/RadixVidSort.mp4')
-      ..initialize().then((_) {
-        if (mounted) {  // Check if the widget is still in the tree
-          setState(() {
-            _isLoading = false; // Set loading to false when video is ready
-          });
-          _controller.play(); // Start playing the video as soon as it's ready
-        }
-      }).catchError((error) {
-        // Handle errors, perhaps by showing an error message
-        print('Error initializing video player: $error');
-        setState(() {
-          _isLoading = false;
-        });
-      });
-    _controller.setLooping(true);
+    flickManager = FlickManager(
+      videoPlayerController: VideoPlayerController.asset('assets/RadixVidSort.mp4'),
+    );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    flickManager.dispose();
     super.dispose();
   }
 
@@ -66,21 +36,10 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (_isLoading)
-              Container(
-                height: 200, // Display a loading placeholder
-                child: Center(child: CircularProgressIndicator()),
-              )
-            else if (_controller.value.isInitialized)  // Check if the controller is initialized
-              AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
-            else
-              Container(
-                height: 200,
-                child: Center(child: Text('Failed to load video.')),
-              ),
+            Container(
+              height: 200, // Set the height for the video player
+              child: FlickVideoPlayer(flickManager: flickManager),
+            ),
             SizedBox(height: 20),
             Text(
               'Radix Sort',

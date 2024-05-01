@@ -84,7 +84,7 @@ class _CL2HOMEState extends State<CL2HOME> {
                 onTap: () {
                   if (algo.name == "Radix Sort") {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => RadixSortPage()));
+                        builder: (context) => RadixSortScreen()));
                   } else {
                     showDialog(
                       context: context,

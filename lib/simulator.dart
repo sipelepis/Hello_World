@@ -11,7 +11,7 @@ import 'package:flutterapp/binary_search_tree.dart';
 import 'package:flutterapp/stacks.dart';
 import 'package:flutterapp/Queues.dart';
 
-import 'package:flutterapp/image.dart';
+// import 'package:flutterapp/image.dart';
 
 class simPage extends StatefulWidget {
   const simPage({super.key});
@@ -681,7 +681,7 @@ class _imgState extends State<img> {
       "Palagay ng explanation ni img.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   @override
