@@ -1050,7 +1050,6 @@ void _captureAndRecognizeText() async {
                   Text('Given:', style: TextStyle(fontWeight: FontWeight.bold)),
                   TextField(controller: givenController, decoration: InputDecoration(prefixText: '- ')),
                   ...controllersPerLevel.asMap().entries.map((entry) {
-                    // int index = entry.key;
                     List<TextEditingController> controllers = entry.value;
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1097,11 +1096,8 @@ void _captureAndRecognizeText() async {
                   ),
                   TextButton(
                     onPressed: () {
-                      List<String> values = givenController.text.split(RegExp(r'[\s,]+')).where((value) => value.isNotEmpty).toList();
-                      _nodeValues.clear();
-                      _nodeValues.addAll(values.map(int.parse).toList());
+                      extractNodeValues(controllersPerLevel);
                       Navigator.of(context).pop();
-                      buildTree(); // Call buildTree if needed right after saving
                     },
                     child: Text('Save')
                   ),
@@ -1115,11 +1111,19 @@ void _captureAndRecognizeText() async {
   );
 }
 
-void buildTree() {
-  // Implement tree building logic using _nodeValues
-  print("Building tree with values: $_nodeValues");
-  // Add your TreePainter code here to draw the tree based on _nodeValues
+void extractNodeValues(List<List<TextEditingController>> controllersPerLevel) {
+  List<String> user_nodes = controllersPerLevel
+    .expand((level) => level.map((controller) => controller.text.isEmpty ? "null" : controller.text))
+    .toList();
+  print("Extracted user nodes in BFS order: $user_nodes");
+  buildTree(user_nodes);
 }
+
+void buildTree(List<String> user_nodes) {
+  print("Building tree with user node values: $user_nodes");
+  // Implement tree building and visualizing logic here
+}
+
 
 
 
