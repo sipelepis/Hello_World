@@ -47,7 +47,12 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
         title: Text("Let's Learn Radix Sort"),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.only(
+          left: 16.0,
+          right: 16.0,
+          top: 16.0,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 16.0, // Add padding dynamically
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -70,6 +75,11 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
                 child: Center(child: Text('Failed to load video.')),
               ),
             SizedBox(height: 20),
+            Text(
+              'Radix Sort',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
             detailedExplanationText(),
           ],
         ),
@@ -89,5 +99,3 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
     );
   }
 }
-
-
