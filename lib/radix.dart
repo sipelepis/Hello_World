@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(MaterialApp(
+    initialRoute: '/',
+    routes: {
+      '/': (context) => RadixSortAnswerPage(),
+      '/visualization': (context) => RadixSortPage(),
+    },
+  ));
+}
+
 class RadixSortPage extends StatefulWidget {
   const RadixSortPage({Key? key}) : super(key: key);
 
@@ -11,7 +21,7 @@ class _RadixSortPageState extends State<RadixSortPage> {
   List<List<int>> steps = [];
   TextEditingController inputController = TextEditingController();
   bool isSorting = false;
-  bool showVisualization = false; // Set visualization to false initially
+  int currentStepIndex = 0;
 
   @override
   void initState() {
@@ -26,15 +36,17 @@ class _RadixSortPageState extends State<RadixSortPage> {
   }
 
   void _onInputTextChanged() {
-    _sort();
+    setState(() {
+      // Reset the sorting process when input changes
+      steps.clear();
+      currentStepIndex = 0;
+    });
   }
 
   Future<void> _sort() async {
     setState(() {
       isSorting = true;
       steps.clear();
-      // Commented out the line below to ensure visualization remains hidden until the "Sort" button is clicked
-      // showVisualization = true;
     });
 
     int maxDigits = _getMaxDigits();
@@ -49,19 +61,12 @@ class _RadixSortPageState extends State<RadixSortPage> {
       setState(() {
         steps.add(List.from(sortedStep));
         currentStep = List.from(sortedStep);
+        currentStepIndex++; // Move to the next step
       });
     }
 
     setState(() {
       isSorting = false;
-      // showVisualization = true; // Set visualization to true when sorting is complete
-    });
-  }
-
-  Future<void> _sortvisibletrue() async {
-    setState(() {
-      // Commented out the line below to ensure visualization remains hidden until the "Sort" button is clicked
-      showVisualization = true;
     });
   }
 
@@ -107,6 +112,10 @@ class _RadixSortPageState extends State<RadixSortPage> {
     return maxDigits;
   }
 
+  void _insertAndSort() {
+    _sort(); // Start sorting process
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,26 +155,25 @@ class _RadixSortPageState extends State<RadixSortPage> {
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      steps.clear();
-                      showVisualization = false; // Set visualization to false when clearing
+                      inputController.clear();
                     });
-                    inputController.clear();
                   },
                   child: Text('Clear'),
+                ),
+                SizedBox(width: 16),
+                ElevatedButton(
+                  onPressed: _insertAndSort,
+                  child: Text('Insert'),
                 ),
               ],
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _sortvisibletrue,
-              child: Text('Sort'),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (context) => RadixSortAnswerPage(steps: steps)),
+                  '/visualization',
+                  arguments: {'steps': steps},
                 );
               },
               child: Text('Answer'),
@@ -173,114 +181,47 @@ class _RadixSortPageState extends State<RadixSortPage> {
             SizedBox(height: 16),
             Text('Radix Sort Visualization:'),
             Text(' '),
-            if (showVisualization && !isSorting) // Show visualization only when isSorting is false
+            if (steps.isNotEmpty && currentStepIndex < steps.length)
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    for (int index = 0; index < steps.length; index++)
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Step ${index + 1}:',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                for (int i = 0; i < steps[index].length; i++)
-                                  Draggable<int>(
-                                    data: steps[index][i],
-                                    child: DragTarget<int>(
-                                      builder: (BuildContext context, List<int?> candidateData, List<dynamic> rejectedData) {
-                                        return Container(
-                                          width: 50,
-                                          height: 50,
-                                          margin: const EdgeInsets.symmetric(horizontal: 5),
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            color: (index == 0 && i < steps[0].length)
-                                                ? Colors.grey
-                                                : (i + 1 >= steps[index].length ||
-                                                        steps[index][i] !=
-                                                            steps[index][i + 1])
-                                                    ? Color.fromARGB(255, 159, 225, 255)
-                                                    : Colors.red,
-                                            border: Border.all(color: Colors.black),
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: Text(
-                                            steps[index][i].toString(),
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      onAccept: (int? data) {
-                                        // Handle the dropped item
-                                      },
-                                    ),
-                                    feedback: Material(
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: (index == 0 && i < steps[0].length)
-                                              ? Colors.grey.withOpacity(0.5)
-                                              : (i + 1 >= steps[index].length ||
-                                                      steps[index][i] !=
-                                                          steps[index][i + 1])
-                                                  ? Color.fromARGB(255, 159, 225, 255)
-                                                  : Colors.red,
-                                          border: Border.all(color: Colors.black),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Text(
-                                          steps[index][i].toString(),
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    childWhenDragging: (index == 0) // Disable dragging for the first step
-                                        ? Container(
-                                            width: 50,
-                                            height: 50,
-                                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                              color: (index == 0 && i < steps[0].length)
-                                                  ? Colors.grey
-                                                  : (i + 1 >= steps[index].length ||
-                                                          steps[index][i] !=
-                                                              steps[index][i + 1])
-                                                      ? Color.fromARGB(255, 159, 225, 255)
-                                                      : Colors.red,
-                                              border: Border.all(color: Colors.black),
-                                              borderRadius: BorderRadius.circular(10),
-                                            ),
-                                            child: Text(
-                                              steps[index][i].toString(),
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                              ),
-                                            ),
-                                          )
-                                        : null, // For other steps, allow dragging
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Step ${currentStepIndex + 1}:',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              for (int i = 0; i < steps[currentStepIndex].length; i++)
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                              ],
-                            ),
+                                  child: Text(
+                                    steps[currentStepIndex][i].toString(),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
-                          SizedBox(height: 10),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -292,57 +233,15 @@ class _RadixSortPageState extends State<RadixSortPage> {
 }
 
 class RadixSortAnswerPage extends StatefulWidget {
-  final List<List<int>> steps;
-
-  const RadixSortAnswerPage({Key? key, required this.steps}) : super(key: key);
+  const RadixSortAnswerPage({Key? key}) : super(key: key);
 
   @override
-  _RadixSortAnswerPageState createState() => _RadixSortAnswerPageState();
+  State<RadixSortAnswerPage> createState() => _RadixSortAnswerPageState();
 }
 
 class _RadixSortAnswerPageState extends State<RadixSortAnswerPage> {
-  List<List<int?>> filledSteps = [];
-  List<bool> isCorrectStep = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _fillSteps();
-  }
-
-  void _fillSteps() {
-    filledSteps.add(widget.steps[0].map((e) => e as int?).toList());
-    isCorrectStep.add(true); // Assume correct initially for the first step
-    for (int i = 1; i < widget.steps.length; i++) {
-      List<int?> step = List.filled(widget.steps[i].length, null);
-      filledSteps.add(step);
-      isCorrectStep.add(true); // Assume correct initially for other steps
-    }
-  }
-
-  void _checkAnswer() {
-    for (int i = 0; i < widget.steps.length; i++) {
-      isCorrectStep[i] = _isCorrectStep(i);
-    }
-    setState(() {});
-  }
-
-  bool _isCorrectStep(int stepIndex) {
-    List<int?> currentStep = filledSteps[stepIndex];
-    List<int> visualizationStep = widget.steps[stepIndex];
-
-    if (currentStep.length != visualizationStep.length) {
-      return false;
-    }
-
-    for (int j = 0; j < currentStep.length; j++) {
-      if (currentStep[j] != visualizationStep[j]) {
-        return false;
-      }
-    }
-
-    return true;
-  }
+  List<int> filledSteps = [];
+  List<int> sortedList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -362,117 +261,47 @@ class _RadixSortAnswerPageState extends State<RadixSortAnswerPage> {
             SizedBox(height: 16),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  for (int index = 0; index < filledSteps.length; index++)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Step ${index + 1}:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                  for (int i = 0; i < sortedList.length; i++)
+                    Container(
+                      width: 50,
+                      height: 50,
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: sortedList[i] == filledSteps[i] ? Colors.green : Colors.red,
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        sortedList[i].toString(),
+                        style: TextStyle(
+                          fontSize: 20,
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              for (int i = 0; i < filledSteps[index].length; i++)
-                                Draggable<int>(
-                                  data: filledSteps[index][i],
-                                  child: DragTarget<int>(
-                                    builder: (BuildContext context, List<int?> candidateData, List<dynamic> rejectedData) {
-                                      return Container(
-                                        width: 50,
-                                        height: 50,
-                                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: isCorrectStep[index] ? Colors.grey : (filledSteps[index][i] != widget.steps[index][i] ? Colors.red : Colors.transparent), // Change color based on correctness
-                                          border: Border.all(color: Colors.black),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Text(
-                                          filledSteps[index][i]?.toString() ?? '',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    onAccept: (int? data) {
-                                      if (index != 0) {
-                                        setState(() {
-                                          filledSteps[index][i] = data;
-                                        });
-                                      }
-                                    },
-                                  ),
-                                  feedback: Material(
-                                    child: Container(
-                                      width: 50,
-                                      height: 50,
-                                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: isCorrectStep[index] ? Colors.grey.withOpacity(0.5) : (filledSteps[index][i] != widget.steps[index][i] ? Colors.red.withOpacity(0.5) : Colors.transparent), // Change color based on correctness
-                                        border: Border.all(color: Colors.black),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Text(
-                                        filledSteps[index][i]?.toString() ?? '',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  childWhenDragging: (index == 0) // Disable dragging for the first step
-                                      ? Container(
-                                          width: 50,
-                                          height: 50,
-                                          margin: const EdgeInsets.symmetric(horizontal: 5),
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            color: isCorrectStep[index] ? Colors.grey : (filledSteps[index][i] != widget.steps[index][i] ? Colors.red : Colors.transparent), // Change color based on correctness
-                                            border: Border.all(color: Colors.black),
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: Text(
-                                            filledSteps[index][i]?.toString() ?? '',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                        )
-                                      : null, // For other steps, allow dragging
-                                )
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                      ],
+                      ),
                     ),
                 ],
               ),
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _checkAnswer,
+              onPressed: () {
+                // Implement logic to check the answer
+              },
               child: Text('Check'),
             ),
             SizedBox(height: 16),
-            isCorrectStep.every((element) => element) ? Text('Correct') : Text('Wrong answer'),
+            ElevatedButton(
+              onPressed: () {
+                // Clear answer and go back
+                Navigator.pop(context);
+              },
+              child: Text('Clear Answer'),
+            ),
           ],
         ),
       ),
     );
   }
-}
-
-
-void main() {
-  runApp(MaterialApp(
-    home: RadixSortPage(),
-  ));
 }
