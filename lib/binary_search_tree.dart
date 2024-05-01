@@ -805,17 +805,6 @@ void _insertNodeRecursive(TreeNode node, int value) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 void _inOrderTraversal(TreeNode node) {
   if (node.left != null) {
     _inOrderTraversal(node.left!);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flick_video_player/flick_video_player.dart';
+import 'package:flutterapp/choiceB/RadixQuiz.dart';
 
 class RadixSortScreen extends StatefulWidget {
   @override
@@ -81,6 +82,17 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
             ),
             SizedBox(height: 20),
             detailedExplanationText(),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to the QuizPage
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RadixQuiz()),
+                );
+              },
+              child: Text('Play Quiz'),
+            ),
           ],
         ),
       ),
