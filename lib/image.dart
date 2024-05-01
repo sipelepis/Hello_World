@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
             setState(() {
               selectedMedia = data;
             });
-            String? text = await _extractText(data!);
+            String? text = await _extractText(data);
             if (text != null) {
               _compareText(text);
             }
