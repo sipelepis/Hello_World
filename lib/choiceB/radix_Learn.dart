@@ -19,7 +19,7 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
       ..initialize().then((_) {
         setState(() {
           _isLoading = false;
-          _controller.play();
+          // Removed the play method to stop autoplay
         });
         flickManager = FlickManager(
           videoPlayerController: _controller,
@@ -51,7 +51,7 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
           left: 16.0,
           right: 16.0,
           top: 16.0,
-          bottom: MediaQuery.of(context).viewInsets.bottom + 16.0, // Add padding dynamically
+          bottom: MediaQuery.of(context).viewInsets.bottom + 16.0,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
