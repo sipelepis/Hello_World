@@ -30,10 +30,19 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('lib/assets/radix_sort.mp4')
+    _controller = VideoPlayerController.asset('assets/RadixVidSort.mp4')
       ..initialize().then((_) {
+        if (mounted) {  // Check if the widget is still in the tree
+          setState(() {
+            _isLoading = false; // Set loading to false when video is ready
+          });
+          _controller.play(); // Start playing the video as soon as it's ready
+        }
+      }).catchError((error) {
+        // Handle errors, perhaps by showing an error message
+        print('Error initializing video player: $error');
         setState(() {
-          _isLoading = false; // Set loading to false when video is ready
+          _isLoading = false;
         });
       });
     _controller.setLooping(true);
@@ -62,10 +71,15 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
                 height: 200, // Display a loading placeholder
                 child: Center(child: CircularProgressIndicator()),
               )
-            else
+            else if (_controller.value.isInitialized)  // Check if the controller is initialized
               AspectRatio(
                 aspectRatio: _controller.value.aspectRatio,
                 child: VideoPlayer(_controller),
+              )
+            else
+              Container(
+                height: 200,
+                child: Center(child: Text('Failed to load video.')),
               ),
             SizedBox(height: 20),
             Text(

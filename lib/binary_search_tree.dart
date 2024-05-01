@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'dart:math';
+import 'dart:collection'; 
 
 
 
@@ -147,7 +148,7 @@ class TreePainter extends CustomPainter {
 class _BinarySearchPageState extends State<BinarySearchPage> with WidgetsBindingObserver  {
   TextEditingController givenController = TextEditingController();
 
-  
+  String _missingNodes = ''; 
   TreeNode? _root;
   TextEditingController _numberController = TextEditingController();
   List<int> _nodeValues = []; // New list to store node values
@@ -217,12 +218,12 @@ class _BinarySearchPageState extends State<BinarySearchPage> with WidgetsBinding
           children: [
             TextField(
               controller: _numberController,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9]')), // Allow only numbers
               ],
               decoration: InputDecoration(
-                labelText: 'Enter values (Numbers Only)',
+                labelText: 'Enter values (Numbers Only.)',
               ),
             ),
             SizedBox(height: 10), // Add spacing between the TextField and buttons
@@ -257,7 +258,7 @@ class _BinarySearchPageState extends State<BinarySearchPage> with WidgetsBinding
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                   onPressed: () {
@@ -265,16 +266,18 @@ class _BinarySearchPageState extends State<BinarySearchPage> with WidgetsBinding
                   },
                   child: Text('Import Through Image'),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                     info();
+                  },
+                  child: Text('How to Use'),
+                ),
               ],
             ),
             SizedBox(height: 20),
             Text(
               'Given: $_nodeValues',
-              style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold, // Making the text bold
-                        fontSize: 16, // Increasing the font size
-                      ),
+              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 30),
@@ -295,6 +298,11 @@ class _BinarySearchPageState extends State<BinarySearchPage> with WidgetsBinding
               ),
             ),
             SizedBox(height: 16),
+            Text(
+              _missingNodes.isNotEmpty ? _missingNodes : '',
+              style: TextStyle(color:  Colors.red, fontWeight: FontWeight.bold, fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -349,11 +357,7 @@ void showCamera() {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text('Images'),
-              ),
-              TextButton(
+              ElevatedButton(
                 onPressed: () async {
                   try {
                     // Ensure the camera is focused before capturing the image.
@@ -367,10 +371,20 @@ void showCamera() {
                 },
                 child: Text('Capture Text'),
               ),
-              TextButton(
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              // TextButton(
+              //   onPressed: () => Navigator.of(context).pop(),
+              //   child: Text('Images'),
+              // ),
+              ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text('Cancel'),
               ),
+              SizedBox(width: 22),
             ],
           ),
         ],
@@ -567,14 +581,6 @@ void updateNodeByIndex(TreeNode? node, int index, int newValue) {
   updateNodeByIndex(node.right, index, newValue);
 }
 
-
-
-
-
-
-
-
-
 int? _convertToInteger(String value) {
   // Convert letters to their corresponding values
   if (RegExp(r'^[a-z]+$').hasMatch(value)) {
@@ -583,28 +589,12 @@ int? _convertToInteger(String value) {
     return int.tryParse(value);
   }
 }
-
-bool _isValidInput(String value) {
-  // Check if the value is a valid number
-  return RegExp(r'^[0-9]*$').hasMatch(value);
-}
-
-
-
-
-
-
-
-
-
-
-
   bool _isTreeSorted = true; // Variable to track if the tree is sorted
   bool _isAnyNodeIncorrect = false;
 
 void checkTree() {
   // Construct the correct binary search tree
-  print("$_nodeValues");
+  print("Node values: $_nodeValues");
   TreeNode? correctTreeRoot = constructCorrectTree();
 
   // Compare the user-made tree with the correct tree and update node colors
@@ -612,11 +602,35 @@ void checkTree() {
 
   bool anyNodeIncorrect = checkIfAnyNodeIncorrect(_root);
 
+  // Gather all values from the constructed tree for comparison
+  Set<int> treeValues = gatherTreeValues(_root);
+  Set<int> expectedValues = _nodeValues.toSet();
+
+  // Find missing values (expected but not found in the tree)
+  Set<int> missingValues = expectedValues.difference(treeValues);
+
+  // Find extra values (found in the tree but not expected)
+  Set<int> extraValues = treeValues.difference(expectedValues);
+
+  // Update state to trigger UI changes
   setState(() {
-    // Check if the user-made tree is sorted
     _isTreeSorted = _checkTreeSorted(_root);
     _isAnyNodeIncorrect = anyNodeIncorrect;
+    _missingNodes = formatDiscrepancies(missingValues, extraValues); // Prepare text for display
   });
+}
+
+String formatDiscrepancies(Set<int> missing, Set<int> extra) {
+  String missingText = missing.isEmpty ? '' : 'Missing Nodes: ${missing.join(", ")}';
+  String extraText = extra.isEmpty ? '' : 'Nodes not in the given: ${extra.join(", ")}';
+  return (missingText + (missingText.isNotEmpty && extraText.isNotEmpty ? '\n' : '') + extraText).trim();
+}
+
+
+Set<int> gatherTreeValues(TreeNode? node) {
+  if (node == null) return {};
+  return {node.value}..addAll(gatherTreeValues(node.left))..addAll(gatherTreeValues(node.right));
+  
 }
 
 bool checkIfAnyNodeIncorrect(TreeNode? node) {
@@ -628,6 +642,7 @@ bool checkIfAnyNodeIncorrect(TreeNode? node) {
   }
 
   // Recursively check left and right subtrees
+
   return checkIfAnyNodeIncorrect(node.left) || checkIfAnyNodeIncorrect(node.right);
 }
 
@@ -729,10 +744,6 @@ void colorIncorrectChildren(TreeNode? userNode, TreeNode? correctNode) {
   
 }
 
-
-
-
-
 bool _checkTreeSorted(TreeNode? node) {
   if (node == null) return true;
 
@@ -744,14 +755,6 @@ bool _checkTreeSorted(TreeNode? node) {
 
   return leftSorted && rightSorted;
 }
-
-
-
-
-
-
-
-
 
 void sortTree() {
   _isTreeSorted = true;
@@ -1031,7 +1034,16 @@ void _captureAndRecognizeText() async {
     levelCount,
     (level) => List.generate(
       pow(2, level).toInt(),
-      (_) => TextEditingController(text: level < lines.length ? lines[level] : ''),
+      (index) {
+        String text = '';
+        if (level < lines.length) {
+          List<String> parts = lines[level].split(RegExp(r'[\s,]+'));
+          if (index < parts.length && parts[index].isNotEmpty) {
+            text = parts[index];
+          }
+        }
+        return TextEditingController(text: text);
+      },
       growable: false
     ),
     growable: true
@@ -1065,7 +1077,7 @@ void _captureAndRecognizeText() async {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () {
                       if (controllersPerLevel.length > 1) {
                         setState(() => controllersPerLevel.removeLast());
@@ -1073,7 +1085,7 @@ void _captureAndRecognizeText() async {
                     },
                     child: Text('Remove Level')
                   ),
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () {
                       int newLevelIndex = controllersPerLevel.length;
                       List<TextEditingController> newLevelControllers = List.generate(
@@ -1090,14 +1102,17 @@ void _captureAndRecognizeText() async {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text('Cancel')
                   ),
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () {
-                      extractNodeValues(controllersPerLevel);
-                      Navigator.of(context).pop();
+                      List<String> values = givenController.text.split(RegExp(r'[\s,]+')).where((value) => value.isNotEmpty).toList();
+                      _nodeValues.clear();
+                      _nodeValues.addAll(values.map(int.parse).toList());
+                      extractNodeValues(controllersPerLevel, context);
+                      
                     },
                     child: Text('Save')
                   ),
@@ -1111,29 +1126,243 @@ void _captureAndRecognizeText() async {
   );
 }
 
-void extractNodeValues(List<List<TextEditingController>> controllersPerLevel) {
-  List<String> user_nodes = controllersPerLevel
-    .expand((level) => level.map((controller) => controller.text.isEmpty ? "null" : controller.text))
-    .toList();
-  print("Extracted user nodes in BFS order: $user_nodes");
-  buildTree(user_nodes);
+void extractNodeValues(List<List<TextEditingController>> controllersPerLevel, BuildContext dialogContext) {
+  List<String?> user_nodes = controllersPerLevel
+      .expand((level) => level.map((controller) => controller.text.isEmpty ? null : controller.text))
+      .toList();
+
+  Set<String> nonNullUserNodes = user_nodes.where((node) => node != null).map((node) => node!).toSet();
+  Set<String> nonNullGivenNodes = _nodeValues.map((value) => value.toString()).toSet();
+
+  bool discrepanciesExist = nonNullUserNodes.difference(nonNullGivenNodes).isNotEmpty ||
+                            nonNullGivenNodes.difference(nonNullUserNodes).isNotEmpty;
+
+  String message = "Review discrepancies before proceeding.\n";
+  if (discrepanciesExist) {
+    message += 'Discrepancies detected:\n';
+    if (nonNullUserNodes.difference(nonNullGivenNodes).isNotEmpty) {
+      message += 'Extra node(s) in user input: ${nonNullUserNodes.difference(nonNullGivenNodes).join(", ")}.\n';
+    }
+    if (nonNullGivenNodes.difference(nonNullUserNodes).isNotEmpty) {
+      message += 'Missing node(s) in user input that are in given: ${nonNullGivenNodes.difference(nonNullUserNodes).join(", ")}.\n';
+    }
+
+    showOverlayAlert(dialogContext, message, user_nodes);
+  } else {
+    print("No discrepancies, proceeding with tree building.");
+    buildTree(user_nodes);
+  }
 }
 
-void buildTree(List<String> user_nodes) {
+void showOverlayAlert(BuildContext context, String message, List<String?> user_nodes) {
+  late OverlayEntry overlayEntry; // Declare it as late so it can be initialized later
+
+  overlayEntry = OverlayEntry(
+    builder: (context) => Positioned(
+      top: MediaQuery.of(context).size.height * 0.3, // Positioned in the middle of the screen vertically
+      left: 20,
+      right: 20,
+      child: Material(
+        elevation: 5.0,
+        child: Container(
+          padding: EdgeInsets.all(20),
+          color: Colors.white,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Node Discrepancy Detected', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              SizedBox(height: 20),
+              Text(message, style: TextStyle(fontSize: 16)),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      
+                      overlayEntry.remove(); // Close the overlay
+                      buildTree(user_nodes); 
+                      Navigator.of(context).pop();// Proceed to build the tree despite discrepancies
+                    },
+                    child: Text('Proceed Anyway'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      overlayEntry.remove(); // Close the overlay and allow further editing
+                    },
+                    child: Text('Keep Editing'),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    )
+  );
+
+  Overlay.of(context).insert(overlayEntry); // Insert the overlay into the overlay of the context
+}
+
+
+void buildTree(List<String?> user_nodes) {
   print("Building tree with user node values: $user_nodes");
-  // Implement tree building and visualizing logic here
+  _root = null; // Clearing the previous tree
+
+  if (user_nodes.isNotEmpty && user_nodes[0] != null) {
+    _root = TreeNode(user_nodes[0], int.parse(user_nodes[0]!), 0);
+    
+    Queue<TreeNode> queue = Queue<TreeNode>(); // Using Queue from dart:collection
+    if (_root != null) {
+      queue.add(_root!); // Safely add _root to the queue after checking it's not null
+    }
+
+    int index = 1; // Start from the second element in user_nodes
+
+    while (queue.isNotEmpty && index < user_nodes.length) {
+      TreeNode currentNode = queue.removeFirst();
+
+      // Left child
+      if (index < user_nodes.length && user_nodes[index] != null) {
+        currentNode.left = TreeNode(user_nodes[index], int.parse(user_nodes[index]!), currentNode.index * 2 + 1);
+        queue.add(currentNode.left!); // currentNode.left is guaranteed non-null here
+      }
+      index++;
+
+      // Right child
+      if (index < user_nodes.length && user_nodes[index] != null) {
+        currentNode.right = TreeNode(user_nodes[index], int.parse(user_nodes[index]!), currentNode.index * 2 + 2);
+        queue.add(currentNode.right!); // currentNode.right is guaranteed non-null here
+      }
+      index++;
+    }
+  }
+
+  setState(() {
+    // Trigger a rebuild to update the tree visualization
+  });
 }
 
-
-
-
-
-
-
-
-
-
-
+void info() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('How to Use'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'To build your tree, follow these steps:',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text(
+                '1. Enter numerical values into the text field.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                '2. Your first entry becomes the root of the tree.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                '3. Each subsequent value will be positioned within the tree structure.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Additional features:',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text(
+                '- You can only input one value at a time.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                '- Edit or delete any node within the tree.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'To manage your tree:',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text(
+                '- Click "Clear Tree" to start over.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                '- Use "Check" to verify the correctness of your tree.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                '- If incorrect, a "Sort" button will appear to help you fix it.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'To import through image:',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text(
+                '1. Click "Import Through Image" to open the camera.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                '2. Click "Capture Text" and stay still for about 10 seconds for better capturing.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              Text(
+                '3. A modal will appear containing the scanned text. Edit the values as needed, then click "Save" to visualize the tree. You can further edit the tree in the visualization.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Additional features for Extracted text:',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text(
+                '- You can add or delete a row containing node values.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+}
 
 
 }
