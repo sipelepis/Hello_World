@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/choiceB/radix_Learn.dart';
+
+ // Ensure this is at the top if RadixSortPage is in the same file
+
+void main() {
+  runApp(const CL2HOME());
+}
 
 // Define the algorithm categories
-enum AlgorithmCategory {
-  sorting,
-  graph,
-  tree,
-  dataStructure,
-  other
-}
+enum AlgorithmCategory { sorting, graph, tree, dataStructure, other }
 
 // Algorithm data class with category
 class Algorithm {
@@ -40,72 +41,77 @@ class _CL2HOMEState extends State<CL2HOME> {
     // Add more items and categories as needed
   ];
 
- @override
-Widget build(BuildContext context) {
-  return MaterialApp(
-    theme: ThemeData(
-      primaryColor: const Color.fromARGB(255, 65, 65, 71), // Gray color for primary theme
-    ),
-    home: Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 19, 111, 2), // Gray background color for AppBar
-        title: const Text(
-          "Let's Learn Algorithm",
-          style: TextStyle(color: Colors.white), // Set text color to white
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: const Color.fromARGB(255, 65, 65, 71),
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 19, 111, 2),
+          title: const Text(
+            "Let's Learn Algorithm",
+            style: TextStyle(color: Colors.white),
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => Navigator.of(context).maybePop(),
+          ),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white), // Set icon color to white
-          onPressed: () => Navigator.of(context).maybePop(),
+        body: ListView(
+          children: AlgorithmCategory.values
+              .map((category) => _buildCategorySection(category))
+              .toList(),
         ),
       ),
-      body: ListView(
-        children: AlgorithmCategory.values.map((category) => _buildCategorySection(category)).toList(),
-      ),
-    ),
-  );
-}
+    );
+  }
 
-
-  // Builds a section for each category with its respective algorithms
   Widget _buildCategorySection(AlgorithmCategory category) {
-    List<Algorithm> categoryAlgorithms = algorithms.where((a) => a.category == category).toList();
+    List<Algorithm> categoryAlgorithms =
+        algorithms.where((a) => a.category == category).toList();
     String categoryName = category.toString().split('.').last;
-    categoryName = '${categoryName[0].toUpperCase()}${categoryName.substring(1)}';
+    categoryName =
+        '${categoryName[0].toUpperCase()}${categoryName.substring(1)}';
 
     return ExpansionTile(
       title: Text('$categoryName Algorithms'),
-      initiallyExpanded: category == AlgorithmCategory.sorting, // Automatically expand the sorting category
-      children: categoryAlgorithms.map((algo) => ListTile(
-        title: Text(algo.name),
-        onTap: () {
-          // Implement navigation or further action here
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text('Want to continue?'),
-              content: Text('${algo.name} has been selected.'),
-              actions: [
-                ElevatedButton(
-                  child: const Text('Continue'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 65, 65, 71)), // Button color as gray
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                        const Color.fromARGB(255, 255, 255, 255)), // Text color as white
-                  ),
-                )
-              ],
-            ),
-          );
-        },
-      )).toList(),
+      initiallyExpanded: category == AlgorithmCategory.sorting,
+      children: categoryAlgorithms
+          .map((algo) => ListTile(
+                title: Text(algo.name),
+                onTap: () {
+                  if (algo.name == "Radix Sort") {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => RadixSortPage()));
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: Text('Want to continue?'),
+                        content: Text('${algo.name} has been selected.'),
+                        actions: [
+                          ElevatedButton(
+                            child: const Text('Continue'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              // Here you might navigate to a generic detail page for other algorithms
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color.fromARGB(255, 65, 65, 71)),
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  const Color.fromARGB(255, 255, 255, 255)),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ))
+          .toList(),
     );
   }
-}
-
-void main() {
-  runApp(const CL2HOME());
 }
