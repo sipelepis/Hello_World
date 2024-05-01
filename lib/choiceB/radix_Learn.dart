@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flick_video_player/flick_video_player.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flick_video_player/flick_video_player.dart';
 
 class RadixSortScreen extends StatefulWidget {
   @override
@@ -8,19 +8,35 @@ class RadixSortScreen extends StatefulWidget {
 }
 
 class _RadixSortScreenState extends State<RadixSortScreen> {
+  late VideoPlayerController _controller;
   late FlickManager flickManager;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    flickManager = FlickManager(
-      videoPlayerController: VideoPlayerController.asset('assets/RadixVidSort.mp4'),
-    );
+    _controller = VideoPlayerController.asset('assets/RadixVidSort.mp4')
+      ..initialize().then((_) {
+        setState(() {
+          _isLoading = false;
+          _controller.play();
+        });
+        flickManager = FlickManager(
+          videoPlayerController: _controller,
+        );
+      }).catchError((error) {
+        print('Error initializing video player: $error');
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    _controller.setLooping(true);
   }
 
   @override
   void dispose() {
     flickManager.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -36,20 +52,25 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              height: 200, // Set the height for the video player
-              child: FlickVideoPlayer(flickManager: flickManager),
-            ),
+            if (_isLoading)
+              Container(
+                height: 200,
+                child: Center(child: CircularProgressIndicator()),
+              )
+            else if (_controller.value.isInitialized)
+              AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: FlickVideoPlayer(
+                  flickManager: flickManager,
+                ),
+              )
+            else
+              Container(
+                height: 200,
+                child: Center(child: Text('Failed to load video.')),
+              ),
             SizedBox(height: 20),
-            Text(
-              'Radix Sort',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: detailedExplanationText(),
-            ),
+            detailedExplanationText(),
           ],
         ),
       ),
@@ -68,3 +89,5 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
     );
   }
 }
+
+
