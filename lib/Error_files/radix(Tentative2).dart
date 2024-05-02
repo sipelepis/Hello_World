@@ -34,7 +34,7 @@ class _RadixSortPageState extends State<RadixSortPage> {
       isSorting = true;
       steps.clear();
       // Commented out the line below to ensure visualization remains hidden until the "Sort" button is clicked
-      // showVisualization = true;
+      showVisualization = true;
     });
 
     int maxDigits = _getMaxDigits();
@@ -54,7 +54,7 @@ class _RadixSortPageState extends State<RadixSortPage> {
 
     setState(() {
       isSorting = false;
-      // showVisualization = true; // Set visualization to true when sorting is complete
+      showVisualization = true; // Set visualization to true when sorting is complete
     });
   }
 
@@ -228,7 +228,6 @@ class _RadixSortPageState extends State<RadixSortPage> {
     );
   }
 }
-
 
 class RadixSortAnswerPage extends StatefulWidget {
   final List<List<int>> steps;
