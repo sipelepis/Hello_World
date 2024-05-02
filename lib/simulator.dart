@@ -77,7 +77,11 @@ class _simPageState extends State<simPage> {
 
   Widget _buildCategoryWidget(int categoryIndex) {
     // Define your category widgets here
-    List<String> categories = ['Sorting Algorithms', 'Graph Algorithms', 'Data Structures'];
+    List<String> categories = [
+      'Sorting Algorithms',
+      'Graph Algorithms',
+      'Data Structures'
+    ];
     List<List<Widget>> categoryWidgets = [
       [
         radix(),
@@ -92,7 +96,6 @@ class _simPageState extends State<simPage> {
         stacks(),
         Queues(),
         binary_search(),
-        img(),
       ],
     ];
 
@@ -107,7 +110,8 @@ class _simPageState extends State<simPage> {
             textAlign: TextAlign.center,
           ),
         ),
-        Center( // Wrap the category's Column with Center
+        Center(
+          // Wrap the category's Column with Center
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: categoryWidgets[categoryIndex],
@@ -118,25 +122,21 @@ class _simPageState extends State<simPage> {
   }
 }
 
-  // Widget _buildSimulatorWidget(int index) {
-  //   // Define your simulator widgets here
-  //   List<Widget> simulators = [
-  //     radix(),
-  //     merge(),
-  //     insertion(),
-  //     binary_search(),
-  //     breadth_first(),
-  //     depth_first(),
-  //     stacks(),
-  //     Queues(),
-  //   ];
+// Widget _buildSimulatorWidget(int index) {
+//   // Define your simulator widgets here
+//   List<Widget> simulators = [
+//     radix(),
+//     merge(),
+//     insertion(),
+//     binary_search(),
+//     breadth_first(),
+//     depth_first(),
+//     stacks(),
+//     Queues(),
+//   ];
 
-  //   return simulators[index];
-  // }
-
-
-
-
+//   return simulators[index];
+// }
 
 class radix extends StatefulWidget {
   const radix({super.key});
@@ -150,7 +150,8 @@ class _radixState extends State<radix> {
       "Radix sort is a non-comparative sorting algorithm that sorts integers by processing their digits from the least significant to the most significant, efficiently arranging them into the correct order.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => RadixSortPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => RadixSortPage()));
   }
 
   @override
@@ -160,7 +161,8 @@ class _radixState extends State<radix> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Radix Sort",
                 style: TextStyle(fontSize: 20),
@@ -186,7 +188,6 @@ class _radixState extends State<radix> {
                 foregroundColor: MaterialStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-
               onPressed: this.click,
               child: Container(
                 child: Text(
@@ -199,8 +200,7 @@ class _radixState extends State<radix> {
               ),
             ),
           ],
-        )
-      );
+        ));
   }
 }
 
@@ -216,7 +216,8 @@ class _mergeState extends State<merge> {
       "Merge sort is a comparison-based sorting algorithm that divides the unsorted list into smaller sublists, recursively sorts them, and then merges the sorted sublists to produce a sorted output.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MergeSortPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MergeSortPage()));
   }
 
   @override
@@ -226,7 +227,8 @@ class _mergeState extends State<merge> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Merge Sort",
                 style: TextStyle(fontSize: 20),
@@ -252,7 +254,6 @@ class _mergeState extends State<merge> {
                 foregroundColor: MaterialStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-
               onPressed: this.click,
               child: Container(
                 child: Text(
@@ -265,8 +266,7 @@ class _mergeState extends State<merge> {
               ),
             ),
           ],
-        )
-      );
+        ));
   }
 }
 
@@ -282,7 +282,8 @@ class _insertionState extends State<insertion> {
       "Insertion sort is a simple sorting algorithm that builds the final sorted list one element at a time by repeatedly inserting the next element into the proper position in the already sorted part of the list.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => InsertionSortPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => InsertionSortPage()));
   }
 
   @override
@@ -292,7 +293,8 @@ class _insertionState extends State<insertion> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Insertion Sort",
                 style: TextStyle(fontSize: 20),
@@ -318,7 +320,6 @@ class _insertionState extends State<insertion> {
                 foregroundColor: MaterialStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-
               onPressed: this.click,
               child: Container(
                 child: Text(
@@ -331,8 +332,7 @@ class _insertionState extends State<insertion> {
               ),
             ),
           ],
-        )
-      );
+        ));
   }
 }
 
@@ -348,7 +348,8 @@ class _binary_searchState extends State<binary_search> {
       "Binary search trees (BSTs) are a data structure that organizes elements in a tree-like structure, where each node has at most two children and the left child is less than the parent, while the right child is greater, enabling efficient search, insertion, and deletion operations.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => BinarySearchPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => BinarySearchPage()));
   }
 
   @override
@@ -358,7 +359,8 @@ class _binary_searchState extends State<binary_search> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Binary Search Tree",
                 style: TextStyle(fontSize: 20),
@@ -384,7 +386,6 @@ class _binary_searchState extends State<binary_search> {
                 foregroundColor: MaterialStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-
               onPressed: this.click,
               child: Container(
                 child: Text(
@@ -397,8 +398,7 @@ class _binary_searchState extends State<binary_search> {
               ),
             ),
           ],
-        )
-      );
+        ));
   }
 }
 
@@ -414,7 +414,8 @@ class _breadth_firstState extends State<breadth_first> {
       "Breadth-first search (BFS) is a graph traversal algorithm that explores all neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => BreadthFirstPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => BreadthFirstPage()));
   }
 
   @override
@@ -424,7 +425,8 @@ class _breadth_firstState extends State<breadth_first> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Breadth-first Algorithm",
                 style: TextStyle(fontSize: 20),
@@ -450,7 +452,6 @@ class _breadth_firstState extends State<breadth_first> {
                 foregroundColor: MaterialStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-
               onPressed: this.click,
               child: Container(
                 child: Text(
@@ -463,8 +464,7 @@ class _breadth_firstState extends State<breadth_first> {
               ),
             ),
           ],
-        )
-      );
+        ));
   }
 }
 
@@ -480,7 +480,8 @@ class _depth_firstState extends State<depth_first> {
       "Depth-first search (DFS) is a graph traversal algorithm that explores as far as possible along each branch before backtracking.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => DepthFirstPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DepthFirstPage()));
   }
 
   @override
@@ -490,7 +491,8 @@ class _depth_firstState extends State<depth_first> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Depth-First Algorithm",
                 style: TextStyle(fontSize: 20),
@@ -516,7 +518,6 @@ class _depth_firstState extends State<depth_first> {
                 foregroundColor: MaterialStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-
               onPressed: this.click,
               child: Container(
                 child: Text(
@@ -529,11 +530,9 @@ class _depth_firstState extends State<depth_first> {
               ),
             ),
           ],
-        )
-      );
+        ));
   }
 }
-
 
 class stacks extends StatefulWidget {
   const stacks({super.key});
@@ -547,7 +546,8 @@ class _stacksState extends State<stacks> {
       "Stacks are a data structure that follows the Last In, First Out (LIFO) principle, where elements are inserted and removed from the same end, typically used for managing function calls, parsing expressions, and backtracking.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => StacksPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => StacksPage()));
   }
 
   @override
@@ -557,7 +557,8 @@ class _stacksState extends State<stacks> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Stacks",
                 style: TextStyle(fontSize: 20),
@@ -583,7 +584,6 @@ class _stacksState extends State<stacks> {
                 foregroundColor: MaterialStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-
               onPressed: this.click,
               child: Container(
                 child: Text(
@@ -596,8 +596,7 @@ class _stacksState extends State<stacks> {
               ),
             ),
           ],
-        )
-      );
+        ));
   }
 }
 
@@ -613,7 +612,8 @@ class _QueuesState extends State<Queues> {
       "Queues are a data structure that follows the First In, First Out (FIFO) principle, where elements are inserted at the rear and removed from the front, commonly used in task scheduling, breadth-first search, and implementing caches.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => QueuesPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => QueuesPage()));
   }
 
   @override
@@ -623,7 +623,8 @@ class _QueuesState extends State<Queues> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "Queues",
                 style: TextStyle(fontSize: 20),
@@ -649,7 +650,6 @@ class _QueuesState extends State<Queues> {
                 foregroundColor: MaterialStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-
               onPressed: this.click,
               child: Container(
                 child: Text(
@@ -662,8 +662,7 @@ class _QueuesState extends State<Queues> {
               ),
             ),
           ],
-        )
-      );
+        ));
   }
 }
 
@@ -677,8 +676,7 @@ class img extends StatefulWidget {
 }
 
 class _imgState extends State<img> {
-  String text =
-      "Palagay ng explanation ni img.";
+  String text = "Palagay ng explanation ni img.";
 
   void click() {
     // Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
@@ -691,7 +689,8 @@ class _imgState extends State<img> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0), // Adjust the value as needed
+              padding: EdgeInsets.fromLTRB(
+                  0, 10, 0, 0), // Adjust the value as needed
               child: Text(
                 "img",
                 style: TextStyle(fontSize: 20),
@@ -717,7 +716,6 @@ class _imgState extends State<img> {
                 foregroundColor: MaterialStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-
               onPressed: this.click,
               child: Container(
                 child: Text(
@@ -730,7 +728,6 @@ class _imgState extends State<img> {
               ),
             ),
           ],
-        )
-      );
+        ));
   }
 }
