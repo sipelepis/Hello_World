@@ -13,11 +13,11 @@ class _L2HOMEState extends State<L2HOME> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('AL-GO!'),),  
-      body: 
-          LayoutBuilder(
+      appBar: AppBar(
+        title: Text('AL-GO!'),
+      ),
+      body: LayoutBuilder(
         builder: (context, constraints) {
-          
           bool isPortrait = constraints.maxWidth < constraints.maxHeight;
 
           return isPortrait
@@ -36,7 +36,9 @@ class _L2HOMEState extends State<L2HOME> {
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         clickbtnback(),
-                        SizedBox(height: 36,),
+                        SizedBox(
+                          height: 36,
+                        ),
                         clickbtn(),
                       ],
                     ),
@@ -57,18 +59,17 @@ class _L2HOMEState extends State<L2HOME> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         clickbtn(),
-                        SizedBox(width: 96,),
+                        SizedBox(
+                          width: 96,
+                        ),
                         clickbtnback(),
-
                       ],
                     ),
                   ],
                 );
         },
       ),
-      
-      
-     
+
       // body: Center(
       //   child: Column(
       //     mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +80,6 @@ class _L2HOMEState extends State<L2HOME> {
       //     ],
       //   ),
       // ),
-      
     );
   }
 }
@@ -94,7 +94,7 @@ class TextWidget extends StatelessWidget {
     return Text(
       "LET'S LEARN NOW",
       textAlign: TextAlign.start,
-      style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+      style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
     );
   }
 }
@@ -121,7 +121,6 @@ class NormalWidget extends StatelessWidget {
   }
 }
 
-
 class clickbtn extends StatefulWidget {
   const clickbtn({super.key});
 
@@ -132,32 +131,32 @@ class clickbtn extends StatefulWidget {
 class _clickbtnState extends State<clickbtn> {
   void click() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => StartPage())
-        );
+        context, MaterialPageRoute(builder: (context) => StartPage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      
       style: ButtonStyle(
-        backgroundColor:
-            MaterialStateProperty.all<Color>(Color.fromARGB(255, 255, 255, 255)),
-        foregroundColor: MaterialStateProperty.all<Color>( Color.fromARGB(255, 3, 30, 65)),
+        backgroundColor: MaterialStateProperty.all<Color>(
+            Color.fromARGB(255, 255, 255, 255)),
+        foregroundColor:
+            MaterialStateProperty.all<Color>(Color.fromARGB(255, 3, 30, 65)),
         side: MaterialStateProperty.all<BorderSide>(
           BorderSide(
             color: Colors.black, // Border color
-            width: 2.0,          // Border thickness
+            width: 2.0, // Border thickness
           ),
         ),
-        
       ),
       onPressed: this.click,
-      
+
       child: Container(
         child: Text(
           'BACK',
-          style: TextStyle(fontSize: 21,),
+          style: TextStyle(
+            fontSize: 21,
+          ),
         ),
         width: 190,
         padding: EdgeInsets.symmetric(horizontal: 12),
@@ -168,9 +167,7 @@ class _clickbtnState extends State<clickbtn> {
   }
 }
 
-
 //////////////////////////////////Button for "Continue"
-
 
 class clickbtnback extends StatefulWidget {
   const clickbtnback({super.key});
@@ -181,9 +178,7 @@ class clickbtnback extends StatefulWidget {
 
 class _clickbtnbackState extends State<clickbtnback> {
   void click() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => CL2HOME())
-        );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CL2HOME()));
   }
 
   @override

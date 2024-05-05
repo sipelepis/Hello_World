@@ -6,7 +6,7 @@ class StartPage extends StatefulWidget {
   const StartPage({super.key});
 
   @override
-  State<StartPage> createState() => _StartPageState(); 
+  State<StartPage> createState() => _StartPageState();
 }
 
 class _StartPageState extends State<StartPage> {
@@ -81,8 +81,7 @@ class _SASState extends State<SAS> {
       "Let's embark on a simulation of sorting algorithms, where we can dynamically select from insertion, radix, and merge sort. The goal is to vividly visualize the step-by-step process of each sorting algorithm in action.";
 
   void click() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => simPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => simPage()));
   }
 
   @override
@@ -95,7 +94,7 @@ class _SASState extends State<SAS> {
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
-                "Sorting Algorithm Simulator",
+                "Algorithm Simulator and Validations",
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
@@ -149,7 +148,7 @@ class LLS extends StatefulWidget {
 
 class _LLSState extends State<LLS> {
   String text =
-      "Let's embark on a simulation of sorting algorithms, where we can dynamically select from insertion, radix, and merge sort. The goal is to vividly visualize the step-by-step process of each sorting algorithm in action.";
+      "An engaging educational platform tailored to demystify complex algorithms for learners of all levels. Through interactive tutorials, practical examples, and hands-on exercises, it empowers users to grasp fundamental algorithmic concepts and problem-solving strategies. ";
 
   void click() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => L2HOME()));
@@ -165,7 +164,7 @@ class _LLSState extends State<LLS> {
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
-                "Let's Learn Sorting Algorithm",
+                "Let's Learn Algorithm",
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
