@@ -221,25 +221,25 @@ Widget buildSheet() => Column(
 
 
 // Animation (new)
-class _MyHomePageStatee extends State<MyHomePage> {
-  void _openAnimationDialog(BuildContext context) {
-    showGeneralDialog(
-      context: context,
-      pageBuilder: (context, animation1, animation2) {
-        return Container();
-      },
-      transitionBuilder: (context, a1, a2, widget) {
-        return ScaleTransition(
-          scale: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
-          child: AlertDialog(
-            title: const Text('Hello'),
-            content: const Text('I am Madhi'),
-            shape: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
-              borderSide: BorderSide.none,
-            ),
-          ),
-        );
-      },
-    );
-  }
+// class _MyHomePageStatee extends State<MyHomePage> {
+//   void _openAnimationDialog(BuildContext context) {
+//     showGeneralDialog(
+//       context: context,
+//       pageBuilder: (context, animation1, animation2) {
+//         return Container();
+//       },
+//       transitionBuilder: (context, a1, a2, widget) {
+//         return ScaleTransition(
+//           scale: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+//           child: AlertDialog(
+//             title: const Text('Hello'),
+//             content: const Text('I am Madhi'),
+//             shape: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(16.0),
+//               borderSide: BorderSide.none,
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
