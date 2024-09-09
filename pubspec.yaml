@@ -16,6 +16,7 @@ dependencies:
   flick_video_player: ^0.7.0 # Check for newer version or alternative
   cupertino_icons: ^1.0.2
   csslib: ^1.0.0
+  carousel_slider: ^4.2.1
   # Replaced gallery_picker with an alternative or checked for new version
 dev_dependencies:
   flutter_test:

@@ -111,7 +111,7 @@ class clickbtn extends StatefulWidget {
 }
 
 class _clickbtnState extends State<clickbtn> {
-  void click() {
+  void click() { 
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => StartPage()));
   }
