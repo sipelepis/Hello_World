@@ -202,7 +202,7 @@ Widget buildSheet() => Column(
       ),
       onPressed: (){
         context: (context) => buildSheet();
-      }
+      },
       child: Container(
         child: Text(
           'Game',
