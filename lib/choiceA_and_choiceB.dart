@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/choiceB/continue_button.dart';
 import 'package:flutterapp/simulator.dart';
+import 'package:flutterapp/Sorting_Simulators/Sorting_Choices.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -81,7 +82,8 @@ class _SASState extends State<SAS> {
       "Let's embark on a simulation of sorting algorithms, where we can dynamically select from insertion, radix, and merge sort. The goal is to vividly visualize the step-by-step process of each sorting algorithm in action.";
 
   void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => simPage()));
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => simPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ProductCard()));
   }
 
   @override
