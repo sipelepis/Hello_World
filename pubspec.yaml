@@ -13,10 +13,11 @@ dependencies:
   permission_handler: ^11.3.1
   google_ml_kit: ^0.18.0
   video_player: ^2.4.5 
-  flick_video_player: ^0.7.0 # Check for newer version or alternative
+  flick_video_player: ^0.7.0 
   cupertino_icons: ^1.0.2
   csslib: ^1.0.0
-  # Replaced gallery_picker with an alternative or checked for new version
+  flutter_staggered_grid_view: 0.7.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
