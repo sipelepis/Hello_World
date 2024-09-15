@@ -4,12 +4,12 @@ import 'package:flutterapp/Sorting_Simulators/radix.dart';
 import 'package:flutterapp/Sorting_Simulators/insertion.dart';
 import 'package:flutterapp/Sorting_Simulators/merge.dart';
 
-import 'package:flutterapp/Data_Structures/breadth_first.dart';
-import 'package:flutterapp/Data_Structures/depth_first.dart';
-import 'package:flutterapp/Data_Structures/binary_search_tree.dart';
+import 'package:flutterapp/Graph_Simulators/breadth_first.dart';
+import 'package:flutterapp/Graph_Simulators/depth_first.dart';
+import 'package:flutterapp/Graph_Simulators/binary_search_tree.dart';
 
-import 'package:flutterapp/Graph_Simulators/stacks.dart';
-import 'package:flutterapp/Graph_Simulators/Queues.dart';
+import 'package:flutterapp/Data_Structure/stacks.dart';
+import 'package:flutterapp/Data_Structure/Queues.dart';
 
 // import 'package:flutterapp/image.dart';
 
