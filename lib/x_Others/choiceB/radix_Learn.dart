@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flick_video_player/flick_video_player.dart';
-import 'package:flutterapp/choiceB/RadixQuiz.dart';
+import 'package:flutterapp/x_Others/choiceB/RadixQuiz.dart';
 
 class RadixSortScreen extends StatefulWidget {
   @override

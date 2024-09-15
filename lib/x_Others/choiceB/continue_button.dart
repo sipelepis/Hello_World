@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/choiceA_and_choiceB.dart';
-import 'package:flutterapp/choiceB/all_algorithms_list.dart';
+import 'package:flutterapp/x_Others/choiceA_and_choiceB.dart';
+import 'package:flutterapp/x_Others/choiceB/all_algorithms_list.dart';
 
 class L2HOME extends StatefulWidget {
   const L2HOME({super.key});

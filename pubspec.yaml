@@ -28,3 +28,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/RadixVidSort.mp4
+    - assets/Learn.png
+    - assets/Simulation.png
+    - assets/Game.png
