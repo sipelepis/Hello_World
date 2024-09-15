@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import 'package:flutterapp/Sorting_Simulators/Sorting_Choices.dart';
+
+
 void main() {
   runApp(const MyApp());
 }
@@ -116,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.sort,
                           () {
                             print('Sorting Algorithms pressed');
-                            // Navigator.push(context, MaterialPageRoute(builder: (context) => simPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ProductCard()));
                           },
                         ),
                       ),
@@ -128,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.graphic_eq,
                           () {
                             print('Graph Algorithm pressed');
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ProductCard()));
                           },
                         ),
                       ),
@@ -139,6 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.storage,
                           () {
                             print('Data Structures pressed');
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ProductCard()));
                           },
                         ),
                       ),
