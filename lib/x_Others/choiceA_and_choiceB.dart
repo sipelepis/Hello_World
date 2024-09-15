@@ -1,210 +1,210 @@
-import 'package:flutter/material.dart';
-import 'package:flutterapp/x_Others/choiceB/continue_button.dart';
-import 'package:flutterapp/x_Others/simulator.dart';
-import 'package:flutterapp/Sorting_Simulators/Sorting_Choices.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutterapp/x_Others/choiceB/continue_button.dart';
+// import 'package:flutterapp/x_Others/simulator.dart';
+// import 'package:flutterapp/Sorting_Simulators/Sorting_Choices.dart';
 
-class StartPage extends StatefulWidget {
-  const StartPage({super.key});
+// class StartPage extends StatefulWidget {
+//   const StartPage({super.key});
 
-  @override
-  State<StartPage> createState() => _StartPageState();
-}
+//   @override
+//   State<StartPage> createState() => _StartPageState();
+// }
 
-class _StartPageState extends State<StartPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('AL-GO!')),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          bool isPortrait = constraints.maxWidth < constraints.maxHeight;
-
-          return isPortrait
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      child: SAS(),
-                    ),
-                    Expanded(
-                      child: LLS(),
-                    ),
-                  ],
-                )
-              : Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: SAS(),
-                    ),
-                    Expanded(
-                      child: LLS(),
-                    ),
-                  ],
-                );
-        },
-      ),
-    );
-  }
-}
-
-//////////////////////////////////////////////////////////////// Mistake (This code below only works for design if the device was in portrait)
 // class _StartPageState extends State<StartPage> {
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       appBar: AppBar(title: Text('AL-GO!'),),
-//       body: Row(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Expanded(
-//             child: SAS(),
-//           ),
-//           Expanded(
-//             child: LLS(),
-//           ),
-//         ],
+//       appBar: AppBar(title: Text('AL-GO!')),
+//       body: LayoutBuilder(
+//         builder: (context, constraints) {
+//           bool isPortrait = constraints.maxWidth < constraints.maxHeight;
+
+//           return isPortrait
+//               ? Column(
+//                   crossAxisAlignment: CrossAxisAlignment.stretch,
+//                   children: [
+//                     Expanded(
+//                       child: SAS(),
+//                     ),
+//                     Expanded(
+//                       child: LLS(),
+//                     ),
+//                   ],
+//                 )
+//               : Row(
+//                   crossAxisAlignment: CrossAxisAlignment.center,
+//                   children: [
+//                     Expanded(
+//                       child: SAS(),
+//                     ),
+//                     Expanded(
+//                       child: LLS(),
+//                     ),
+//                   ],
+//                 );
+//         },
 //       ),
 //     );
 //   }
 // }
-//////////////////////////////////////////////////////////////////
 
-class SAS extends StatefulWidget {
-  const SAS({super.key});
+// //////////////////////////////////////////////////////////////// Mistake (This code below only works for design if the device was in portrait)
+// // class _StartPageState extends State<StartPage> {
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return Scaffold(
+// //       appBar: AppBar(title: Text('AL-GO!'),),
+// //       body: Row(
+// //         crossAxisAlignment: CrossAxisAlignment.start,
+// //         children: [
+// //           Expanded(
+// //             child: SAS(),
+// //           ),
+// //           Expanded(
+// //             child: LLS(),
+// //           ),
+// //         ],
+// //       ),
+// //     );
+// //   }
+// // }
+// //////////////////////////////////////////////////////////////////
 
-  @override
-  State<SAS> createState() => _SASState();
-}
+// class SAS extends StatefulWidget {
+//   const SAS({super.key});
 
-class _SASState extends State<SAS> {
-  String text =
-      "Let's embark on a simulation of sorting algorithms, where we can dynamically select from insertion, radix, and merge sort. The goal is to vividly visualize the step-by-step process of each sorting algorithm in action.";
+//   @override
+//   State<SAS> createState() => _SASState();
+// }
 
-  void click() {
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => simPage()));
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ProductCard()));
-  }
+// class _SASState extends State<SAS> {
+//   String text =
+//       "Let's embark on a simulation of sorting algorithms, where we can dynamically select from insertion, radix, and merge sort. The goal is to vividly visualize the step-by-step process of each sorting algorithm in action.";
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(
-                  0, 10, 0, 0), // Adjust the value as needed
-              child: Text(
-                "Algorithm Simulator and Validations",
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Container(
-              width: 300,
-              margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.greenAccent),
-              child: Text(
-                text,
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ),
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
-                    const Color.fromARGB(255, 255, 255, 255)),
-              ),
+//   void click() {
+//     // Navigator.push(context, MaterialPageRoute(builder: (context) => simPage()));
+//   //   Navigator.push(context, MaterialPageRoute(builder: (context) => ProductCard()));
+//   // }
 
-              onPressed: this.click,
-              child: Container(
-                child: Text(
-                  'SELECT',
-                  style: TextStyle(fontSize: 15),
-                ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
-              ),
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//         margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+//         child: Column(
+//           children: <Widget>[
+//             Padding(
+//               padding: EdgeInsets.fromLTRB(
+//                   0, 10, 0, 0), // Adjust the value as needed
+//               child: Text(
+//                 "Algorithm Simulator and Validations",
+//                 style: TextStyle(fontSize: 20),
+//                 textAlign: TextAlign.center,
+//               ),
+//             ),
+//             Container(
+//               width: 300,
+//               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+//               padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+//               decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(10),
+//                   color: Colors.greenAccent),
+//               child: Text(
+//                 text,
+//                 style: TextStyle(
+//                   fontSize: 14,
+//                 ),
+//               ),
+//             ),
+//             TextButton(
+//               style: ButtonStyle(
+//                 backgroundColor: MaterialStateProperty.all<Color>(
+//                     Color.fromARGB(255, 65, 65, 71)),
+//                 foregroundColor: MaterialStateProperty.all<Color>(
+//                     const Color.fromARGB(255, 255, 255, 255)),
+//               ),
 
-              // Text('START', style: TextStyle(fontSize: 30),),
-            ),
-          ],
-        ));
-  }
-}
+//               onPressed: this.click,
+//               child: Container(
+//                 child: Text(
+//                   'SELECT',
+//                   style: TextStyle(fontSize: 15),
+//                 ),
+//                 width: 150,
+//                 padding: EdgeInsets.symmetric(horizontal: 16),
+//                 alignment: Alignment.center,
+//               ),
 
-class LLS extends StatefulWidget {
-  const LLS({super.key});
+//               // Text('START', style: TextStyle(fontSize: 30),),
+//             ),
+//           ],
+//         ));
+//   }
+// }
 
-  @override
-  State<LLS> createState() => _LLSState();
-}
+// class LLS extends StatefulWidget {
+//   const LLS({super.key});
 
-class _LLSState extends State<LLS> {
-  String text =
-      "An engaging educational platform tailored to demystify complex algorithms for learners of all levels. Through interactive tutorials, practical examples, and hands-on exercises, it empowers users to grasp fundamental algorithmic concepts and problem-solving strategies. ";
+//   @override
+//   State<LLS> createState() => _LLSState();
+// }
 
-  void click() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => L2HOME()));
-  }
+// class _LLSState extends State<LLS> {
+//   String text =
+//       "An engaging educational platform tailored to demystify complex algorithms for learners of all levels. Through interactive tutorials, practical examples, and hands-on exercises, it empowers users to grasp fundamental algorithmic concepts and problem-solving strategies. ";
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(
-                  0, 10, 0, 0), // Adjust the value as needed
-              child: Text(
-                "Let's Learn Algorithm",
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Container(
-              width: 300,
-              margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.greenAccent),
-              child: Text(
-                text,
-                style: TextStyle(fontSize: 14),
-              ),
-            ),
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
-                    const Color.fromARGB(255, 255, 255, 255)),
-              ),
+//   void click() {
+//     Navigator.push(context, MaterialPageRoute(builder: (context) => L2HOME()));
+//   }
 
-              onPressed: this.click,
-              child: Container(
-                child: Text(
-                  'SELECT',
-                  style: TextStyle(fontSize: 15),
-                ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
-              ),
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//         margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+//         child: Column(
+//           children: <Widget>[
+//             Padding(
+//               padding: EdgeInsets.fromLTRB(
+//                   0, 10, 0, 0), // Adjust the value as needed
+//               child: Text(
+//                 "Let's Learn Algorithm",
+//                 style: TextStyle(fontSize: 20),
+//                 textAlign: TextAlign.center,
+//               ),
+//             ),
+//             Container(
+//               width: 300,
+//               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+//               padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+//               decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(10),
+//                   color: Colors.greenAccent),
+//               child: Text(
+//                 text,
+//                 style: TextStyle(fontSize: 14),
+//               ),
+//             ),
+//             TextButton(
+//               style: ButtonStyle(
+//                 backgroundColor: MaterialStateProperty.all<Color>(
+//                     Color.fromARGB(255, 65, 65, 71)),
+//                 foregroundColor: MaterialStateProperty.all<Color>(
+//                     const Color.fromARGB(255, 255, 255, 255)),
+//               ),
 
-              // Text('START', style: TextStyle(fontSize: 30),),
-            ),
-          ],
-        ));
-  }
-}
+//               onPressed: this.click,
+//               child: Container(
+//                 child: Text(
+//                   'SELECT',
+//                   style: TextStyle(fontSize: 15),
+//                 ),
+//                 width: 150,
+//                 padding: EdgeInsets.symmetric(horizontal: 16),
+//                 alignment: Alignment.center,
+//               ),
+
+//               // Text('START', style: TextStyle(fontSize: 30),),
+//             ),
+//           ],
+//         ));
+//   }
+// }
