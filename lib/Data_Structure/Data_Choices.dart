@@ -1,14 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class ProductCard extends StatefulWidget {
-  const ProductCard({ Key? key }) : super(key: key);
+class DataChoices extends StatefulWidget {
+  const DataChoices({ Key? key }) : super(key: key);
 
   @override
-  _ProductCardState createState() => _ProductCardState();
+  _DataChoices createState() => _DataChoices();
 }
 
-class _ProductCardState extends State<ProductCard> {
+class _DataChoices extends State<DataChoices> {
   int _current = 0;
   dynamic _selectedIndex = {};
 
