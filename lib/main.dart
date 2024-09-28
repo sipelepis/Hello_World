@@ -5,7 +5,6 @@ import 'package:flutterapp/Sorting_Simulators/Sorting_Choices.dart';
 import 'package:flutterapp/Graph_Simulators/Graph_Choices.dart';
 import 'package:flutterapp/Data_Structure/Data_Choices.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -18,7 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demos',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 68, 237, 133)),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 68, 237, 133)),
         useMaterial3: false,
       ),
       home: MyHomePage(),
@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          // Gradient background with curves
+          // Gradient background with curves, testing
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -74,7 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start
+              crossAxisAlignment:
+                  CrossAxisAlignment.start, // Align text to the start
               children: <Widget>[
                 const SizedBox(height: 70),
                 // Designed Text
@@ -93,11 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(
                           fontSize: 30, // Larger font size for emphasis
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 255, 255, 255), // Different color for emphasis
+                          color: Color.fromARGB(255, 255, 255,
+                              255), // Different color for emphasis
                         ),
                       ),
                       const TextSpan(
-                        text: '\nA Mobile-Based Educational Simulator For Algorithms',
+                        text:
+                            '\nA Mobile-Based Educational Simulator For Algorithms',
                         style: TextStyle(
                           fontSize: 24,
                           color: Color.fromARGB(255, 255, 255, 255),
@@ -121,7 +124,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.sort,
                           () {
                             print('Sorting Algorithms pressed');
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SortingChoices()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SortingChoices()));
                           },
                         ),
                       ),
@@ -133,19 +139,26 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.graphic_eq,
                           () {
                             print('Graph Algorithm pressed');
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => GraphChoices()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => GraphChoices()));
                           },
                         ),
                       ),
                       StaggeredGridTile.count(
                         crossAxisCellCount: 2, // Make this tile span 2 columns
-                        mainAxisCellCount: 1.1, // Adjust the height to 1.5 cells
+                        mainAxisCellCount:
+                            1.1, // Adjust the height to 1.5 cells
                         child: _buildGridButton(
                           'Data Structures',
                           Icons.storage,
                           () {
                             print('Data Structures pressed');
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => DataChoices()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DataChoices()));
                           },
                         ),
                       ),
@@ -214,11 +227,13 @@ class MyClipper extends CustomClipper<Path> {
 
     var firstControlPoint = Offset(size.width * 0.25, size.height * 0.55);
     var firstEndPoint = Offset(size.width * 0.5, size.height * 0.65);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy, firstEndPoint.dx, firstEndPoint.dy);
+    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
+        firstEndPoint.dx, firstEndPoint.dy);
 
     var secondControlPoint = Offset(size.width * 0.75, size.height * 0.75);
     var secondEndPoint = Offset(size.width, size.height * 0.6);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
+    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
+        secondEndPoint.dx, secondEndPoint.dy);
 
     path.lineTo(size.width, 0.0);
     path.close();
@@ -240,7 +255,8 @@ class MySecondClipper extends CustomClipper<Path> {
 
     var firstControlPoint = Offset(size.width * 0.5, size.height * 0.7);
     var firstEndPoint = Offset(size.width, size.height * 0.5);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy, firstEndPoint.dx, firstEndPoint.dy);
+    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
+        firstEndPoint.dx, firstEndPoint.dy);
 
     path.lineTo(size.width, 0.0);
     path.close();
