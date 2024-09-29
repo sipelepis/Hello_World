@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          // Gradient background with curves, testing
+          // Gradient background with curves, testings
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
