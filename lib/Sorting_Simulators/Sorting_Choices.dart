@@ -1,6 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:carousel_slider/carousel_controller.dart';
-
 import 'package:flutter/material.dart';
 
 class SortingChoices extends StatefulWidget {
@@ -14,7 +12,7 @@ class _SortingChoices extends State<SortingChoices> {
   int _current = 0;
   dynamic _selectedIndex = {};
 
-  CarouselController _carouselController = CarouselController();
+  // CarouselController _carouselController = CarouselController();
 
   // Define the background colors for each page
   final List<Color> _backgroundColors = [

@@ -12,7 +12,7 @@ class _DataChoices extends State<DataChoices> {
   int _current = 0;
   dynamic _selectedIndex = {};
 
-  CarouselController _carouselController = new CarouselController();
+  // CarouselController _carouselController = new CarouselController();
 
   // Define the background colors for each page
   final List<Color> _backgroundColors = [
