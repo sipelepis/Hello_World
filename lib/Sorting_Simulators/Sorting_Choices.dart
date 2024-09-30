@@ -14,7 +14,7 @@ class _SortingChoices extends State<SortingChoices> {
 
   // CarouselController _carouselController = CarouselController();
 
-  // Define the background colors for each page
+  // Define the background colors for each pages
   final List<Color> _backgroundColors = [
     const Color.fromARGB(
         255, 255, 205, 202), // Background color for the first page
