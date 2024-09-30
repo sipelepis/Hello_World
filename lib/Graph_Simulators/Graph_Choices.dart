@@ -11,7 +11,7 @@ class GraphChoices extends StatefulWidget {
 class _GraphChoices extends State<GraphChoices> {
   int _current = 0;
   dynamic _selectedIndex = {};
-
+// Only for Ver of 4.2
   // CarouselController _carouselController = new CarouselController();
 
   // Define the background colors for each page
