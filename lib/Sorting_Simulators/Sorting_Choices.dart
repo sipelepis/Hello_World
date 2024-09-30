@@ -11,7 +11,7 @@ class SortingChoices extends StatefulWidget {
 class _SortingChoices extends State<SortingChoices> {
   int _current = 0;
   dynamic _selectedIndex = {};
-
+  // Only for Ver of 4.2
   // CarouselController _carouselController = CarouselController();
 
   // Define the background colors for each pages
