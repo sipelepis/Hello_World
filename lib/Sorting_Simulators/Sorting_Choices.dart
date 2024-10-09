@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'radix.dart';
+import 'merge.dart';
+import 'insertion.dart';
 
 class SortingChoices extends StatefulWidget {
   const SortingChoices({Key? key}) : super(key: key);
@@ -31,6 +34,8 @@ class _SortingChoices extends State<SortingChoices> {
     'assets/Simulation.png', // Path to the third background image
     // Add more image paths if you have more pages
   ];
+
+  var text = "??";
 
   List<dynamic> _products = [
     {
@@ -83,11 +88,7 @@ class _SortingChoices extends State<SortingChoices> {
                     foregroundColor: MaterialStateProperty.all<Color>(
                         Color.fromARGB(255, 255, 255, 255)),
                   ),
-                  onPressed: () {
-                    // Handle button press if needed
-                    Navigator.of(context)
-                        .pop(); // Close the dialog on button press
-                  },
+                  onPressed: () {},
                   child: Container(
                     width: 230,
                     height: 90,
@@ -119,7 +120,30 @@ class _SortingChoices extends State<SortingChoices> {
                     foregroundColor: MaterialStateProperty.all<Color>(
                         const Color.fromARGB(255, 255, 255, 255)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    // Handle button press if needed
+                    // Navigator.of(context)
+                    //     .pop(); // Close the dialog on button press
+                    if (text == "Radix Sort") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RadixSortPage()),
+                      );
+                    } else if (text == "Merge Sort") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MergeSortPage()),
+                      );
+                    } else if (text == "Insertion Sort") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => InsertionSortPage()),
+                      );
+                    }
+                  },
                   child: Container(
                     width: 230,
                     height: 90,
@@ -204,7 +228,7 @@ class _SortingChoices extends State<SortingChoices> {
                 children: [
                   Icon(Icons.arrow_forward_ios),
                   // Text(
-                  //   'Tutorial',
+                  //   'Click me',
                   //   style: TextStyle(fontSize: 12), // Smaller font size to fit
                   // ),
                 ],
@@ -250,6 +274,7 @@ class _SortingChoices extends State<SortingChoices> {
                   } else {
                     _selectedIndex = movie;
                   }
+                  text = movie['title'];
                 });
               },
               child: AnimatedContainer(
