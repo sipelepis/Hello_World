@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'radix.dart';
 import 'merge.dart';
 import 'insertion.dart';
+import 'radixgame.dart';
+import 'Board.dart';
 
 class SortingChoices extends StatefulWidget {
   const SortingChoices({Key? key}) : super(key: key);
@@ -177,7 +179,13 @@ class _SortingChoices extends State<SortingChoices> {
                     foregroundColor: MaterialStateProperty.all<Color>(
                         const Color.fromARGB(255, 255, 255, 255)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SliderGameScreen()),
+                    );
+                  },
                   child: Container(
                     width: 230,
                     height: 90,
