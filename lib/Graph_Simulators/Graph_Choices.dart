@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/Graph_Simulators/binary_search_tree.dart';
+import 'package:flutterapp/Graph_Simulators/breadth_first.dart';
+import 'package:flutterapp/Graph_Simulators/depth_first.dart';
 
 class GraphChoices extends StatefulWidget {
   const GraphChoices({Key? key}) : super(key: key);
@@ -31,6 +34,8 @@ class _GraphChoices extends State<GraphChoices> {
     'assets/Simulation.png', // Path to the third background image
     // Add more image paths if you have more pages
   ];
+
+  var text = "??";
 
   List<dynamic> _products = [
     {
@@ -119,7 +124,27 @@ class _GraphChoices extends State<GraphChoices> {
                     foregroundColor: MaterialStateProperty.all<Color>(
                         const Color.fromARGB(255, 255, 255, 255)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (text == "Binary Search Tree") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BinarySearchPage()),
+                      );
+                    } else if (text == "Breadth First") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BreadthFirstPage()),
+                      );
+                    } else if (text == "Depth First") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DepthFirstPage()),
+                      );
+                    }
+                  },
                   child: Container(
                     width: 230,
                     height: 90,
@@ -250,6 +275,7 @@ class _GraphChoices extends State<GraphChoices> {
                       } else {
                         _selectedIndex = movie;
                       }
+                      text = movie['title'];
                     });
                   },
                   child: AnimatedContainer(
@@ -324,229 +350,5 @@ class _GraphChoices extends State<GraphChoices> {
     );
   }
 
-// @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       // Set the background image based on the current index
-//       body: Stack(
-//         fit: StackFit.expand,
-//         children: [
-//           // Background image
-//           Image.asset(
-//             _backgroundImages[_current],
-//             fit: BoxFit.cover, // Ensure the image covers the whole screen
-//           ),
-//           // Main content
-//           Column(
-//             children: [
-//               AppBar(
-//                 elevation: 0,
-//                 backgroundColor: Colors.transparent,
-//                 title: Text(
-//                   'Sorting Algorithms',
-//                   style: TextStyle(
-//                     color: Colors.black,
-//                   ),
-//                 ),
-//               ),
-//               Expanded(
-//                 child: Container(
-//                   width: double.infinity,
-//                   height: double.infinity,
-//                   child: CarouselSlider(
-//                     carouselController: _carouselController,
-//                     options: CarouselOptions(
-//                       height: 450.0,
-//                       aspectRatio: 16 / 9,
-//                       viewportFraction: 0.70,
-//                       enlargeCenterPage: true,
-//                       pageSnapping: true,
-//                       onPageChanged: (index, reason) {
-//                         setState(() {
-//                           _current = index; // Update the current index
-//                         });
-//                       },
-//                     ),
-//                     items: _products.map((movie) {
-//                       return Builder(
-//                         builder: (BuildContext context) {
-//                           return GestureDetector(
-//                             onTap: () {
-//                               setState(() {
-//                                 if (_selectedIndex == movie) {
-//                                   _selectedIndex = {};
-//                                 } else {
-//                                   _selectedIndex = movie;
-//                                 }
-//                               });
-//                             },
-//                             child: AnimatedContainer(
-//                               duration: Duration(milliseconds: 300),
-//                               width: MediaQuery.of(context).size.width,
-//                               decoration: BoxDecoration(
-//                                 color: Colors.white,
-//                                 borderRadius: BorderRadius.circular(20),
-//                                 border: _selectedIndex == movie
-//                                     ? Border.all(
-//                                         color: Color.fromARGB(255, 22, 207, 62),
-//                                         width: 3,
-//                                       )
-//                                     : null,
-//                                 boxShadow: _selectedIndex == movie
-//                                     ? [
-//                                         BoxShadow(
-//                                           color: Color.fromARGB(255, 70, 155, 129),
-//                                           blurRadius: 30,
-//                                           offset: Offset(0, 10),
-//                                         )
-//                                       ]
-//                                     : [
-//                                         BoxShadow(
-//                                           color: Colors.grey.withOpacity(0.2),
-//                                           blurRadius: 20,
-//                                           offset: Offset(0, 5),
-//                                         )
-//                                       ],
-//                               ),
-//                               child: SingleChildScrollView(
-//                                 child: Column(
-//                                   children: [
-//                                     Container(
-//                                       height: 320,
-//                                       margin: EdgeInsets.only(top: 10),
-//                                       clipBehavior: Clip.hardEdge,
-//                                       decoration: BoxDecoration(
-//                                         borderRadius: BorderRadius.circular(20),
-//                                       ),
-//                                       child: Image.network(
-//                                         movie['image'],
-//                                         fit: BoxFit.cover,
-//                                       ),
-//                                     ),
-//                                     SizedBox(height: 20),
-//                                     Text(
-//                                       movie['title'],
-//                                       style: TextStyle(
-//                                         fontSize: 20,
-//                                         fontWeight: FontWeight.bold,
-//                                       ),
-//                                     ),
-//                                     SizedBox(height: 20),
-//                                     Text(
-//                                       movie['description'],
-//                                       style: TextStyle(
-//                                         fontSize: 14,
-//                                         color: Colors.grey.shade600,
-//                                       ),
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),
-//                             ),
-//                           );
-//                         },
-//                       );
-//                     }).toList(),
-//                   ),
-//                 ),
-//               ),
-//               _selectedIndex.isNotEmpty
-//                   ? FloatingActionButton(
-//                       onPressed: () => _openAnimationDialog(context),
-//                       child: Column(
-//                         mainAxisAlignment: MainAxisAlignment.center,
-//                         children: [
-//                           Icon(Icons.arrow_forward_ios),
-//                           // Uncomment the following line if you want to show text
-//                           // Text(
-//                           //   'Tutorial',
-//                           //   style: TextStyle(fontSize: 12), // Smaller font size to fit
-//                           // ),
-//                         ],
-//                       ),
-//                     )
-//                   : SizedBox.shrink(),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
+
 }
-
-// Widget buildSheet() => Column(
-//   mainAxisAlignment: MainAxisAlignment.start,
-  
-//   children: [
-//     SizedBox(height: 20),
-//     TextButton(
-//       style: ButtonStyle(
-//         backgroundColor:
-//             MaterialStateProperty.all<Color>(Color.fromARGB(255, 0, 195, 255)),
-//         foregroundColor: MaterialStateProperty.all<Color>(
-//             const Color.fromARGB(255, 255, 255, 255)),
-//       ),
-      
-//       onPressed: (){},
-//       child: Container(
-//         child: Text(
-//           'Tutorial',
-//           style: TextStyle(fontSize: 30),
-//         ),
-//         width: 200,
-//         height: 50,
-//         padding: EdgeInsets.symmetric(horizontal: 16),
-//         alignment: Alignment.center,
-//       ),
-//       // Text('START', style: TextStyle(fontSize: 30),),
-//       // donut
-//     ),// Adds vertical space
-//     SizedBox(height: 20), // Adds vertical space
-//     TextButton(
-//       style: ButtonStyle(
-//         backgroundColor:
-//             MaterialStateProperty.all<Color>(Color.fromARGB(255, 35, 209, 0)),
-//         foregroundColor: MaterialStateProperty.all<Color>(
-//             const Color.fromARGB(255, 255, 255, 255)),
-//       ),
-//       onPressed: (){},
-//       child: Container(
-//         child: Text(
-//           'Simulation',
-//           style: TextStyle(fontSize: 30),
-//         ),
-//         width: 200,
-//         height: 50,
-//         padding: EdgeInsets.symmetric(horizontal: 16),
-//         alignment: Alignment.center,
-//       ),
-//       // Text('START', style: TextStyle(fontSize: 30),),
-//       // donut
-//     ),
-//     SizedBox(height: 20), // Adds vertical space
-//     TextButton(
-//       style: ButtonStyle(
-//         backgroundColor:
-//             MaterialStateProperty.all<Color>(Color.fromARGB(255, 219, 0, 0)),
-//         foregroundColor: MaterialStateProperty.all<Color>(
-//             const Color.fromARGB(255, 255, 255, 255)),
-//       ),
-//       onPressed: () {},
-//       child: Container(
-//         child: Text(
-//           'Game',
-//           style: TextStyle(fontSize: 30),
-//         ),
-//         width: 200,
-//         height: 50,
-//         padding: EdgeInsets.symmetric(horizontal: 16),
-//         alignment: Alignment.center,
-//       ),
-//       // Text('START', style: TextStyle(fontSize: 30),),
-//       // donut
-//     ),
-//   ],
-// );
-
-
-  

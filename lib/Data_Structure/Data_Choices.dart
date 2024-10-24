@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/Data_Structure/Queues.dart';
+import 'package:flutterapp/Data_Structure/stacks.dart';
 
 class DataChoices extends StatefulWidget {
   const DataChoices({Key? key}) : super(key: key);
@@ -31,6 +33,8 @@ class _DataChoices extends State<DataChoices> {
     'assets/Simulation.png', // Path to the third background image
     // Add more image paths if you have more pages
   ];
+
+  var text = "??";
 
   List<dynamic> _products = [
     {
@@ -113,7 +117,22 @@ class _DataChoices extends State<DataChoices> {
                     foregroundColor: MaterialStateProperty.all<Color>(
                         const Color.fromARGB(255, 255, 255, 255)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+
+                    if (text == "Queues") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => QueuesPage()),
+                      );
+                    } else if (text == "Stacks") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => StacksPage()),
+                      );
+                    }
+                  },
                   child: Container(
                     width: 230,
                     height: 90,
@@ -244,6 +263,7 @@ class _DataChoices extends State<DataChoices> {
                       } else {
                         _selectedIndex = movie;
                       }
+                      text = movie['title'];
                     });
                   },
                   child: AnimatedContainer(
