@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class InsertionSortPage extends StatefulWidget {
@@ -7,167 +8,293 @@ class InsertionSortPage extends StatefulWidget {
   State<InsertionSortPage> createState() => _InsertionSortPageState();
 }
 
-class _InsertionSortPageState extends State<InsertionSortPage> {
+class _InsertionSortPageState extends State<InsertionSortPage>
+    with SingleTickerProviderStateMixin {
   List<int> stack = [];
-  TextEditingController inputController = TextEditingController();
+  final TextEditingController inputController = TextEditingController();
+  late TabController _tabController;
   int currentIndex = -1;
   int movingIndex = -1;
   bool isSorting = false;
 
-  Future<void> sort() async {
-    setState(() {
-      isSorting = true;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
 
-    for (int i = 1; i < stack.length; i++) {
-      int key = stack[i];
+  @override
+  void dispose() {
+    inputController.dispose();
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  /// Smooth Insertion Sort with animated flow and proper restart.
+  Future<void> sort() async {
+    setState(() => isSorting = true); // Mark sorting as active.
+
+    int i = 0; // Start from the first element.
+    while (i < stack.length) {
+      int key = stack[i]; // The element to be inserted.
       int j = i - 1;
 
-      setState(() {
-        currentIndex = i; // Highlight the current element in red
-      });
-      await Future.delayed(Duration(milliseconds: 2800)); // Early highlighting before moving
+      // Highlight the current element in red (currentIndex).
+      setState(() => currentIndex = i);
+      await Future.delayed(const Duration(milliseconds: 1200)); // Slower scan.
 
+      bool swapped = false;
+
+      // Move the element while highlighting it in green.
       while (j >= 0 && stack[j] > key) {
         setState(() {
-          stack[j + 1] = stack[j];
-          stack[j] = key; // Swap values for animation
-          movingIndex = j; // Highlight the moving index in red
+          stack[j + 1] = stack[j]; // Shift element right.
+          stack[j] = key; // Place the key in the correct position.
+          movingIndex = j; // Highlight the moving element.
         });
-        await Future.delayed(Duration(milliseconds: 600)); // Adjust delay for slower animation
-        setState(() {
-          movingIndex = -1; // Reset the moving index
-          currentIndex = j; // Highlight the current element in red again
-        });
-        await Future.delayed(Duration(milliseconds: 1000)); // Adjust delay for slower animation
+
+        swapped = true;
+        await Future.delayed(
+            const Duration(milliseconds: 1500)); // Slower swap animation.
         j--;
       }
 
+      // Reset highlights after the element is placed.
       setState(() {
-        currentIndex = -1; // Reset the current element index
+        movingIndex = -1;
+        currentIndex = -1;
       });
-      await Future.delayed(Duration(milliseconds: 1000)); // Additional delay for visualization
+
+      // If a swap occurred, restart from index 0.
+      if (swapped) {
+        i = 0; // Restart from the beginning.
+        await Future.delayed(const Duration(milliseconds: 1000));
+      } else {
+        i++; // Move to the next element if no swap.
+      }
     }
 
-    setState(() {
-      // Set all numbers to green once sorting is done
-      isSorting = false;
-      currentIndex = -1;
-      movingIndex = -1;
-    });
+    // Mark sorting as complete.
+    setState(() => isSorting = false);
   }
 
+  /// Inserts numbers from input field into the stack.
   void insertNumbers() {
     List<String> inputNumbers = inputController.text.split(',');
     for (String numStr in inputNumbers) {
-      int number = int.tryParse(numStr.trim()) ?? 0;
-      if (number != 0) {
-        setState(() {
-          stack.add(number);
-        });
+      int? number = int.tryParse(numStr.trim());
+      if (number != null) {
+        setState(() => stack.add(number));
       }
     }
-    inputController.clear(); // Clear the input text field
+    inputController.clear(); // Clear input after insertion.
+  }
+
+  /// Generates random numbers and populates the input field.
+  void generateRandomNumbers() {
+    final random = Random();
+    int count = random.nextInt(3) + 3; // Generate 3 to 5 numbers.
+    List<int> randomNumbers =
+        List.generate(count, (_) => random.nextInt(10) + 1);
+    inputController.text = randomNumbers.join(', ');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Insertion Sort Visualization'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title:
+            const Text('Insertion Sort', style: TextStyle(color: Colors.black)),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60.0),
+          child: _buildTabBar(),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: inputController,
-                    onChanged: (value) {
-                      setState(() {});
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Enter numbers (comma-separated)',
-                    ),
-                  ),
-                ),
-                SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: insertNumbers,
-                  child: Text('Insert'),
-                ),
-                SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      stack.clear();
-                    });
-                    inputController.clear(); // Clear the input text field
-                  },
-                  child: Text('Clear'),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: sort,
-              child: Text('Sort'),
-            ),
-            SizedBox(height: 16),
-            Text('Insertion Sort Visualization:'),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    for (int i = 0; i < stack.length; i++)
-                      TweenAnimationBuilder(
-                        duration: Duration(milliseconds: 500), // Adjust duration for slower animation
-                        tween: Tween<double>(
-                          begin: i.toDouble(),
-                          end: stack.indexOf(stack[i]).toDouble(),
-                        ),
-                        builder: (context, double value, child) {
-                          return Transform.translate(
-                            offset: Offset(value * 30, 0), // Adjust the value for spacing
-                            child: AnimatedContainer(
-                              duration: Duration(milliseconds: 500), // Adjust duration for slower animation
-                              height: 50,
-                              width: 50,
-                              margin: const EdgeInsets.symmetric(horizontal: 5),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: (isSorting && i == currentIndex)
-                                    ? Colors.red // Highlight the current element in red
-                                    : (isSorting && i == movingIndex)
-                                        ? Colors.blue // Highlight the moving element in blue
-                                        : Colors.lightBlue, // Numbers being sorted
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                stack[i].toString(),
-                                style: TextStyle(fontSize: 20, color: Colors.white),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                  ],
-                ),
-              ),
-            ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          _buildSimulateTab(),
+          const Center(
+            child: Text('Instructions are under construction.',
+                style: TextStyle(fontSize: 18, color: Colors.grey)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTabBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.black12, blurRadius: 6, offset: Offset(0, 3)),
+          ],
+        ),
+        child: TabBar(
+          controller: _tabController,
+          indicator: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: const [
+              BoxShadow(
+                  color: Colors.black12, blurRadius: 2, offset: Offset(0, 2)),
+            ],
+          ),
+          tabs: const [
+            Tab(child: Text('Simulate', style: TextStyle(color: Colors.blue))),
+            Tab(
+                child: Text('Ill Take a shot',
+                    style: TextStyle(color: Colors.grey))),
           ],
         ),
       ),
     );
   }
+
+  Widget _buildSimulateTab() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildInputRow(),
+          const SizedBox(height: 16),
+          _buildActionButtonsRow(),
+          const SizedBox(height: 16),
+          const Text(
+            'Insertion Sort Visualization:',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+          _buildVisualizationContainer(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInputRow() {
+    return Row(
+      children: [
+        SizedBox(
+          height: 40,
+          width: 40,
+          child: ElevatedButton(
+            onPressed: generateRandomNumbers,
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.all(8),
+              backgroundColor: Colors.blue,
+              shape: const CircleBorder(),
+            ),
+            child: const Icon(Icons.casino, color: Colors.white),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: TextField(
+            controller: inputController,
+            decoration: const InputDecoration(
+              labelText: 'Enter numbers (comma-separated)',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButtonsRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        _buildIconButton(Icons.check, Colors.green, insertNumbers),
+        const SizedBox(width: 8),
+        _buildIconButton(Icons.play_arrow, Colors.blue, sort),
+        const SizedBox(width: 8),
+        _buildIconButton(Icons.refresh, Colors.red, () {
+          setState(() => stack.clear());
+          inputController.clear();
+        }),
+      ],
+    );
+  }
+
+  Widget _buildIconButton(IconData icon, Color color, VoidCallback onPressed) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        shape: const CircleBorder(),
+        padding: const EdgeInsets.all(12),
+        backgroundColor: color,
+      ),
+      child: Icon(icon, color: Colors.white),
+    );
+  }
+
+  Widget _buildVisualizationContainer() {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.grey, width: 2),
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.black12, blurRadius: 4, offset: Offset(2, 2)),
+          ],
+        ),
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: stack
+                .asMap()
+                .entries
+                .map((entry) => _buildAnimatedElement(entry.key, entry.value))
+                .toList(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAnimatedElement(int index, int value) {
+    bool isHighlighted = index == movingIndex;
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 700),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      height: isHighlighted ? 70 : 50,
+      width: isHighlighted ? 70 : 50,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: _getColorForIndex(index),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Text(value.toString(),
+          style: const TextStyle(fontSize: 20, color: Colors.white)),
+    );
+  }
+
+  Color _getColorForIndex(int index) {
+    if (isSorting && index == currentIndex) {
+      return Colors.red;
+    } else if (isSorting && index == movingIndex) {
+      return Colors.green;
+    } else {
+      return Colors.lightBlue;
+    }
+  }
 }
 
 void main() {
-  runApp(MaterialApp(
-    home: InsertionSortPage(),
-  ));
+  runApp(const MaterialApp(home: InsertionSortPage()));
 }
