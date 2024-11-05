@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'radix.dart';
 import 'merge.dart';
 import 'insertion.dart';
-import 'radixgame.dart';
 import 'Board.dart';
 
 class SortingChoices extends StatefulWidget {
