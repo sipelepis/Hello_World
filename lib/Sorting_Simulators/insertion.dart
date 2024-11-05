@@ -13,72 +13,86 @@ class _InsertionSortPageState extends State<InsertionSortPage>
   List<int> stack = [];
   final TextEditingController inputController = TextEditingController();
   late TabController _tabController;
+  late ScrollController _scrollController; // For controlling the scroll.
   int currentIndex = -1;
   int movingIndex = -1;
   bool isSorting = false;
+  bool isSortEnabled = false;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _scrollController = ScrollController(); // Initialize ScrollController.
+
+    inputController.addListener(() {
+      setState(() {}); // Rebuild the UI whenever input changes.
+    });
   }
 
   @override
   void dispose() {
     inputController.dispose();
     _tabController.dispose();
+    _scrollController.dispose(); // Dispose the ScrollController.
     super.dispose();
   }
 
-  /// Smooth Insertion Sort with animated flow and proper restart.
+  /// Smooth Insertion Sort with centered scrolling.
   Future<void> sort() async {
     setState(() => isSorting = true); // Mark sorting as active.
 
-    int i = 0; // Start from the first element.
-    while (i < stack.length) {
+    for (int i = 0; i < stack.length; i++) {
       int key = stack[i]; // The element to be inserted.
       int j = i - 1;
 
-      // Highlight the current element in red (currentIndex).
+      // Highlight the current element in red.
       setState(() => currentIndex = i);
-      await Future.delayed(const Duration(milliseconds: 1200)); // Slower scan.
+      await Future.delayed(const Duration(milliseconds: 1200));
+      _scrollToIndex(i); // Scroll to center the red-highlighted element.
 
       bool swapped = false;
 
       // Move the element while highlighting it in green.
       while (j >= 0 && stack[j] > key) {
         setState(() {
-          stack[j + 1] = stack[j]; // Shift element right.
-          stack[j] = key; // Place the key in the correct position.
+          stack[j + 1] = stack[j];
+          stack[j] = key;
           movingIndex = j; // Highlight the moving element.
         });
 
+        await Future.delayed(const Duration(milliseconds: 1500));
+        _scrollToIndex(j); // Scroll to center the green-highlighted element.
         swapped = true;
-        await Future.delayed(
-            const Duration(milliseconds: 1500)); // Slower swap animation.
         j--;
       }
 
-      // Reset highlights after the element is placed.
       setState(() {
-        movingIndex = -1;
-        currentIndex = -1;
+        movingIndex = -1; // Reset moving element.
+        currentIndex = -1; // Reset current index.
       });
 
-      // If a swap occurred, restart from index 0.
+      // Restart if a swap occurred.
       if (swapped) {
-        i = 0; // Restart from the beginning.
+        i = -1; // Restart from the beginning.
         await Future.delayed(const Duration(milliseconds: 1000));
-      } else {
-        i++; // Move to the next element if no swap.
       }
     }
 
-    // Mark sorting as complete.
-    setState(() => isSorting = false);
+    setState(() => isSorting = false); // Mark sorting as complete.
   }
 
-  /// Inserts numbers from input field into the stack.
+  /// Scrolls the highlighted element to the center.
+  void _scrollToIndex(int index) {
+    final position =
+        (index * 80.0) - (MediaQuery.of(context).size.width / 2 - 40);
+    _scrollController.animateTo(
+      position,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
   void insertNumbers() {
     List<String> inputNumbers = inputController.text.split(',');
     for (String numStr in inputNumbers) {
@@ -88,9 +102,9 @@ class _InsertionSortPageState extends State<InsertionSortPage>
       }
     }
     inputController.clear(); // Clear input after insertion.
+    setState(() => isSortEnabled = true); // Enable sort button.
   }
 
-  /// Generates random numbers and populates the input field.
   void generateRandomNumbers() {
     final random = Random();
     int count = random.nextInt(3) + 3; // Generate 3 to 5 numbers.
@@ -103,6 +117,10 @@ class _InsertionSortPageState extends State<InsertionSortPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -151,7 +169,7 @@ class _InsertionSortPageState extends State<InsertionSortPage>
           tabs: const [
             Tab(child: Text('Simulate', style: TextStyle(color: Colors.blue))),
             Tab(
-                child: Text('Ill Take a shot',
+                child: Text('I\'ll Take a Shot',
                     style: TextStyle(color: Colors.grey))),
           ],
         ),
@@ -216,19 +234,27 @@ class _InsertionSortPageState extends State<InsertionSortPage>
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        _buildIconButton(Icons.check, Colors.green, insertNumbers),
+        if (inputController.text.isNotEmpty)
+          _buildIconButton(Icons.check, Colors.green, insertNumbers),
         const SizedBox(width: 8),
-        _buildIconButton(Icons.play_arrow, Colors.blue, sort),
+        _buildIconButton(
+          Icons.play_arrow,
+          isSortEnabled ? Colors.blue : Colors.grey,
+          isSortEnabled ? sort : null,
+        ),
         const SizedBox(width: 8),
         _buildIconButton(Icons.refresh, Colors.red, () {
-          setState(() => stack.clear());
-          inputController.clear();
+          setState(() {
+            stack.clear();
+            inputController.clear();
+            isSortEnabled = false;
+          });
         }),
       ],
     );
   }
 
-  Widget _buildIconButton(IconData icon, Color color, VoidCallback onPressed) {
+  Widget _buildIconButton(IconData icon, Color color, VoidCallback? onPressed) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
@@ -245,15 +271,19 @@ class _InsertionSortPageState extends State<InsertionSortPage>
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
+          border: Border.all(color: Colors.grey, width: 2), // Add border here.
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey, width: 2),
           boxShadow: const [
             BoxShadow(
-                color: Colors.black12, blurRadius: 4, offset: Offset(2, 2)),
+              color: Colors.black12,
+              blurRadius: 4,
+              offset: Offset(2, 2),
+            ),
           ],
         ),
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
+          controller: _scrollController,
           scrollDirection: Axis.horizontal,
           child: Row(
             children: stack
@@ -285,13 +315,9 @@ class _InsertionSortPageState extends State<InsertionSortPage>
   }
 
   Color _getColorForIndex(int index) {
-    if (isSorting && index == currentIndex) {
-      return Colors.red;
-    } else if (isSorting && index == movingIndex) {
-      return Colors.green;
-    } else {
-      return Colors.lightBlue;
-    }
+    if (isSorting && index == currentIndex) return Colors.red;
+    if (isSorting && index == movingIndex) return Colors.green;
+    return Colors.lightBlue;
   }
 }
 

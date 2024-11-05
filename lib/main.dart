@@ -4,8 +4,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutterapp/Sorting_Simulators/Sorting_Choices.dart';
 import 'package:flutterapp/Graph_Simulators/Graph_Choices.dart';
 import 'package:flutterapp/Data_Structure/Data_Choices.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
+  debugPaintSizeEnabled = false;
   runApp(const MyApp());
 }
 
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demos',
       theme: ThemeData(
         colorScheme:
