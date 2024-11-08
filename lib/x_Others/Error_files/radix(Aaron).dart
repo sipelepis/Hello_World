@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:math'; // Required for pow function
+// import 'dart:math'; // Required for pow function
 
 void main() {
   runApp(MaterialApp(
@@ -30,37 +30,36 @@ class _RadixSortPageState extends State<RadixSortPage> {
   }
 
   Widget _buildStep(int index) {
-  return Row(
-    children: [
-      Text('Step ${index + 1}: '),
-      SizedBox(width: 10), // Add some spacing
-      Expanded(
-        child: Container(
-          height: 50, // Set a specific height for the ListView
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: stepControllers[index].length,
-            itemBuilder: (context, idx) {
-              return Container(
-                width: 60, // Reduced width
-                margin: EdgeInsets.only(
-                    right: 10), // Add some spacing between fields
-                child: TextFormField(
-                  controller: stepControllers[index][idx],
-                  decoration: InputDecoration(
-                    isDense: true,
-                    border: OutlineInputBorder(),
+    return Row(
+      children: [
+        Text('Step ${index + 1}: '),
+        SizedBox(width: 10), // Add some spacing
+        Expanded(
+          child: Container(
+            height: 50, // Set a specific height for the ListView
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: stepControllers[index].length,
+              itemBuilder: (context, idx) {
+                return Container(
+                  width: 60, // Reduced width
+                  margin: EdgeInsets.only(
+                      right: 10), // Add some spacing between fields
+                  child: TextFormField(
+                    controller: stepControllers[index][idx],
+                    decoration: InputDecoration(
+                      isDense: true,
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
-      ),
-    ],
-  );
-}
-
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -24,10 +24,13 @@ class TreeNode {
 }
 
 class _BinarySearchPageState extends State<BinarySearchPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   TreeNode? _root;
   final Map<int, TextEditingController> _controllers = {};
   late TabController _tabController;
+  AnimationController? _animationController;
+  Animation<double>? _scaleAnimation;
+  int? _highlightedIndex;
   bool _isConverted = false;
   bool _isChecked = false;
   List<int> _userNodeValues = [];
@@ -39,8 +42,15 @@ class _BinarySearchPageState extends State<BinarySearchPage>
     _initializeRootNode();
   }
 
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _animationController?.dispose();
+    super.dispose();
+  }
+
   void _initializeRootNode() {
-    _userNodeValues = [10]; // Example root value
+    _userNodeValues = [10];
     _root = TreeNode(_userNodeValues[0], 0);
     _controllers[_root!.index] =
         TextEditingController(text: _root!.value.toString());
@@ -66,15 +76,24 @@ class _BinarySearchPageState extends State<BinarySearchPage>
   void deleteNode(TreeNode parentNode, String position) {
     setState(() {
       if (position == "left" && parentNode.left != null) {
-        _controllers.remove(parentNode.left?.index);
-        _userNodeValues.remove(parentNode.left!.value);
+        _removeSubtree(parentNode.left!);
         parentNode.left = null;
       } else if (position == "right" && parentNode.right != null) {
-        _controllers.remove(parentNode.right?.index);
-        _userNodeValues.remove(parentNode.right!.value);
+        _removeSubtree(parentNode.right!);
         parentNode.right = null;
       }
     });
+  }
+
+  void _removeSubtree(TreeNode node) {
+    if (node.left != null) {
+      _removeSubtree(node.left!);
+    }
+    if (node.right != null) {
+      _removeSubtree(node.right!);
+    }
+    _userNodeValues.remove(node.value);
+    _controllers.remove(node.index);
   }
 
   void clearTree() {
@@ -128,29 +147,50 @@ class _BinarySearchPageState extends State<BinarySearchPage>
   void sortTree() async {
     if (_userNodeValues.isEmpty) return;
 
-    // Use the first value in `_userNodeValues` as the root
-    setState(() {
-      _root = TreeNode(_userNodeValues[0], 0);
-      _controllers.clear();
-      _controllers[_root!.index] =
-          TextEditingController(text: _root!.value.toString());
-      _root!.left = null;
-      _root!.right = null;
-    });
+    // Initialize animation controller and scale animation with slower duration
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.2).animate(
+      CurvedAnimation(parent: _animationController!, curve: Curves.easeInOut),
+    );
 
-    // Insert each subsequent value in `_userNodeValues` without sorting
-    for (int i = 1; i < _userNodeValues.length; i++) {
+    // Clear child nodes of the root, keeping only the root
+    TreeNode? currentNode = _root;
+    if (currentNode != null) {
       setState(() {
+        currentNode.left = null;
+        currentNode.right = null;
+      });
+    }
+
+    // Start from index 1 to avoid re-inserting the root node
+    for (int i = 1; i < _userNodeValues.length; i++) {
+      int currentValue = _userNodeValues[i];
+
+      setState(() {
+        _highlightedIndex = i;
         _root!.isMoving = true;
       });
 
+      _animationController!.forward(from: 0.0);
       await Future.delayed(const Duration(seconds: 1));
 
       setState(() {
-        _insertIntoBST(_root!, _userNodeValues[i]);
+        _insertIntoBST(_root!, currentValue);
         _root!.isMoving = false;
       });
     }
+
+    // Dispose of the animation controller after sorting is complete
+    _animationController?.dispose();
+    _animationController = null;
+    _scaleAnimation = null;
+
+    setState(() {
+      _highlightedIndex = null;
+    });
   }
 
   void _insertIntoBST(TreeNode node, int value) {
@@ -186,50 +226,64 @@ class _BinarySearchPageState extends State<BinarySearchPage>
 
     return Column(
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (!_isConverted) ...[
-              IconButton(
-                icon: Icon(
-                  node.left == null
-                      ? Icons.add_circle_outline
-                      : Icons.remove_circle_outline,
-                  color: node.left == null ? Colors.green : Colors.red,
+        AnimatedBuilder(
+          animation: _animationController ?? kAlwaysCompleteAnimation,
+          builder: (context, child) {
+            return Transform.scale(
+              scale: node.isMoving && _scaleAnimation != null
+                  ? _scaleAnimation!.value
+                  : 1.0,
+              child: child,
+            );
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (!_isConverted) ...[
+                IconButton(
+                  icon: Icon(
+                    node.left == null
+                        ? Icons.add_circle_outline
+                        : Icons.remove_circle_outline,
+                    color: node.left == null ? Colors.green : Colors.red,
+                  ),
+                  onPressed: () => node.left == null
+                      ? addNode(node, 'left', Random().nextInt(100))
+                      : deleteNode(node, 'left'),
                 ),
-                onPressed: () => node.left == null
-                    ? addNode(node, 'left', Random().nextInt(100))
-                    : deleteNode(node, 'left'),
+              ],
+              SizedBox(
+                width: 60,
+                child: TextField(
+                  controller: _controllers[node.index],
+                  onChanged: (value) => updateNodeValue(node, value),
+                  enabled: !_isConverted,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                    fillColor: Colors.green, // Green color for all nodes
+                    filled: true,
+                  ),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
+              if (!_isConverted) ...[
+                IconButton(
+                  icon: Icon(
+                    node.right == null
+                        ? Icons.add_circle_outline
+                        : Icons.remove_circle_outline,
+                    color: node.right == null ? Colors.green : Colors.red,
+                  ),
+                  onPressed: () => node.right == null
+                      ? addNode(node, 'right', Random().nextInt(100))
+                      : deleteNode(node, 'right'),
+                ),
+              ],
             ],
-            SizedBox(
-              width: 60,
-              child: TextField(
-                controller: _controllers[node.index],
-                onChanged: (value) => updateNodeValue(node, value),
-                enabled: !_isConverted,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            if (!_isConverted) ...[
-              IconButton(
-                icon: Icon(
-                  node.right == null
-                      ? Icons.add_circle_outline
-                      : Icons.remove_circle_outline,
-                  color: node.right == null ? Colors.green : Colors.red,
-                ),
-                onPressed: () => node.right == null
-                    ? addNode(node, 'right', Random().nextInt(100))
-                    : deleteNode(node, 'right'),
-              ),
-            ],
-          ],
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -248,10 +302,38 @@ class _BinarySearchPageState extends State<BinarySearchPage>
     );
   }
 
+  Widget buildList() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: _userNodeValues.map((value) {
+        bool isHighlighted = _highlightedIndex != null &&
+            _userNodeValues[_highlightedIndex!] == value;
+
+        return AnimatedContainer(
+          duration: const Duration(seconds: 1), // Slower duration
+          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            color: isHighlighted ? Colors.lightGreenAccent : Colors.green,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            value.toString(),
+            style: const TextStyle(color: Colors.white, fontSize: 16),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
   void updateNodeValue(TreeNode node, String newValue) {
     int? value = int.tryParse(newValue);
     if (value != null) {
       setState(() {
+        int oldValueIndex = _userNodeValues.indexOf(node.value);
+        if (oldValueIndex != -1) {
+          _userNodeValues[oldValueIndex] = value;
+        }
         node.value = value;
       });
     } else {
@@ -293,9 +375,13 @@ class _BinarySearchPageState extends State<BinarySearchPage>
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              'Node List: ${_getNodeListAsString()}',
+              'Node List:',
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: buildList(), // Display the list with highlight effect
           ),
         ],
       ),
@@ -499,12 +585,12 @@ class TreePainter extends CustomPainter {
     }
 
     paint.color = node.isMoving
-        ? Colors.blue
+        ? Colors.green
         : isChecked && node.isCorrectPosition
-            ? Colors.lightGreen
+            ? Colors.green
             : isChecked && !node.isCorrectPosition
                 ? Colors.red
-                : Colors.blue;
+                : Colors.green;
 
     canvas.drawCircle(Offset(x, y), radius, paint);
 

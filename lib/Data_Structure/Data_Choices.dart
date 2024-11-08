@@ -27,12 +27,12 @@ class _DataChoices extends State<DataChoices> {
   ];
 
   // Define the background images for each page
-  final List<String> _backgroundImages = [
-    'assets/Game.png', // Path to the first background image
-    'assets/Learn.png', // Path to the second background image
-    'assets/Simulation.png', // Path to the third background image
-    // Add more image paths if you have more pages
-  ];
+  // final List<String> _backgroundImages = [
+  //   'assets/Game.png', // Path to the first background image
+  //   'assets/Learn.png', // Path to the second background image
+  //   'assets/Simulation.png', // Path to the third background image
+  //   // Add more image paths if you have more pages
+  // ];
 
   var text = "??";
 
@@ -118,18 +118,15 @@ class _DataChoices extends State<DataChoices> {
                         const Color.fromARGB(255, 255, 255, 255)),
                   ),
                   onPressed: () {
-
                     if (text == "Queues") {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => QueuesPage()),
+                        MaterialPageRoute(builder: (context) => QueuesPage()),
                       );
                     } else if (text == "Stacks") {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => StacksPage()),
+                        MaterialPageRoute(builder: (context) => StacksPage()),
                       );
                     }
                   },
