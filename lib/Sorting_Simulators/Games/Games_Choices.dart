@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'card_play.dart';
-import 'Board.dart';
-import 'board_play.dart';
+import 'radix/card_play.dart';
+import 'radix/Board.dart';
+import 'radix/board_play.dart';
 import 'hangman.dart';
 
 void main() {
@@ -9,6 +9,8 @@ void main() {
 }
 
 class GameSelectionApp extends StatelessWidget {
+  const GameSelectionApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,11 +22,13 @@ class GameSelectionApp extends StatelessWidget {
 }
 
 class GameSelectionScreen extends StatelessWidget {
+  const GameSelectionScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Choose Your Game'),
+        title: const Text('Choose Your Game'),
         backgroundColor: Colors.blueGrey,
       ),
       body: Stack(
@@ -59,14 +63,14 @@ class GameSelectionScreen extends StatelessWidget {
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
-                          side: BorderSide(
-                            color: const Color.fromARGB(
+                          side: const BorderSide(
+                            color: Color.fromARGB(
                                 255, 255, 255, 255), // Border color
                             width: 6.0, // Border thickness
                           ),
                         ),
                         elevation: 5, // Adds shadow to make the card pop out
-                        child: Container(
+                        child: SizedBox(
                           height: 300, // Height for all cards
                           width: 200, // Width for all cards
                           child: Stack(
@@ -88,7 +92,7 @@ class GameSelectionScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Radix Race',
                                       style: TextStyle(
                                         fontSize: 20,
@@ -97,14 +101,14 @@ class GameSelectionScreen extends StatelessWidget {
                                             255, 44, 82, 107), // Text color
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                         height:
                                             4), // Adds space between the text and the underline
                                     Container(
                                       width:
                                           100, // Adjust width of the underline if needed
                                       height: 5, // Thickness of the underline
-                                      color: Color.fromARGB(
+                                      color: const Color.fromARGB(
                                           255, 44, 82, 107), // Underline color
                                     ),
                                   ],
@@ -128,14 +132,14 @@ class GameSelectionScreen extends StatelessWidget {
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
-                          side: BorderSide(
-                            color: const Color.fromARGB(
+                          side: const BorderSide(
+                            color: Color.fromARGB(
                                 255, 255, 255, 255), // Border color
                             width: 6.0, // Border thickness
                           ),
                         ),
                         elevation: 5, // Adds shadow to make the card pop out
-                        child: Container(
+                        child: SizedBox(
                           height: 300, // Height for all cards
                           width: 200, // Width for all cards
                           child: Stack(
@@ -157,7 +161,7 @@ class GameSelectionScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Sliding Puzzle',
                                       style: TextStyle(
                                         fontSize: 20,
@@ -166,14 +170,14 @@ class GameSelectionScreen extends StatelessWidget {
                                             255, 255, 255, 255), // Text color
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                         height:
                                             4), // Adds space between the text and the underline
                                     Container(
                                       width:
                                           100, // Adjust width of the underline if needed
                                       height: 5, // Thickness of the underline
-                                      color: Color.fromARGB(255, 255, 255,
+                                      color: const Color.fromARGB(255, 255, 255,
                                           255), // Underline color
                                     ),
                                   ],
@@ -186,11 +190,12 @@ class GameSelectionScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 20), // Space between the rows
+                const SizedBox(height: 20), // Space between the rows
                 // Second row with Game 3 below Game 1
                 Row(
                   children: [
-                    SizedBox(width: 20), // Adds space to the left of Game 3
+                    const SizedBox(
+                        width: 20), // Adds space to the left of Game 3
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -203,14 +208,14 @@ class GameSelectionScreen extends StatelessWidget {
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
-                          side: BorderSide(
-                            color: const Color.fromARGB(
+                          side: const BorderSide(
+                            color: Color.fromARGB(
                                 255, 255, 255, 255), // Border color
                             width: 6.0, // Border thickness
                           ),
                         ),
                         elevation: 5, // Adds shadow to make the card pop out
-                        child: Container(
+                        child: SizedBox(
                           height: 300, // Height for all cards
                           width: 200, // Width for all cards
                           child: Stack(
@@ -232,7 +237,7 @@ class GameSelectionScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Hangman',
                                       style: TextStyle(
                                         fontSize: 20,
@@ -241,14 +246,14 @@ class GameSelectionScreen extends StatelessWidget {
                                             255, 44, 82, 107), // Text color
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                         height:
                                             4), // Adds space between the text and the underline
                                     Container(
                                       width:
                                           100, // Adjust width of the underline if needed
                                       height: 5, // Thickness of the underline
-                                      color: Color.fromARGB(
+                                      color: const Color.fromARGB(
                                           255, 44, 82, 107), // Underline color
                                     ),
                                   ],

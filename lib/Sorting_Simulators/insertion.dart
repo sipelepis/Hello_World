@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class InsertionSortPage extends StatefulWidget {
-  const InsertionSortPage({Key? key}) : super(key: key);
+  const InsertionSortPage({super.key});
 
   @override
   State<InsertionSortPage> createState() => _InsertionSortPageState();

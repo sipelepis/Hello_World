@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'radixexamplegame.dart';
+import 'guessinsertion.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,6 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class GameIntroScreen extends StatelessWidget {
+  const GameIntroScreen({super.key});
+
   void _showHowToPlayDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -31,7 +35,7 @@ class GameIntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Radix"),
+        title: const Text("Radix"),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 19, 83, 134),
       ),
@@ -44,7 +48,7 @@ class GameIntroScreen extends StatelessWidget {
               Container(
                 height: MediaQuery.of(context).size.height *
                     0.4, // 40% of screen height
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
                         'assets/card_image.png'), // Replace with your image path
@@ -81,12 +85,12 @@ class GameIntroScreen extends StatelessWidget {
                           Shadow(
                             blurRadius: 10.0,
                             color: Colors.black.withOpacity(0.6),
-                            offset: Offset(3, 3),
+                            offset: const Offset(3, 3),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     // Game description
                     Text(
                       'Welcome to the Radix Sort Game! In this game, you will need to find the number by revealing them one by one.',
@@ -97,7 +101,7 @@ class GameIntroScreen extends StatelessWidget {
                           Shadow(
                             blurRadius: 10.0,
                             color: Colors.black.withOpacity(0.6),
-                            offset: Offset(3, 3),
+                            offset: const Offset(3, 3),
                           ),
                         ],
                       ),
@@ -128,20 +132,20 @@ class GameIntroScreen extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
                         backgroundColor:
                             const Color.fromARGB(255, 199, 103, 13),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'PLAY',
                         style: TextStyle(fontSize: 29, color: Colors.white),
                       ),
                     ),
                   ),
-                  SizedBox(width: 20), // Space between the buttons
+                  const SizedBox(width: 20), // Space between the buttons
                   // ? Button
                   ElevatedButton(
                     onPressed: () {
@@ -149,14 +153,14 @@ class GameIntroScreen extends StatelessWidget {
                       _showHowToPlayDialog(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 30),
                       backgroundColor: const Color.fromARGB(255, 103, 103, 103),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       '?',
                       style: TextStyle(fontSize: 29, color: Colors.white),
                     ),
@@ -172,6 +176,8 @@ class GameIntroScreen extends StatelessWidget {
 }
 
 class HowToPlayDialog extends StatefulWidget {
+  const HowToPlayDialog({super.key});
+
   @override
   _HowToPlayDialogState createState() => _HowToPlayDialogState();
 }
@@ -198,7 +204,7 @@ class _HowToPlayDialogState extends State<HowToPlayDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Center(
+      title: const Center(
         // Center the title
         child: Text(
           'How to Play',
@@ -217,16 +223,16 @@ class _HowToPlayDialogState extends State<HowToPlayDialog> {
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           // Text instructions
           Text(
             currentStep == 1
                 ? 'Reveal the numbers one by one'
                 : 'Find the number correctly to win',
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           // Dots to indicate current step
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -236,7 +242,7 @@ class _HowToPlayDialogState extends State<HowToPlayDialog> {
                 size: 20,
                 color: currentStep == 1 ? Colors.blue : Colors.grey,
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Icon(
                 Icons.circle,
                 size: 20,
@@ -244,16 +250,17 @@ class _HowToPlayDialogState extends State<HowToPlayDialog> {
               ),
             ],
           ),
-          SizedBox(height: 30), // Increased space between dots and buttons
+          const SizedBox(
+              height: 30), // Increased space between dots and buttons
           // Row with larger arrows and "OK" button in the middle
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: Icon(Icons.arrow_left, size: 40),
+                icon: const Icon(Icons.arrow_left, size: 40),
                 onPressed: _goToPreviousStep,
               ),
-              SizedBox(
+              const SizedBox(
                   width:
                       40), // Added space between the left arrow and "OK" button
               // "OK" Button in the middle with more padding
@@ -262,22 +269,23 @@ class _HowToPlayDialogState extends State<HowToPlayDialog> {
                   Navigator.pop(context); // Close the dialog
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 16),
                   backgroundColor: Colors.orange,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'OK',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                   width:
                       40), // Added space between the "OK" button and right arrow
               IconButton(
-                icon: Icon(Icons.arrow_right, size: 40),
+                icon: const Icon(Icons.arrow_right, size: 40),
                 onPressed: _goToNextStep,
               ),
             ],

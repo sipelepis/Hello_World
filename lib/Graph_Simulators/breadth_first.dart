@@ -7,7 +7,7 @@ void main() {
 }
 
 class BreadthFirstPage extends StatefulWidget {
-  const BreadthFirstPage({Key? key}) : super(key: key);
+  const BreadthFirstPage({super.key});
 
   @override
   _BreadthFirstPageState createState() => _BreadthFirstPageState();
@@ -31,8 +31,8 @@ class _BreadthFirstPageState extends State<BreadthFirstPage>
   late Animation<double> _scaleAnimation;
   bool _isConverted = false;
   List<int> _userNodeValues = [];
-  List<int> _bfsTraversal = [];
-  Set<int> _highlightedNodes = {};
+  final List<int> _bfsTraversal = [];
+  final Set<int> _highlightedNodes = {};
   int? _highlightedIndex;
 
   @override
@@ -472,11 +472,11 @@ class _BreadthFirstPageState extends State<BreadthFirstPage>
   }
 
   Widget _buildInstructionsTab() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return const Padding(
+      padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
             'How to Use:',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -507,7 +507,7 @@ class TreePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (root == null) return;
 
-    final double radius = 20.0;
+    const double radius = 20.0;
     final Paint paint = Paint()..style = PaintingStyle.fill;
     final Paint linePaint = Paint()
       ..color = Colors.black

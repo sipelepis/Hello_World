@@ -7,6 +7,8 @@ void main() {
 }
 
 class HangmanGame extends StatelessWidget {
+  const HangmanGame({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +22,8 @@ class HangmanGame extends StatelessWidget {
 }
 
 class HangmanScreen extends StatefulWidget {
+  const HangmanScreen({super.key});
+
   @override
   _HangmanScreenState createState() => _HangmanScreenState();
 }
@@ -29,7 +33,7 @@ class _HangmanScreenState extends State<HangmanScreen> {
   late List<int> _hiddenNumbers;
   late List<List<int>> _allSteps;
   int _incorrectGuesses = 0;
-  int _maxGuesses = 6;
+  final int _maxGuesses = 6;
   late List<List<int>> _gridNumbers;
   int _currentRow = 0;
   int _currentColumn = 0;
@@ -83,7 +87,7 @@ class _HangmanScreenState extends State<HangmanScreen> {
       setState(() {});
 
       // Delay for a second to visualize the sorting step
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
       // Apply the red border after the first step
       if (digitPlace == 1) {
@@ -128,15 +132,16 @@ class _HangmanScreenState extends State<HangmanScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Game Over"),
-          content: Text("You have guessed all the numbers or lost the game!"),
+          title: const Text("Game Over"),
+          content:
+              const Text("You have guessed all the numbers or lost the game!"),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _startGame();
               },
-              child: Text("Restart"),
+              child: const Text("Restart"),
             ),
           ],
         );
@@ -148,10 +153,10 @@ class _HangmanScreenState extends State<HangmanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hangman Game'),
+        title: const Text('Hangman Game'),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             onPressed: _startGame,
           ),
         ],
@@ -167,12 +172,12 @@ class _HangmanScreenState extends State<HangmanScreen> {
                   Expanded(
                     child: Center(
                       child: CustomPaint(
-                        size: Size(150, 150),
+                        size: const Size(150, 150),
                         painter: HangmanPainter(_incorrectGuesses),
                       ),
                     ),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -180,12 +185,12 @@ class _HangmanScreenState extends State<HangmanScreen> {
                       children: [
                         Text(
                           'Generated Numbers: ${_generatedNumbers.join(", ")}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: _allSteps.map((stepNumbers) {
@@ -198,7 +203,8 @@ class _HangmanScreenState extends State<HangmanScreen> {
                                 return Container(
                                   width: 45,
                                   height: 45,
-                                  margin: EdgeInsets.symmetric(horizontal: 4),
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 4),
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: isFirstBox
@@ -213,7 +219,7 @@ class _HangmanScreenState extends State<HangmanScreen> {
                                     visible: !_hiddenNumbers.contains(num),
                                     child: Text(
                                       num.toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -230,7 +236,7 @@ class _HangmanScreenState extends State<HangmanScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -248,7 +254,7 @@ class _HangmanScreenState extends State<HangmanScreen> {
                             _moveToNextBox();
                           },
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
@@ -256,7 +262,7 @@ class _HangmanScreenState extends State<HangmanScreen> {
                           ),
                           child: Text(
                             number.toString(),
-                            style: TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 20),
                           ),
                         ),
                       );

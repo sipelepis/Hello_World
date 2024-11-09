@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class RadixQuiz extends StatefulWidget {
-  const RadixQuiz({Key? key}) : super(key: key);
+  const RadixQuiz({super.key});
 
   @override
   _RadixQuizState createState() => _RadixQuizState();
 }
 
 class _RadixQuizState extends State<RadixQuiz> {
-  int _currentQuestionIndex = 0;
-  List<Map<String, dynamic>> _questions = [
+  final int _currentQuestionIndex = 0;
+  final List<Map<String, dynamic>> _questions = [
     {
       'question': 'What is the worst-case time complexity of Radix Sort?',
       'answers': [
@@ -68,14 +68,16 @@ class _RadixQuizState extends State<RadixQuiz> {
         backgroundColor: Colors.green,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround, // This will distribute space evenly
+        mainAxisAlignment:
+            MainAxisAlignment.spaceAround, // This will distribute space evenly
         children: <Widget>[
           Expanded(
             flex: 2,
             child: Center(
               child: Text(
                 question['question'],
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -89,7 +91,8 @@ class _RadixQuizState extends State<RadixQuiz> {
                 return Card(
                   margin: const EdgeInsets.all(8.0),
                   child: InkWell(
-                    onTap: () => _answerQuestion(question['answers'][index]['correct']),
+                    onTap: () =>
+                        _answerQuestion(question['answers'][index]['correct']),
                     child: Center(
                       child: Text(
                         question['answers'][index]['text'],

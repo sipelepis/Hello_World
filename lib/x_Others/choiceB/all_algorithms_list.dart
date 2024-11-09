@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/x_Others/choiceB/radix_Learn.dart';
 
- // Ensure this is at the top if RadixSortPage is in the same file
+// Ensure this is at the top if RadixSortPage is in the same file
 
 void main() {
   runApp(const CL2HOME());
@@ -19,7 +19,7 @@ class Algorithm {
 }
 
 class CL2HOME extends StatefulWidget {
-  const CL2HOME({Key? key}) : super(key: key);
+  const CL2HOME({super.key});
 
   @override
   State<CL2HOME> createState() => _CL2HOMEState();
@@ -49,13 +49,13 @@ class _CL2HOMEState extends State<CL2HOME> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 19, 111, 2),
+          backgroundColor: const Color.fromARGB(255, 19, 111, 2),
           title: const Text(
             "Let's Learn Algorithm",
             style: TextStyle(color: Colors.white),
           ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).maybePop(),
           ),
         ),
@@ -89,21 +89,21 @@ class _CL2HOMEState extends State<CL2HOME> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        title: Text('Want to continue?'),
+                        title: const Text('Want to continue?'),
                         content: Text('${algo.name} has been selected.'),
                         actions: [
                           ElevatedButton(
-                            child: const Text('Continue'),
                             onPressed: () {
                               Navigator.of(context).pop();
                               // Here you might navigate to a generic detail page for other algorithms
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(255, 65, 65, 71)),
-                              foregroundColor: MaterialStateProperty.all<Color>(
+                              backgroundColor: WidgetStateProperty.all<Color>(
+                                  const Color.fromARGB(255, 65, 65, 71)),
+                              foregroundColor: WidgetStateProperty.all<Color>(
                                   const Color.fromARGB(255, 255, 255, 255)),
                             ),
+                            child: const Text('Continue'),
                           )
                         ],
                       ),

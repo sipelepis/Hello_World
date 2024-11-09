@@ -4,6 +4,8 @@ import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutterapp/x_Others/choiceB/RadixQuiz.dart';
 
 class RadixSortScreen extends StatefulWidget {
+  const RadixSortScreen({super.key});
+
   @override
   _RadixSortScreenState createState() => _RadixSortScreenState();
 }
@@ -45,7 +47,7 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Let's Learn Radix Sort"),
+        title: const Text("Let's Learn Radix Sort"),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
@@ -59,9 +61,9 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             if (_isLoading)
-              Container(
+              SizedBox(
                 height: 200,
-                child: Center(child: CircularProgressIndicator()),
+                child: const Center(child: CircularProgressIndicator()),
               )
             else if (_controller.value.isInitialized)
               AspectRatio(
@@ -71,27 +73,27 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
                 ),
               )
             else
-              Container(
+              SizedBox(
                 height: 200,
-                child: Center(child: Text('Failed to load video.')),
+                child: const Center(child: Text('Failed to load video.')),
               ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Radix Sort',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             detailedExplanationText(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Navigate to the QuizPage
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RadixQuiz()),
+                  MaterialPageRoute(builder: (context) => const RadixQuiz()),
                 );
               },
-              child: Text('Play Quiz'),
+              child: const Text('Play Quiz'),
             ),
           ],
         ),
@@ -100,7 +102,7 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
   }
 
   Widget detailedExplanationText() {
-    return Text(
+    return const Text(
       'Radix: The fundamental base of a numeral system, determining the number of unique digits and their positional values.\n\n'
       'Decimal System (Base 10): Radix is 10, with digits 0 through 9 representing values from 0 to 9 and each position representing a power of 10 (e.g., units, tens, hundreds).\n\n'
       'Binary System (Base 2): Radix is 2, with digits 0 and 1 representing values from 0 to 1 and each position representing a power of 2 (e.g., units, twos, fours).\n\n'

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StacksPage extends StatefulWidget {
-  const StacksPage({Key? key}) : super(key: key);
+  const StacksPage({super.key});
 
   @override
   State<StacksPage> createState() => _StacksPageState();
@@ -179,7 +179,7 @@ class _StacksPageState extends State<StacksPage>
                   ],
                 ),
                 labelPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                tabs: [
+                tabs: const [
                   Tab(
                     child: Text(
                       'Simulate',
@@ -228,17 +228,17 @@ class _StacksPageState extends State<StacksPage>
           const SizedBox(height: 20),
           TextField(
             controller: _inputController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Input',
-              labelStyle: const TextStyle(
+              labelStyle: TextStyle(
                 fontSize: 18,
                 color: Colors.grey,
               ),
-              focusedBorder: const OutlineInputBorder(
+              focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.blue, width: 2),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
-              border: const OutlineInputBorder(
+              border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
             ),

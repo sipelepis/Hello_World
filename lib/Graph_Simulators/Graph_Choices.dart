@@ -5,7 +5,7 @@ import 'package:flutterapp/Graph_Simulators/breadth_first.dart';
 import 'package:flutterapp/Graph_Simulators/depth_first.dart';
 
 class GraphChoices extends StatefulWidget {
-  const GraphChoices({Key? key}) : super(key: key);
+  const GraphChoices({super.key});
 
   @override
   _GraphChoices createState() => _GraphChoices();
@@ -23,7 +23,8 @@ class _GraphChoices extends State<GraphChoices> {
         255, 255, 205, 202), // Background color for the first page
     const Color.fromARGB(
         255, 193, 255, 195), // Background color for the second page
-    Color.fromARGB(255, 152, 240, 255), // Background color for the third page
+    const Color.fromARGB(
+        255, 152, 240, 255), // Background color for the third page
     // Add more colors if you have more pages
   ];
 
@@ -37,7 +38,7 @@ class _GraphChoices extends State<GraphChoices> {
 
   var text = "??";
 
-  List<dynamic> _products = [
+  final List<dynamic> _products = [
     {
       'title': 'Binary Search Tree',
       'image':
@@ -80,13 +81,14 @@ class _GraphChoices extends State<GraphChoices> {
                   MainAxisSize.min, // Make sure content fits within the dialog
               children: [
                 // const Text('I am Madhi'),
-                SizedBox(height: 20), // Add spacing between content and button
+                const SizedBox(
+                    height: 20), // Add spacing between content and button
                 TextButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 0, 195, 255)),
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 255, 255, 255)),
+                    backgroundColor: WidgetStateProperty.all<Color>(
+                        const Color.fromARGB(255, 0, 195, 255)),
+                    foregroundColor: WidgetStateProperty.all<Color>(
+                        const Color.fromARGB(255, 255, 255, 255)),
                   ),
                   onPressed: () {
                     // Handle button press if needed
@@ -96,7 +98,7 @@ class _GraphChoices extends State<GraphChoices> {
                   child: Container(
                     width: 230,
                     height: 90,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     alignment: Alignment.centerLeft,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment
@@ -107,8 +109,8 @@ class _GraphChoices extends State<GraphChoices> {
                           width: 40, // Adjust width as needed
                           height: 40, // Adjust height as needed
                         ),
-                        SizedBox(width: 8), // Ad
-                        Text(
+                        const SizedBox(width: 8), // Ad
+                        const Text(
                           'Tutorial',
                           style: TextStyle(fontSize: 30),
                         ),
@@ -116,12 +118,12 @@ class _GraphChoices extends State<GraphChoices> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20), // Adds vertical space
+                const SizedBox(height: 20), // Adds vertical space
                 TextButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 35, 209, 0)),
-                    foregroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor: WidgetStateProperty.all<Color>(
+                        const Color.fromARGB(255, 35, 209, 0)),
+                    foregroundColor: WidgetStateProperty.all<Color>(
                         const Color.fromARGB(255, 255, 255, 255)),
                   ),
                   onPressed: () {
@@ -129,26 +131,26 @@ class _GraphChoices extends State<GraphChoices> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BinarySearchPage()),
+                            builder: (context) => const BinarySearchPage()),
                       );
                     } else if (text == "Breadth First") {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BreadthFirstPage()),
+                            builder: (context) => const BreadthFirstPage()),
                       );
                     } else if (text == "Depth First") {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DepthFirstPage()),
+                            builder: (context) => const DepthFirstPage()),
                       );
                     }
                   },
                   child: Container(
                     width: 230,
                     height: 90,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     alignment: Alignment.centerLeft,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment
@@ -159,8 +161,8 @@ class _GraphChoices extends State<GraphChoices> {
                           width: 40, // Adjust width as needed
                           height: 40, // Adjust height as needed
                         ),
-                        SizedBox(width: 8), // Ad
-                        Text(
+                        const SizedBox(width: 8), // Ad
+                        const Text(
                           'Simulation',
                           style: TextStyle(fontSize: 30),
                         ),
@@ -170,19 +172,19 @@ class _GraphChoices extends State<GraphChoices> {
                   // Text('START', style: TextStyle(fontSize: 30),),
                   // donut
                 ),
-                SizedBox(height: 20), // Adds vertical space
+                const SizedBox(height: 20), // Adds vertical space
                 TextButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 219, 0, 0)),
-                    foregroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor: WidgetStateProperty.all<Color>(
+                        const Color.fromARGB(255, 219, 0, 0)),
+                    foregroundColor: WidgetStateProperty.all<Color>(
                         const Color.fromARGB(255, 255, 255, 255)),
                   ),
                   onPressed: () {},
                   child: Container(
                     width: 230,
                     height: 90,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     alignment: Alignment.centerLeft,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment
@@ -193,8 +195,8 @@ class _GraphChoices extends State<GraphChoices> {
                           width: 40, // Adjust width as needed
                           height: 40, // Adjust height as needed
                         ),
-                        SizedBox(width: 8), // Ad
-                        Text(
+                        const SizedBox(width: 8), // Ad
+                        const Text(
                           'Game',
                           style: TextStyle(fontSize: 30),
                         ),
@@ -224,7 +226,7 @@ class _GraphChoices extends State<GraphChoices> {
       floatingActionButton: _selectedIndex.isNotEmpty
           ? FloatingActionButton(
               onPressed: () => _openAnimationDialog(context),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.arrow_forward_ios),
@@ -239,14 +241,14 @@ class _GraphChoices extends State<GraphChoices> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text(
+        title: const Text(
           'Sorting Algorithms',
           style: TextStyle(
             color: Colors.black,
           ),
         ),
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: CarouselSlider(
@@ -279,20 +281,20 @@ class _GraphChoices extends State<GraphChoices> {
                     });
                   },
                   child: AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
                       border: _selectedIndex == movie
                           ? Border.all(
-                              color: Color.fromARGB(255, 22, 207, 62),
+                              color: const Color.fromARGB(255, 22, 207, 62),
                               width: 3,
                             )
                           : null,
                       boxShadow: _selectedIndex == movie
                           ? [
-                              BoxShadow(
+                              const BoxShadow(
                                 color: Color.fromARGB(255, 70, 155, 129),
                                 blurRadius: 30,
                                 offset: Offset(0, 10),
@@ -302,7 +304,7 @@ class _GraphChoices extends State<GraphChoices> {
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.2),
                                 blurRadius: 20,
-                                offset: Offset(0, 5),
+                                offset: const Offset(0, 5),
                               )
                             ],
                     ),
@@ -311,7 +313,7 @@ class _GraphChoices extends State<GraphChoices> {
                         children: [
                           Container(
                             height: 320,
-                            margin: EdgeInsets.only(top: 10),
+                            margin: const EdgeInsets.only(top: 10),
                             clipBehavior: Clip.hardEdge,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -321,15 +323,15 @@ class _GraphChoices extends State<GraphChoices> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Text(
                             movie['title'],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Text(
                             movie['description'],
                             style: TextStyle(

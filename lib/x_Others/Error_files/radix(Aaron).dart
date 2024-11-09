@@ -9,6 +9,8 @@ void main() {
 }
 
 class RadixSortPage extends StatefulWidget {
+  const RadixSortPage({super.key});
+
   @override
   _RadixSortPageState createState() => _RadixSortPageState();
 }
@@ -33,9 +35,9 @@ class _RadixSortPageState extends State<RadixSortPage> {
     return Row(
       children: [
         Text('Step ${index + 1}: '),
-        SizedBox(width: 10), // Add some spacing
+        const SizedBox(width: 10), // Add some spacing
         Expanded(
-          child: Container(
+          child: SizedBox(
             height: 50, // Set a specific height for the ListView
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -43,11 +45,11 @@ class _RadixSortPageState extends State<RadixSortPage> {
               itemBuilder: (context, idx) {
                 return Container(
                   width: 60, // Reduced width
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       right: 10), // Add some spacing between fields
                   child: TextFormField(
                     controller: stepControllers[index][idx],
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       isDense: true,
                       border: OutlineInputBorder(),
                     ),
@@ -64,7 +66,7 @@ class _RadixSortPageState extends State<RadixSortPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Radix Sort Visualization')),
+      appBar: AppBar(title: const Text('Radix Sort Visualization')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -72,27 +74,27 @@ class _RadixSortPageState extends State<RadixSortPage> {
           children: <Widget>[
             TextField(
               controller: inputController,
-              decoration:
-                  InputDecoration(labelText: 'Enter numbers (comma-separated)'),
+              decoration: const InputDecoration(
+                  labelText: 'Enter numbers (comma-separated)'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                   onPressed: _insertAndSort,
-                  child: Text('Insert'),
+                  child: const Text('Insert'),
                 ),
                 ElevatedButton(
                   onPressed: () => setState(() => stepControllers.clear()),
-                  child: Text('Clear Steps'),
+                  child: const Text('Clear Steps'),
                 ),
                 ElevatedButton(
                   onPressed: () {}, // Placeholder for "Sort" button
-                  child: Text('Sort'),
+                  child: const Text('Sort'),
                 ),
                 ElevatedButton(
                   onPressed: () {}, // Placeholder for "Check" button
-                  child: Text('Check'),
+                  child: const Text('Check'),
                 ),
               ],
             ),
@@ -101,17 +103,17 @@ class _RadixSortPageState extends State<RadixSortPage> {
               children: [
                 ElevatedButton(
                   onPressed: () {},
-                  child: Text('Edit Step/s'),
+                  child: const Text('Edit Step/s'),
                 ),
                 ElevatedButton(
                   onPressed: () {},
-                  child: Text('Scan Text'),
+                  child: const Text('Scan Text'),
                 ),
               ],
             ),
             ElevatedButton(
               onPressed: () {}, // Placeholder for "How to use" button
-              child: Text('How to use'),
+              child: const Text('How to use'),
             ),
             Expanded(
               child: ListView.builder(

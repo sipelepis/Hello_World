@@ -7,7 +7,7 @@ void main() {
 }
 
 class DepthFirstPage extends StatefulWidget {
-  const DepthFirstPage({Key? key}) : super(key: key);
+  const DepthFirstPage({super.key});
 
   @override
   _DepthFirstPageState createState() => _DepthFirstPageState();
@@ -32,7 +32,7 @@ class _DepthFirstPageState extends State<DepthFirstPage>
   bool _isConverted = false;
   bool _isChecked = false;
   List<int> _userNodeValues = [];
-  List<int> _dfsTraversal = [];
+  final List<int> _dfsTraversal = [];
 
   @override
   void initState() {
@@ -480,11 +480,11 @@ class _DepthFirstPageState extends State<DepthFirstPage>
   }
 
   Widget _buildInstructionsTab() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return const Padding(
+      padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
             'How to Use:',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -517,7 +517,7 @@ class TreePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (root == null) return;
 
-    final double radius = 20.0;
+    const double radius = 20.0;
     final Paint paint = Paint()..style = PaintingStyle.fill;
     final Paint linePaint = Paint()
       ..color = Colors.black

@@ -6,6 +6,8 @@ void main() {
 }
 
 class HangmanGame extends StatelessWidget {
+  const HangmanGame({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,6 +21,8 @@ class HangmanGame extends StatelessWidget {
 }
 
 class HangmanScreen extends StatefulWidget {
+  const HangmanScreen({super.key});
+
   @override
   _HangmanScreenState createState() => _HangmanScreenState();
 }
@@ -77,14 +81,14 @@ class _HangmanScreenState extends State<HangmanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hangman Game'),
+        title: const Text('Hangman Game'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Hangman drawing (stick figure representation)
           HangmanDrawing(incorrectGuesses: incorrectGuesses),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // Display hidden word with blanks
           Row(
@@ -92,11 +96,11 @@ class _HangmanScreenState extends State<HangmanScreen> {
             children: selectedWord.split('').map((letter) {
               return Text(
                 guessedLetters.contains(letter) ? letter : '_',
-                style: TextStyle(fontSize: 30),
+                style: const TextStyle(fontSize: 30),
               );
             }).toList(),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // Display alphabet letters for guessing
           Wrap(
@@ -110,11 +114,11 @@ class _HangmanScreenState extends State<HangmanScreen> {
               );
             }).toList(),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // Display win or lose message
           if (isGameWon())
-            Text(
+            const Text(
               'Congratulations! You Won!',
               style: TextStyle(fontSize: 24, color: Colors.green),
             )
@@ -123,11 +127,11 @@ class _HangmanScreenState extends State<HangmanScreen> {
               children: [
                 Text(
                   'Game Over! The word was $selectedWord',
-                  style: TextStyle(fontSize: 24, color: Colors.red),
+                  style: const TextStyle(fontSize: 24, color: Colors.red),
                 ),
                 ElevatedButton(
                   onPressed: resetGame,
-                  child: Text('Play Again'),
+                  child: const Text('Play Again'),
                 )
               ],
             )
@@ -141,13 +145,13 @@ class _HangmanScreenState extends State<HangmanScreen> {
 class HangmanDrawing extends StatelessWidget {
   final int incorrectGuesses;
 
-  HangmanDrawing({required this.incorrectGuesses});
+  const HangmanDrawing({super.key, required this.incorrectGuesses});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: CustomPaint(
-        size: Size(150, 250),
+        size: const Size(150, 250),
         painter: HangmanPainter(incorrectGuesses),
       ),
     );

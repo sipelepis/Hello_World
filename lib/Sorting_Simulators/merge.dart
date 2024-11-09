@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MergeSortPage extends StatefulWidget {
-  const MergeSortPage({Key? key}) : super(key: key);
+  const MergeSortPage({super.key});
 
   @override
   State<MergeSortPage> createState() => _MergeSortPageState();
@@ -48,28 +48,32 @@ class _MergeSortPageState extends State<MergeSortPage> {
           temp[k++] = stack[j++];
         }
       });
-      await Future.delayed(Duration(milliseconds: 600)); // Adjust delay for slower animation
+      await Future.delayed(const Duration(
+          milliseconds: 600)); // Adjust delay for slower animation
     }
 
     while (i <= mid) {
       setState(() {
         temp[k++] = stack[i++];
       });
-      await Future.delayed(Duration(milliseconds: 600)); // Adjust delay for slower animation
+      await Future.delayed(const Duration(
+          milliseconds: 600)); // Adjust delay for slower animation
     }
 
     while (j <= high) {
       setState(() {
         temp[k++] = stack[j++];
       });
-      await Future.delayed(Duration(milliseconds: 600)); // Adjust delay for slower animation
+      await Future.delayed(const Duration(
+          milliseconds: 600)); // Adjust delay for slower animation
     }
 
     for (i = low; i <= high; i++) {
       setState(() {
         stack[i] = temp[i];
       });
-      await Future.delayed(Duration(milliseconds: 600)); // Adjust delay for slower animation
+      await Future.delayed(const Duration(
+          milliseconds: 600)); // Adjust delay for slower animation
     }
   }
 
@@ -90,7 +94,7 @@ class _MergeSortPageState extends State<MergeSortPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Merge Sort Visualization'),
+        title: const Text('Merge Sort Visualization'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -105,17 +109,17 @@ class _MergeSortPageState extends State<MergeSortPage> {
                     onChanged: (value) {
                       setState(() {});
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Enter numbers (comma-separated)',
                     ),
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 ElevatedButton(
                   onPressed: insertNumbers,
-                  child: Text('Insert'),
+                  child: const Text('Insert'),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
@@ -123,17 +127,17 @@ class _MergeSortPageState extends State<MergeSortPage> {
                     });
                     inputController.clear(); // Clear the input text field
                   },
-                  child: Text('Clear'),
+                  child: const Text('Clear'),
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: sort,
-              child: Text('Sort'),
+              child: const Text('Sort'),
             ),
-            SizedBox(height: 16),
-            Text('Merge Sort Visualization:'),
+            const SizedBox(height: 16),
+            const Text('Merge Sort Visualization:'),
             Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -141,27 +145,35 @@ class _MergeSortPageState extends State<MergeSortPage> {
                   children: [
                     for (int i = 0; i < stack.length; i++)
                       TweenAnimationBuilder(
-                        duration: Duration(milliseconds: 500), // Adjust duration for slower animation
+                        duration: const Duration(
+                            milliseconds:
+                                500), // Adjust duration for slower animation
                         tween: Tween<double>(
                           begin: i.toDouble(),
                           end: stack.indexOf(stack[i]).toDouble(),
                         ),
                         builder: (context, double value, child) {
                           return Transform.translate(
-                            offset: Offset(value * 30, 0), // Adjust the value for spacing
+                            offset: Offset(
+                                value * 30, 0), // Adjust the value for spacing
                             child: AnimatedContainer(
-                              duration: Duration(milliseconds: 500), // Adjust duration for slower animation
+                              duration: const Duration(
+                                  milliseconds:
+                                      500), // Adjust duration for slower animation
                               height: 50,
                               width: 50,
                               margin: const EdgeInsets.symmetric(horizontal: 5),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: isSorting ? Colors.blue : Colors.lightBlue, // Numbers being sorted
+                                color: isSorting
+                                    ? Colors.blue
+                                    : Colors.lightBlue, // Numbers being sorted
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Text(
                                 stack[i].toString(),
-                                style: TextStyle(fontSize: 20, color: Colors.white),
+                                style: const TextStyle(
+                                    fontSize: 20, color: Colors.white),
                               ),
                             ),
                           );
@@ -179,7 +191,7 @@ class _MergeSortPageState extends State<MergeSortPage> {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: MergeSortPage(),
   ));
 }

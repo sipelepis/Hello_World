@@ -6,7 +6,7 @@ void main() {
 }
 
 class BinarySearchPage extends StatefulWidget {
-  const BinarySearchPage({Key? key}) : super(key: key);
+  const BinarySearchPage({super.key});
 
   @override
   _BinarySearchPageState createState() => _BinarySearchPageState();
@@ -372,11 +372,11 @@ class _BinarySearchPageState extends State<BinarySearchPage>
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Text(
               'Node List:',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
           Padding(
@@ -522,11 +522,11 @@ class _BinarySearchPageState extends State<BinarySearchPage>
   }
 
   Widget _buildInstructionsTab() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return const Padding(
+      padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
             'How to Use:',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -558,7 +558,7 @@ class TreePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (root == null) return;
 
-    final double radius = 20.0;
+    const double radius = 20.0;
     final Paint paint = Paint()..style = PaintingStyle.fill;
     final Paint linePaint = Paint()
       ..color = Colors.black

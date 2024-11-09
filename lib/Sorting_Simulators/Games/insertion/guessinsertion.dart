@@ -8,10 +8,12 @@ void main() {
 }
 
 class RadixSortApp extends StatelessWidget {
+  const RadixSortApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Radix Sort Game',
+      title: 'Insertion Sort Game',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: RadixSortScreen(),
     );
@@ -19,6 +21,8 @@ class RadixSortApp extends StatelessWidget {
 }
 
 class RadixSortScreen extends StatefulWidget {
+  const RadixSortScreen({super.key});
+
   @override
   _RadixSortScreenState createState() => _RadixSortScreenState();
 }
@@ -29,13 +33,13 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
   List<int> sortedNumbers = [];
   List<List<bool>> numberVisibility = [];
   Stopwatch stopwatch = Stopwatch();
-  String elapsedTime = "03:20";
+  String elapsedTime = "01:00";
   Timer? timer;
   int? targetNumber;
   bool gameOver = false;
   bool gameWon = false;
   int currentLevel = 1; // Track the current level (1-5)
-  int maxTimeInSeconds = 200; // 3 minutes in seconds
+  int maxTimeInSeconds = 60; // 3 minutes in seconds
 
   @override
   void initState() {
@@ -79,18 +83,29 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
     stopwatch.start();
 
     // Ensure the timer is started only once
-    timer = Timer.periodic(Duration(seconds: 1), (_) {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
       _updateElapsedTime(); // Update time every second
     });
 
     // Sorting logic remains unchanged
     List<int> numbers = List.from(randomNumbers);
-    int maxDigits = _getMaxDigits(numbers);
     List<List<int>> steps = [];
 
-    for (int digitPlace = 1; digitPlace <= maxDigits; digitPlace++) {
-      steps.add(List.from(numbers));
-      numbers = await _radixSortStep(numbers, digitPlace);
+    // Perform Insertion Sort and record each step
+    for (int i = 1; i < numbers.length; i++) {
+      steps.add(List.from(numbers)); // Record the current state
+      int key = numbers[i];
+      int j = i - 1;
+
+      // Shift elements that are greater than key to one position ahead
+      while (j >= 0 && numbers[j] > key) {
+        numbers[j + 1] = numbers[j];
+        j = j - 1;
+      }
+      numbers[j + 1] = key;
+
+      await Future.delayed(const Duration(
+          milliseconds: 500)); // Add a delay to visualize the sorting
     }
 
     sortedNumbers = List.from(numbers);
@@ -106,8 +121,6 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
       numberVisibility = List.generate(stepControllers.length,
           (_) => List.generate(stepControllers[0].length, (_) => false));
     });
-
-    // Do not stop the stopwatch immediately, let it continue for the countdown
   }
 
   void _updateElapsedTime() {
@@ -132,14 +145,14 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(
+            title: const Text(
               "Times Up!",
               style: TextStyle(fontSize: 24, color: Colors.red),
             ),
-            content: Text("You ran out of time!"),
+            content: const Text("You ran out of time!"),
             actions: [
               TextButton(
-                child: Text("Try Again"),
+                child: const Text("Try Again"),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                   _resetGame(); // Reset all relevant variables to refresh the screen
@@ -177,24 +190,6 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
     _generateRandomNumbers(); // Generate new numbers and start a new game
   }
 
-  Future<List<int>> _radixSortStep(List<int> numbers, int digitPlace) async {
-    int radix = 10;
-    List<List<int>> buckets = List.generate(radix, (_) => []);
-
-    for (int num in numbers) {
-      int digit = (num ~/ pow(radix, digitPlace - 1)) % radix;
-      buckets[digit].add(num);
-    }
-
-    return buckets.expand((bucket) => bucket).toList();
-  }
-
-  int _getMaxDigits(List<int> numbers) {
-    return numbers
-        .map((num) => num.toString().length)
-        .reduce((a, b) => a > b ? a : b);
-  }
-
   void _handleSelection(int number, int index, int idx) {
     if (gameOver || gameWon) return;
 
@@ -204,7 +199,7 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
       });
 
       // Check if the game is won after updating the state
-      Future.delayed(Duration(milliseconds: 100), () {
+      Future.delayed(const Duration(milliseconds: 100), () {
         checkGameWin(); // Check for win condition
       });
     } else {
@@ -217,14 +212,14 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(
+            title: const Text(
               "Game Over",
               style: TextStyle(fontSize: 24, color: Colors.red),
             ),
-            content: Text("You Lose!"),
+            content: const Text("You Lose!"),
             actions: [
               TextButton(
-                child: Text("Try Again"),
+                child: const Text("Try Again"),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                   setState(() {
@@ -274,7 +269,7 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
           return AlertDialog(
             title: Text(
               "Congratulations! You completed Level $currentLevel",
-              style: TextStyle(fontSize: 24, color: Colors.green),
+              style: const TextStyle(fontSize: 24, color: Colors.green),
             ),
             content: Text(currentLevel < 5
                 ? "Proceed to the next level?"
@@ -282,7 +277,7 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
             actions: [
               if (currentLevel < 5)
                 TextButton(
-                  child: Text("Next Level"),
+                  child: const Text("Next Level"),
                   onPressed: () {
                     Navigator.of(context).pop(); // Close the dialog
                     setState(() {
@@ -301,7 +296,7 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
                   },
                 ),
               TextButton(
-                child: Text("Play Again"),
+                child: const Text("Play Again"),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                   setState(() {
@@ -329,8 +324,8 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Radix Sort Game'),
-        backgroundColor: Color.fromARGB(255, 26, 77, 100),
+        title: const Text('Insertion Sort Game'),
+        backgroundColor: const Color.fromARGB(255, 26, 77, 100),
       ),
       backgroundColor: const Color.fromARGB(255, 44, 82, 107),
       body: Padding(
@@ -341,90 +336,74 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  constraints: BoxConstraints(
-                    maxWidth:
-                        330.0, // Max width based on the approximate width of 3 digits
+                  constraints: const BoxConstraints(
+                    maxWidth: 330.0,
                   ),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 6.0, horizontal: 12.0),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 82, 82, 82),
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(
-                      color: Color.fromARGB(255, 82, 82, 82),
+                      color: const Color.fromARGB(255, 82, 82, 82),
                       width: 3.0,
                     ),
                   ),
                   child: AutoSizeText(
                     ' ${randomNumbers.join(", ")}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 23,
                       fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 255, 255, 255),
+                      color: Color.fromARGB(255, 255, 255, 255),
                     ),
-                    maxLines: 1, // Ensure text remains in a single line
-                    minFontSize: 10, // Minimum font size for shrinkage
-                    overflow:
-                        TextOverflow.ellipsis, // Ellipsis if it still overflows
+                    maxLines: 1,
+                    minFontSize: 10,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 6.0, horizontal: 12.0),
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 82, 82, 82),
+                    color: const Color.fromARGB(255, 82, 82, 82),
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(
-                      color: Color.fromARGB(255, 82, 82, 82),
+                      color: const Color.fromARGB(255, 82, 82, 82),
                       width: 3.0,
                     ),
                   ),
                   child: Text(
                     'Level $currentLevel',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 23,
-                      color: const Color.fromARGB(255, 255, 255, 255),
+                      color: Color.fromARGB(255, 255, 255, 255),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ],
             ),
-
-            SizedBox(height: 14.0),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            // Text(
-            //   'Find the number: ',
-            //   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            // ),
+            const SizedBox(height: 14.0),
             Text(
               'Find the number: $targetNumber',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 51, 167, 109), // Text color
+                color: Color.fromARGB(255, 51, 167, 109),
               ),
             ),
-            //   ],
-            // ),
-            SizedBox(height: 16.0),
-
-            // Expanded placed here to handle the flexible space
+            const SizedBox(height: 16.0),
             Expanded(
-              // Container for all the number boxes with a border
               child: Container(
-                padding: EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(12.0),
                 decoration: BoxDecoration(
-                  color: Colors.lightBlue[100], // Set the background color here
+                  color: Colors.lightBlue[100],
                   border: Border.all(
                     color: const Color.fromARGB(255, 16, 161, 64),
-                    width: 8.0, // Outer border
+                    width: 8.0,
                   ),
-                  borderRadius: BorderRadius.circular(
-                      12.0), // Rounded corners for the container
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: ListView.builder(
                   itemCount: stepControllers.length,
@@ -432,8 +411,7 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
                     return Column(
                       children: [
                         SingleChildScrollView(
-                          scrollDirection:
-                              Axis.horizontal, // Enable horizontal scrolling
+                          scrollDirection: Axis.horizontal,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: stepControllers[index]
@@ -455,30 +433,29 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
                             }).toList(),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                       ],
                     );
                   },
                 ),
               ),
             ),
-
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             if (gameWon)
-              Text(
+              const Text(
                 'You Win!',
                 style: TextStyle(fontSize: 24, color: Colors.green),
               ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Spacer(),
-              Spacer(),
+              const Spacer(),
+              const Spacer(),
               Text(
                 'Time: $elapsedTime',
-                style: TextStyle(
-                    fontSize: 30, color: const Color.fromARGB(255, 0, 0, 0)),
+                style: const TextStyle(
+                    fontSize: 30, color: Color.fromARGB(255, 255, 255, 255)),
               ),
-              Spacer(),
+              const Spacer(),
             ])
           ],
         ),
@@ -488,22 +465,22 @@ class _RadixSortScreenState extends State<RadixSortScreen> {
 
   Widget _buildNumberBox(TextEditingController controller, bool isVisible) {
     return Container(
-      margin: EdgeInsets.all(9.0),
-      padding: EdgeInsets.all(18.0),
+      margin: const EdgeInsets.all(9.0),
+      padding: const EdgeInsets.all(18.0),
       decoration: BoxDecoration(
-        color: Colors.white, // Set the background color to white
+        color: Colors.white,
         border: Border.all(
-          color: const Color.fromARGB(255, 29, 96, 128), // White border
-          width: 5.0, // Thicker border
+          color: const Color.fromARGB(255, 29, 96, 128),
+          width: 5.0,
         ),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Text(
         isVisible ? controller.text : '?',
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 33.0,
-          color: Colors.black, // Set the font color to black
-          fontWeight: FontWeight.bold, // Make the font bold
+          color: Color.fromARGB(255, 0, 0, 0),
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

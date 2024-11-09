@@ -20,11 +20,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demos',
       theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 68, 237, 133)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 68, 237, 133)),
         useMaterial3: false,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // Gradient background with curves, testings
           Positioned.fill(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -84,8 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Designed Text
                 RichText(
                   textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: const TextStyle(
+                  text: const TextSpan(
+                    style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               255), // Different color for emphasis
                         ),
                       ),
-                      const TextSpan(
+                      TextSpan(
                         text:
                             '\nA Mobile-Based Educational Simulator For Algorithms',
                         style: TextStyle(
@@ -130,7 +130,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SortingChoices()));
+                                    builder: (context) =>
+                                        const SortingChoices()));
                           },
                         ),
                       ),
@@ -145,7 +146,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => GraphChoices()));
+                                    builder: (context) =>
+                                        const GraphChoices()));
                           },
                         ),
                       ),
@@ -161,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => DataChoices()));
+                                    builder: (context) => const DataChoices()));
                           },
                         ),
                       ),
@@ -179,28 +181,28 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildGridButton(String label, IconData icon, VoidCallback onPressed) {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.hovered)) {
+        backgroundColor: WidgetStateProperty.resolveWith<Color>(
+          (Set<WidgetState> states) {
+            if (states.contains(WidgetState.hovered)) {
               return Colors.greenAccent; // Change color on hover
             }
             return const Color.fromARGB(255, 35, 135, 40); // Normal color
           },
         ),
-        elevation: MaterialStateProperty.resolveWith<double>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.hovered)) {
+        elevation: WidgetStateProperty.resolveWith<double>(
+          (Set<WidgetState> states) {
+            if (states.contains(WidgetState.hovered)) {
               return 10.0; // Elevate the button on hover
             }
             return 2.0; // Normal elevation
           },
         ),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
         ),
-        padding: MaterialStateProperty.all<EdgeInsets>(
+        padding: WidgetStateProperty.all<EdgeInsets>(
           const EdgeInsets.all(20),
         ),
       ),

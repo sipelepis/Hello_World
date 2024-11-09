@@ -28,7 +28,7 @@ class _simPageState extends State<simPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('AL-GO!')),
+      appBar: AppBar(title: const Text('AL-GO!')),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return SingleChildScrollView(
@@ -36,16 +36,16 @@ class _simPageState extends State<simPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     'Simulators',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 8),
-                Container(
+                const SizedBox(height: 8),
+                SizedBox(
                   height: _getFirstListViewHeight(orientation),
                   child: ListView.builder(
                     scrollDirection: orientation == Orientation.portrait
@@ -84,18 +84,18 @@ class _simPageState extends State<simPage> {
     ];
     List<List<Widget>> categoryWidgets = [
       [
-        radix(),
-        merge(),
-        insertion(),
+        const radix(),
+        const merge(),
+        const insertion(),
       ],
       [
-        breadth_first(),
-        depth_first(),
+        const breadth_first(),
+        const depth_first(),
       ],
       [
-        stacks(),
-        Queues(),
-        binary_search(),
+        const stacks(),
+        const Queues(),
+        const binary_search(),
       ],
     ];
 
@@ -106,7 +106,7 @@ class _simPageState extends State<simPage> {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             categories[categoryIndex],
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
         ),
@@ -157,10 +157,10 @@ class _radixState extends State<radix> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         child: Column(
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
@@ -172,31 +172,31 @@ class _radixState extends State<radix> {
             Container(
               width: 300,
               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.greenAccent),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: WidgetStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-              onPressed: this.click,
+              onPressed: click,
               child: Container(
+                width: 150,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
                 child: Text(
                   'Enter',
                   style: TextStyle(fontSize: 15),
                 ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
               ),
             ),
           ],
@@ -216,17 +216,17 @@ class _mergeState extends State<merge> {
       "Merge sort is a comparison-based sorting algorithm that divides the unsorted list into smaller sublists, recursively sorts them, and then merges the sorted sublists to produce a sorted output.";
 
   void click() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MergeSortPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const MergeSortPage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         child: Column(
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
@@ -238,31 +238,31 @@ class _mergeState extends State<merge> {
             Container(
               width: 300,
               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.greenAccent),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: WidgetStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-              onPressed: this.click,
+              onPressed: click,
               child: Container(
+                width: 150,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
                 child: Text(
                   'Enter',
                   style: TextStyle(fontSize: 15),
                 ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
               ),
             ),
           ],
@@ -282,17 +282,17 @@ class _insertionState extends State<insertion> {
       "Insertion sort is a simple sorting algorithm that builds the final sorted list one element at a time by repeatedly inserting the next element into the proper position in the already sorted part of the list.";
 
   void click() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => InsertionSortPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const InsertionSortPage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         child: Column(
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
@@ -304,31 +304,31 @@ class _insertionState extends State<insertion> {
             Container(
               width: 300,
               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.greenAccent),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: WidgetStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-              onPressed: this.click,
+              onPressed: click,
               child: Container(
+                width: 150,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
                 child: Text(
                   'Enter',
                   style: TextStyle(fontSize: 15),
                 ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
               ),
             ),
           ],
@@ -348,17 +348,17 @@ class _binary_searchState extends State<binary_search> {
       "Binary search trees (BSTs) are a data structure that organizes elements in a tree-like structure, where each node has at most two children and the left child is less than the parent, while the right child is greater, enabling efficient search, insertion, and deletion operations.";
 
   void click() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => BinarySearchPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const BinarySearchPage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         child: Column(
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
@@ -370,31 +370,31 @@ class _binary_searchState extends State<binary_search> {
             Container(
               width: 300,
               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.greenAccent),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: WidgetStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-              onPressed: this.click,
+              onPressed: click,
               child: Container(
+                width: 150,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
                 child: Text(
                   'Enter',
                   style: TextStyle(fontSize: 15),
                 ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
               ),
             ),
           ],
@@ -414,17 +414,17 @@ class _breadth_firstState extends State<breadth_first> {
       "Breadth-first search (BFS) is a graph traversal algorithm that explores all neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.";
 
   void click() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => BreadthFirstPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const BreadthFirstPage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         child: Column(
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
@@ -436,31 +436,31 @@ class _breadth_firstState extends State<breadth_first> {
             Container(
               width: 300,
               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.greenAccent),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: WidgetStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-              onPressed: this.click,
+              onPressed: click,
               child: Container(
+                width: 150,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
                 child: Text(
                   'Enter',
                   style: TextStyle(fontSize: 15),
                 ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
               ),
             ),
           ],
@@ -480,17 +480,17 @@ class _depth_firstState extends State<depth_first> {
       "Depth-first search (DFS) is a graph traversal algorithm that explores as far as possible along each branch before backtracking.";
 
   void click() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DepthFirstPage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const DepthFirstPage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         child: Column(
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
@@ -502,31 +502,31 @@ class _depth_firstState extends State<depth_first> {
             Container(
               width: 300,
               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.greenAccent),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: WidgetStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-              onPressed: this.click,
+              onPressed: click,
               child: Container(
+                width: 150,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
                 child: Text(
                   'Enter',
                   style: TextStyle(fontSize: 15),
                 ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
               ),
             ),
           ],
@@ -547,16 +547,16 @@ class _stacksState extends State<stacks> {
 
   void click() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => StacksPage()));
+        context, MaterialPageRoute(builder: (context) => const StacksPage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         child: Column(
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
@@ -568,31 +568,31 @@ class _stacksState extends State<stacks> {
             Container(
               width: 300,
               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.greenAccent),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: WidgetStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-              onPressed: this.click,
+              onPressed: click,
               child: Container(
+                width: 150,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
                 child: Text(
                   'Enter',
                   style: TextStyle(fontSize: 15),
                 ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
               ),
             ),
           ],
@@ -613,16 +613,16 @@ class _QueuesState extends State<Queues> {
 
   void click() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => QueuesPage()));
+        context, MaterialPageRoute(builder: (context) => const QueuesPage()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         child: Column(
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
@@ -634,31 +634,31 @@ class _QueuesState extends State<Queues> {
             Container(
               width: 300,
               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.greenAccent),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: WidgetStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-              onPressed: this.click,
+              onPressed: click,
               child: Container(
+                width: 150,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
                 child: Text(
                   'Enter',
                   style: TextStyle(fontSize: 15),
                 ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
               ),
             ),
           ],
@@ -685,10 +685,10 @@ class _imgState extends State<img> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        margin: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         child: Column(
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(
                   0, 10, 0, 0), // Adjust the value as needed
               child: Text(
@@ -700,31 +700,31 @@ class _imgState extends State<img> {
             Container(
               width: 300,
               margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.greenAccent),
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 65, 65, 71)),
-                foregroundColor: MaterialStateProperty.all<Color>(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromARGB(255, 65, 65, 71)),
+                foregroundColor: WidgetStateProperty.all<Color>(
                     const Color.fromARGB(255, 255, 255, 255)),
               ),
-              onPressed: this.click,
+              onPressed: click,
               child: Container(
+                width: 150,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
                 child: Text(
                   'Enter',
                   style: TextStyle(fontSize: 15),
                 ),
-                width: 150,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                alignment: Alignment.center,
               ),
             ),
           ],
