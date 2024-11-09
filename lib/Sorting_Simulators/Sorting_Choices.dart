@@ -4,7 +4,9 @@ import 'radix.dart';
 import 'merge.dart';
 import 'insertion.dart';
 import 'radixgame.dart';
-import 'Board.dart';
+import 'Games/Board.dart';
+import 'Games/radixexamplegame.dart';
+import 'Games/Games_Choices.dart';
 
 class SortingChoices extends StatefulWidget {
   const SortingChoices({Key? key}) : super(key: key);
@@ -183,7 +185,7 @@ class _SortingChoices extends State<SortingChoices> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SliderGameScreen()),
+                          builder: (context) => GameSelectionScreen()),
                     );
                   },
                   child: Container(

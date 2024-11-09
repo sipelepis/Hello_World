@@ -19,6 +19,8 @@ dependencies:
   flutter_staggered_grid_view: 0.7.0
   carousel_slider: ^5.0.0
   audioplayers: ^6.0.0
+  auto_size_text: ^3.0.0
+  collection: ^1.17.1
 
 dev_dependencies:
   flutter_test:
@@ -33,3 +35,8 @@ flutter:
     - assets/Simulation.png
     - assets/Game.png
     - assets/block-6839.ogg
+    - assets/clouds_violet.png
+    - assets/card_image.png
+    - assets/Card_1st.png
+    - assets/Card_2nd.png
+    - assets/Slide.png

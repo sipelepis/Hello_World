@@ -39,53 +39,57 @@ class _RadixSortPageState extends State<RadixSortPage> {
   }
 
   void _checkAnswer() {
-  if (stepControllers.isNotEmpty) {
-    List<int> numbers = stepControllers[0]
-        .map((controller) => int.tryParse(controller.text) ?? 0)
-        .toList();
-    _performRadixSortAndPrint(numbers, stepControllers);
-  } else {
-    print("No steps available.");
-  }
-}
-
-Future<void> _performRadixSortAndPrint(List<int> numbers, List<List<TextEditingController>> stepControllers) async {
-  int maxDigits = _getMaxDigits(numbers);
-  int totalDigits = maxDigits; // Adjust the totalDigits to maxDigits initially
-
-  List<List<int>> steps = [];
-
-  for (int digitPlace = 1; digitPlace <= totalDigits; digitPlace++) {
-    steps.add(List.from(numbers));
-    numbers = await _radixSortStep(numbers, digitPlace);
-
-    // If any number has more digits than currently considered, update totalDigits
-    int newMaxDigits = _getMaxDigits(numbers);
-    if (newMaxDigits > totalDigits) {
-      totalDigits = newMaxDigits;
+    if (stepControllers.isNotEmpty) {
+      List<int> numbers = stepControllers[0]
+          .map((controller) => int.tryParse(controller.text) ?? 0)
+          .toList();
+      _performRadixSortAndPrint(numbers, stepControllers);
+    } else {
+      print("No steps available.");
     }
   }
 
-  // Add the final sorted list to the steps
-  steps.add(List.from(numbers));
+  Future<void> _performRadixSortAndPrint(List<int> numbers,
+      List<List<TextEditingController>> stepControllers) async {
+    int maxDigits = _getMaxDigits(numbers);
+    int totalDigits =
+        maxDigits; // Adjust the totalDigits to maxDigits initially
 
-  // Check if the total count of steps is equal to the count of stepControllers
-  if (steps.length != stepControllers.length) {
-    _showResultDialog("Total count of steps is not equal to the count of stepControllers.", true);
-    return;
+    List<List<int>> steps = [];
+
+    for (int digitPlace = 1; digitPlace <= totalDigits; digitPlace++) {
+      steps.add(List.from(numbers));
+      numbers = await _radixSortStep(numbers, digitPlace);
+
+      // If any number has more digits than currently considered, update totalDigits
+      int newMaxDigits = _getMaxDigits(numbers);
+      if (newMaxDigits > totalDigits) {
+        totalDigits = newMaxDigits;
+      }
+    }
+
+    // Add the final sorted list to the steps
+    steps.add(List.from(numbers));
+
+    // Check if the total count of steps is equal to the count of stepControllers
+    if (steps.length != stepControllers.length) {
+      _showResultDialog(
+          "Total count of steps is not equal to the count of stepControllers.",
+          true);
+      return;
+    }
+
+    // Print all steps with their respective step numbers
+    for (int i = 0; i < steps.length; i++) {
+      print("Step ${i + 1}: ${steps[i]}");
+    }
+
+    // Check if all steps are equal to a given list
+    _compareSteps(steps, stepControllers);
   }
 
-  // Print all steps with their respective step numbers
-  for (int i = 0; i < steps.length; i++) {
-    print("Step ${i + 1}: ${steps[i]}");
-  }
-
-  // Check if all steps are equal to a given list
-  _compareSteps(steps, stepControllers);
-}
-
-
-  void _compareSteps(List<List<int>> steps, List<List<TextEditingController>> stepControllers) {
+  void _compareSteps(List<List<int>> steps,
+      List<List<TextEditingController>> stepControllers) {
     bool allEqual = true;
     for (int i = 0; i < steps.length; i++) {
       List<int> step = steps[i];
@@ -110,7 +114,8 @@ Future<void> _performRadixSortAndPrint(List<int> numbers, List<List<TextEditingC
     if (allEqual) {
       _showResultDialog("All steps are equal to the comparison list.", false);
     } else {
-      _showResultDialog("Not all steps are equal to the comparison list.", true);
+      _showResultDialog(
+          "Not all steps are equal to the comparison list.", true);
     }
 
     // Print the numbers collected from all steps values
@@ -121,38 +126,39 @@ Future<void> _performRadixSortAndPrint(List<int> numbers, List<List<TextEditingC
   }
 
   void _showResultDialog(String message, bool isError) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text("Comparison Result"),
-        content: Text(
-          message,
-          style: TextStyle(
-            color: isError ? Colors.red : Colors.black, // Set text color to red if isError is true
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Comparison Result"),
+          content: Text(
+            message,
+            style: TextStyle(
+              color: isError
+                  ? Colors.red
+                  : Colors.black, // Set text color to red if isError is true
+            ),
           ),
-        ),
-        backgroundColor: Colors.white, // Set background color to white
-        shape: isError
-            ? RoundedRectangleBorder(
-                side: BorderSide(color: Colors.red), // Add red border if isError is true
-                borderRadius: BorderRadius.circular(10.0),
-              )
-            : null,
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text("OK"),
-          ),
-        ],
-      );
-    },
-  );
-}
-
-
+          backgroundColor: Colors.white, // Set background color to white
+          shape: isError
+              ? RoundedRectangleBorder(
+                  side: BorderSide(
+                      color: Colors.red), // Add red border if isError is true
+                  borderRadius: BorderRadius.circular(10.0),
+                )
+              : null,
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   Future<void> _sort() async {
     List<int> numbers = inputController.text
@@ -161,7 +167,8 @@ Future<void> _performRadixSortAndPrint(List<int> numbers, List<List<TextEditingC
         .toList();
 
     int maxDigits = _getMaxDigits(numbers);
-    int totalDigits = maxDigits; // Adjust the totalDigits to maxDigits initially
+    int totalDigits =
+        maxDigits; // Adjust the totalDigits to maxDigits initially
 
     List<List<int>> steps = [];
 
@@ -233,7 +240,10 @@ Future<void> _performRadixSortAndPrint(List<int> numbers, List<List<TextEditingC
                       isDense: true,
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: isErrorStep ? Colors.red : Colors.grey, // Apply red border if isErrorStep is true
+                          color: isErrorStep
+                              ? Colors.red
+                              : Colors
+                                  .grey, // Apply red border if isErrorStep is true
                         ),
                       ),
                     ),
@@ -246,7 +256,6 @@ Future<void> _performRadixSortAndPrint(List<int> numbers, List<List<TextEditingC
       ],
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -305,7 +314,11 @@ Future<void> _performRadixSortAndPrint(List<int> numbers, List<List<TextEditingC
                 itemCount: stepControllers.length,
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: _buildStep(index, index != stepControllers.length - 1), // Pass true to indicate error for the last step
+                  child: _buildStep(
+                      index,
+                      index !=
+                          stepControllers.length -
+                              1), // Pass true to indicate error for the last step
                 ),
               ),
             ),
