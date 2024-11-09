@@ -13,7 +13,7 @@ class RadixSortApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Radix Sort Game',
+      title: 'Radix Sort Games',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: RadixSortScreen(),
     );
