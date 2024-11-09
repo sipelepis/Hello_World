@@ -28,12 +28,12 @@ class _GraphChoices extends State<GraphChoices> {
   ];
 
   // Define the background images for each page
-  final List<String> _backgroundImages = [
-    'assets/Game.png', // Path to the first background image
-    'assets/Learn.png', // Path to the second background image
-    'assets/Simulation.png', // Path to the third background image
-    // Add more image paths if you have more pages
-  ];
+  // final List<String> _backgroundImages = [
+  //   'assets/Game.png', // Path to the first background image
+  //   'assets/Learn.png', // Path to the second background image
+  //   'assets/Simulation.png', // Path to the third background image
+  //   // Add more image paths if you have more pages
+  // ];
 
   var text = "??";
 
@@ -349,6 +349,4 @@ class _GraphChoices extends State<GraphChoices> {
       ),
     );
   }
-
-
 }

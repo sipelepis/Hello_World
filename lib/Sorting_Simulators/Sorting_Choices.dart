@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'radix.dart';
 import 'merge.dart';
 import 'insertion.dart';
+<<<<<<< HEAD
 import 'radixgame.dart';
 import 'Games/Board.dart';
 import 'Games/radixexamplegame.dart';
 import 'Games/Games_Choices.dart';
+=======
+import 'Board.dart';
+>>>>>>> 9d852e8dfd6d66ab32bea10f0ea74afa3ac9aa47
 
 class SortingChoices extends StatefulWidget {
   const SortingChoices({Key? key}) : super(key: key);
@@ -32,12 +36,12 @@ class _SortingChoices extends State<SortingChoices> {
   ];
 
   // Define the background images for each page
-  final List<String> _backgroundImages = [
-    'assets/Game.png', // Path to the first background image
-    'assets/Learn.png', // Path to the second background image
-    'assets/Simulation.png', // Path to the third background image
-    // Add more image paths if you have more pages
-  ];
+  // final List<String> _backgroundImages = [
+  //   'assets/Game.png', // Path to the first background image
+  //   'assets/Learn.png', // Path to the second background image
+  //   'assets/Simulation.png', // Path to the third background image
+  //   // Add more image paths if you have more pages
+  // ];
 
   var text = "??";
 
